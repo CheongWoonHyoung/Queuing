@@ -5,11 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 
 public class SplashActivity extends ActionBarActivity {
@@ -25,11 +20,11 @@ public class SplashActivity extends ActionBarActivity {
 
             @Override
             public void run() {
-                final DBManager dbManager   = new DBManager(getApplicationContext(), "test.db", null, 1);
-                isLogin                     = dbManager.PrintData();
+                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test.db", null, 1);
+                isLogin                     = dbManagerLogin.PrintData();
                 if(isLogin == "first"){
-                    dbManager.insert("insert into IS_LOGIN values (null, 'no')");
-                    isLogin = dbManager.PrintData();
+                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no')");
+                    isLogin = dbManagerLogin.PrintData();
                 }
                 if(isLogin.length()==2){
                     startActivity(new Intent(mycontext, LoginActivity.class));

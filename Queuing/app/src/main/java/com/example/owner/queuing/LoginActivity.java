@@ -6,8 +6,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,8 +87,8 @@ public class LoginActivity extends ActionBarActivity {
             if(result.length() == 2){
                 Toast.makeText(mycontext,"Check the input",Toast.LENGTH_SHORT).show();
             }else{
-                final DBManager dbManager   = new DBManager(getApplicationContext(), "test.db", null, 1);
-                dbManager.update("update IS_LOGIN set is_login ='yes' where _id = 1");
+                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test.db", null, 1);
+                dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                 startActivity(new Intent(mycontext,MainActivity.class));
                 finish();
             }

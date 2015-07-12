@@ -6,16 +6,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by mintaewon on 2015. 7. 12..
+ * Created by mark_mac on 2015. 7. 12..
  */
-public class DBManager extends SQLiteOpenHelper {
-    public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+public class DBManager_location extends SQLiteOpenHelper{
+    public DBManager_location(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE IS_LOGIN( _id INTEGER PRIMARY KEY AUTOINCREMENT, is_login TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE LOCATION( _id INTEGER PRIMARY KEY AUTOINCREMENT, is_login TEXT);");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class DBManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(_query);
         db.close();
-    }
+    }DB
 
     public String PrintData() {
         SQLiteDatabase db = getReadableDatabase();

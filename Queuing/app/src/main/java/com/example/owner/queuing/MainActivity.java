@@ -82,7 +82,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
             if (!isGPSEnabled) {
 
                 Log.i("NPC", "FAIL_LOC");
-
+                setUpMapIfNeeded();
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle(R.string.loc_alert_title)
                         .setPositiveButton(R.string.loc_alert_confirm, new DialogInterface.OnClickListener() {
@@ -109,12 +109,12 @@ public class MainActivity extends FragmentActivity implements LocationListener{
         }
 
 
-        //AddMarker();
+        AddMarker();
     }
 
 
     public void AddMarker(){
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(36.144425, 128.393269)).title("KUMOKONGDAE").snippet("Maptest"));
+        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(36.574425, 129.19084)).title("KUMOKONGDAE").snippet("Maptest"));
     }
 
     private LatLng myLocation;
@@ -123,14 +123,13 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     private void setMyLocation(){
         isLocationChangeTag = true;
         mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
-
     }
 
     Marker mMarker;
+
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
-
             if(isLocationChangeTag) {
                 Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + location.getLatitude() + "," + location.getLongitude());
                 LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
