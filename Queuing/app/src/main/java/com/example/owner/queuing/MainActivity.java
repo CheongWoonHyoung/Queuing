@@ -85,17 +85,17 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle(R.string.loc_alert_title)
-                        .setNeutralButton(R.string.loc_alret_confirm, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.loc_alert_confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
                             }
-                        }).setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        finish();
-                    }
-                })
+                        })
+                        .setNegativeButton(R.string.loc_alert_cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
                         .show();
             } else {
 

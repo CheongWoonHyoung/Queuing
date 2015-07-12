@@ -4,8 +4,9 @@
 <string name="hello_world">Hello world!</string>
 <string name="action_settings">Settings</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_splash">Queuing</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="loc_alert_title">위치 정보 설정으로 이동 하시겠습니까?</string>
-    <string name="loc_alret_confirm">이동</string>
+    <string name="loc_alert_title">위치정보 설정으로 이동하시겠습니까?</string>
+    <string name="loc_alert_confirm">확인</string>
+    <string name="loc_alert_cancel">취소</string>
 </resources>
