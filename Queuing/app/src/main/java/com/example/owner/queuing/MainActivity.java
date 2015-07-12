@@ -51,17 +51,13 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 
         setContentView(R.layout.activity_main);
 
-        Log.i("NPC", "SUCCESS1");
         mmap = (LinearLayout) findViewById(R.id.layout_map);
         View child = getLayoutInflater().inflate(R.layout.activity_maps, null);
         mmap.addView(child);
 
-        Log.i("NPC", "SUCCESS2");
-
         int googlePlayServiceResult = GooglePlayServicesUtil.isGooglePlayServicesAvailable(MainActivity.this);
         if( googlePlayServiceResult !=   ConnectionResult.SUCCESS){
-            Log.i("NPC", "CHOICE_A");
-
+            //Google Play Service -- X
             GooglePlayServicesUtil.getErrorDialog(googlePlayServiceResult, this, 0, new DialogInterface.OnCancelListener()
             {
                 @Override
@@ -71,18 +67,15 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                 }
             }).show();
         }else {
-
-            Log.i("NPC", "CHOICE_B");
-
+            //Google Play Service -- O
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
             if (!isGPSEnabled) {
-
-                Log.i("NPC", "FAIL_LOC");
-
+            //location service -- X
+                setUpMapIfNeeded();
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle(R.string.loc_alert_title)
                         .setNeutralButton(R.string.loc_alret_confirm, new DialogInterface.OnClickListener() {
@@ -98,23 +91,22 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                 })
                         .show();
             } else {
-
-                Log.i("NPC", "SUCCESS_LOC");
-
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, MainActivity.this); //�⺻ ��ġ �� ����
-                setUpMapIfNeeded(); //Map
+            //location service -- O
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, MainActivity.this);
+                setUpMapIfNeeded();
                 setMyLocation();
             }
 
         }
 
 
-        //AddMarker();
+        AddMarker();
     }
 
 
     public void AddMarker(){
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(36.144425, 128.393269)).title("KUMOKONGDAE").snippet("Maptest"));
+        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(35.57252, 129.19034)).title("UNIST").snippet("Ulsan national institute of science and technology"));
+
     }
 
     private LatLng myLocation;
@@ -127,6 +119,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     }
 
     Marker mMarker;
+
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
@@ -136,7 +129,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                 LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
                 mMarker = mGoogleMap.addMarker(new MarkerOptions().position(loc));
                 if (mGoogleMap != null) {
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 14));
                 }
             }
             isLocationChangeTag = false;
