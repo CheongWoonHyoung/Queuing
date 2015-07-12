@@ -132,7 +132,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
             LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
             mMarker = mGoogleMap.addMarker(new MarkerOptions().position(loc));
             if(mGoogleMap != null){
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
             }
         }
     };
