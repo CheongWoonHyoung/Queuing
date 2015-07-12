@@ -38,7 +38,7 @@ public class DBManager_location extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(_query);
         db.close();
-    }DB
+    }
 
     public String PrintData() {
         SQLiteDatabase db = getReadableDatabase();
