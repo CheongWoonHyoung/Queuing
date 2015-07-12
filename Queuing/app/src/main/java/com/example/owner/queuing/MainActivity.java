@@ -40,8 +40,9 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     LinearLayout mmap;
     GoogleMap mGoogleMap;
     private LocationManager locationManager;
-    boolean isGPSEnabled = false;
-    boolean isNetworkEnabled = false;
+    private boolean isGPSEnabled = false;
+    private boolean isNetworkEnabled = false;
+    private boolean isLocationChangeTag = true;
 
 
     @Override
@@ -125,6 +126,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     double[] myGps;
 
     private void setMyLocation(){
+        isLocationChangeTag = true;
         mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
     }
@@ -133,12 +135,15 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
-            Log.d("KTH","location.getLatitude(), location.getLongitude() -> " + location.getLatitude() +","+ location.getLongitude());
-            LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-            mMarker = mGoogleMap.addMarker(new MarkerOptions().position(loc));
-            if(mGoogleMap != null){
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+            if(isLocationChangeTag) {
+                Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + location.getLatitude() + "," + location.getLongitude());
+                LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+                mMarker = mGoogleMap.addMarker(new MarkerOptions().position(loc));
+                if (mGoogleMap != null) {
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                }
             }
+            isLocationChangeTag = false;
         }
     };
 
@@ -156,7 +161,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                     finish();
                 }else{//����ڰ� ��ġ���� ���� ������
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1L, 2F, MainActivity.this);
-                    Log.d("KTH","117 locationMaanger done");
+                    Log.d("KTH","117 locationManger done");
                     setUpMapIfNeeded();
                     setMyLocation();
                 }
@@ -172,26 +177,21 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     @Override
     protected void onResume() {
         super.onResume();
-        //setUpMapIfNeeded();
+        setUpMapIfNeeded();
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //locationManager.removeUpdates(this);
+        locationManager.removeUpdates(this);
     }
 
     private void setUpMapIfNeeded() {
 
-        Log.i("NPC", "setUpMapIfNeeded");
         if (mGoogleMap == null) {
-
-            Log.i("NPC", "mGoogleMap == null");
             mGoogleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
             if (mGoogleMap != null) {
-                Log.i("NPC", "mGoogleMap != null");
-
                 setUpMap();
             }
         }
