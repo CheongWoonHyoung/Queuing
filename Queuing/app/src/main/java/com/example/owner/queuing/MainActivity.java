@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -18,8 +19,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -36,13 +40,15 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     LinearLayout mmap;
     GoogleMap mGoogleMap;
     private LocationManager locationManager;
-    boolean isGPSEnabled = false;
-    boolean isNetworkEnabled = false;
+    private boolean isGPSEnabled = false;
+    private boolean isNetworkEnabled = false;
+    private boolean isLocationChangeTag = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         Log.i("NPC", "SUCCESS1");
@@ -53,8 +59,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
         Log.i("NPC", "SUCCESS2");
 
         int googlePlayServiceResult = GooglePlayServicesUtil.isGooglePlayServicesAvailable(MainActivity.this);
-        if( googlePlayServiceResult !=   ConnectionResult.SUCCESS){ //구글 플레이 서비스를 활용하지 못할경우 <계정이 연결이 안되어 있는 경우
-            //실패
+        if( googlePlayServiceResult !=   ConnectionResult.SUCCESS){
             Log.i("NPC", "CHOICE_A");
 
             GooglePlayServicesUtil.getErrorDialog(googlePlayServiceResult, this, 0, new DialogInterface.OnCancelListener()
@@ -65,7 +70,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                     finish();
                 }
             }).show();
-        }else { //구글 플레이가 활성화 된 경우
+        }else {
 
             Log.i("NPC", "CHOICE_B");
 
@@ -74,13 +79,13 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            if (!isGPSEnabled) {  //위치정보 설정이 안되어 있으면 설정하는 엑티비티로 이동합니다
+            if (!isGPSEnabled) {
 
                 Log.i("NPC", "FAIL_LOC");
 
                 new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("위치서비스 동의")
-                        .setNeutralButton("이동", new DialogInterface.OnClickListener() {
+                        .setTitle(R.string.loc_alert_title)
+                        .setNeutralButton(R.string.loc_alret_confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
@@ -92,11 +97,11 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                     }
                 })
                         .show();
-            } else {   //위치 정보 설정이 되어 있으면 현재위치를 받아옵니다
+            } else {
 
                 Log.i("NPC", "SUCCESS_LOC");
 
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, MainActivity.this); //기본 위치 값 설정
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, MainActivity.this); //占썩본 占쏙옙치 占쏙옙 占쏙옙占쏙옙
                 setUpMapIfNeeded(); //Map
                 setMyLocation();
             }
@@ -104,13 +109,9 @@ public class MainActivity extends FragmentActivity implements LocationListener{
         }
 
 
-        //AnimateCamera();
         //AddMarker();
     }
 
-    /* public void AnimateCamera(){
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng());
-    }*/
 
     public void AddMarker(){
         mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(36.144425, 128.393269)).title("KUMOKONGDAE").snippet("Maptest"));
@@ -120,6 +121,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     double[] myGps;
 
     private void setMyLocation(){
+        isLocationChangeTag = true;
         mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
     }
@@ -128,17 +130,21 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
-            Log.d("KTH","location.getLatitude(), location.getLongitude() -> " + location.getLatitude() +","+ location.getLongitude());
-            LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-            mMarker = mGoogleMap.addMarker(new MarkerOptions().position(loc));
-            if(mGoogleMap != null){
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+
+            if(isLocationChangeTag) {
+                Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + location.getLatitude() + "," + location.getLongitude());
+                LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+                mMarker = mGoogleMap.addMarker(new MarkerOptions().position(loc));
+                if (mGoogleMap != null) {
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                }
             }
+            isLocationChangeTag = false;
         }
     };
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {//위치설정 엑티비티 종료 후
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
@@ -147,11 +153,11 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                         .isProviderEnabled(LocationManager.GPS_PROVIDER);
                 isNetworkEnabled = locationManager
                         .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-                if(!isGPSEnabled){//사용자가 위치설정동의 안했을때 종료
+                if(!isGPSEnabled){
                     finish();
-                }else{//사용자가 위치설정 동의 했을때
+                }else{
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1L, 2F, MainActivity.this);
-                    Log.d("KTH","117 locationMaanger done");
+                    Log.d("KTH","117 locationManger done");
                     setUpMapIfNeeded();
                     setMyLocation();
                 }
@@ -167,26 +173,21 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     @Override
     protected void onResume() {
         super.onResume();
-        //setUpMapIfNeeded();
+        setUpMapIfNeeded();
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //locationManager.removeUpdates(this);
+        locationManager.removeUpdates(this);
     }
 
     private void setUpMapIfNeeded() {
 
-        Log.i("NPC", "setUpMapIfNeeded");
         if (mGoogleMap == null) {
-
-            Log.i("NPC", "mGoogleMap == null");
             mGoogleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
             if (mGoogleMap != null) {
-                Log.i("NPC", "mGoogleMap != null");
-
                 setUpMap();
             }
         }
@@ -202,12 +203,8 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
-        if(locationTag){//한번만 위치를 가져오기 위해서 tag를 주었습니다
+        if(locationTag){
             Log.d("myLog"  , "onLocationChanged: !!"  + "onLocationChanged!!");
-            double lat =  location.getLatitude();
-            double lng = location.getLongitude();
-
-            Toast.makeText(MainActivity.this, "위도  : " + lat +  " 경도: "  + lng ,  Toast.LENGTH_SHORT).show();
             locationTag=false;
         }
 
@@ -231,4 +228,6 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 
     }
 
+
 }
+
