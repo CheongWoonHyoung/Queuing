@@ -46,6 +46,11 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name=".RestaurantInfo"
+            android:label="RestaurantInfo">
+        </activity>
+
     </application>
 
 </manifest>
