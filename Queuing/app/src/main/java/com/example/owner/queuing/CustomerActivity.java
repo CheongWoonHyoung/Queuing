@@ -1,30 +1,17 @@
 package com.example.owner.queuing;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -36,7 +23,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MainActivity extends FragmentActivity implements LocationListener{
+public class CustomerActivity extends FragmentActivity implements LocationListener{
     LinearLayout mmap;
     GoogleMap mGoogleMap;
     private LocationManager locationManager;
@@ -55,7 +42,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
         View child = getLayoutInflater().inflate(R.layout.activity_maps, null);
         mmap.addView(child);
 
-        int googlePlayServiceResult = GooglePlayServicesUtil.isGooglePlayServicesAvailable(MainActivity.this);
+        int googlePlayServiceResult = GooglePlayServicesUtil.isGooglePlayServicesAvailable(CustomerActivity.this);
         if( googlePlayServiceResult !=   ConnectionResult.SUCCESS){
             //Google Play Service -- X
             GooglePlayServicesUtil.getErrorDialog(googlePlayServiceResult, this, 0, new DialogInterface.OnCancelListener()
@@ -76,7 +63,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
             if (!isGPSEnabled) {
             //location service -- X
                 setUpMapIfNeeded();
-                new AlertDialog.Builder(MainActivity.this)
+                new AlertDialog.Builder(CustomerActivity.this)
                         .setTitle(R.string.loc_alert_title)
                         .setPositiveButton(R.string.loc_alert_confirm, new DialogInterface.OnClickListener() {
                             @Override
@@ -92,7 +79,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                         .show();
             } else {
             //location service -- O
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, MainActivity.this);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, CustomerActivity.this);
                 setUpMapIfNeeded();
                 setMyLocation();
             }
@@ -147,7 +134,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
                 if(!isGPSEnabled){
                     finish();
                 }else{
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1L, 2F, MainActivity.this);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1L, 2F, CustomerActivity.this);
                     Log.d("KTH","117 locationManger done");
                     setUpMapIfNeeded();
                     setMyLocation();

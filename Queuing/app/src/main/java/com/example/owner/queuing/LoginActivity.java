@@ -32,14 +32,18 @@ public class LoginActivity extends ActionBarActivity {
         final EditText u_name   = (EditText)findViewById(R.id.login_name);
         final EditText u_email  = (EditText)findViewById(R.id.login_mail);
         final EditText u_passwd = (EditText)findViewById(R.id.login_password);
-        Button sign_in          = (Button)  findViewById(R.id.login_button);
-
-        sign_in.setOnClickListener(new View.OnClickListener() {
+        Button sign_up          = (Button)  findViewById(R.id.login_button);
+        Button sign_in          = (Button)  findViewById(R.id.sign_in);
+        sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new HttpPostRequest().execute(u_name.getText().toString(), u_email.getText().toString(), u_passwd.getText().toString(), "up");
+            }
+        });
+        sign_in.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 new HttpPostRequest().execute(u_name.getText().toString(), u_email.getText().toString(), u_passwd.getText().toString(), "in");
-                //startActivity(new Intent(mycontext, MainActivity.class));
-                //finish();
             }
         });
     }
@@ -50,7 +54,7 @@ public class LoginActivity extends ActionBarActivity {
             String sResult = "Error";
 
             try {
-                URL url = new URL("http://52.69.163.43/login.php");
+                URL url = new URL("http://52.69.163.43/test.php/");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestMethod("POST");
@@ -72,7 +76,7 @@ public class LoginActivity extends ActionBarActivity {
                     builder.append(str);
                 }
                 sResult     = builder.toString();
-                isConnected = sResult;
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -83,13 +87,21 @@ public class LoginActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(String result){
-            Log.e("result", result);
-            if(result.length() == 2){
-                Toast.makeText(mycontext,"Check the input",Toast.LENGTH_SHORT).show();
-            }else{
-                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test.db", null, 1);
+            Log.e("sResult", result);
+            if(result.length() == 4){
+                Toast.makeText(mycontext,"fail",Toast.LENGTH_SHORT).show();
+            }else if(result.length() == 8 ) {
+                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                 dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
-                startActivity(new Intent(mycontext,MainActivity.class));
+                dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
+
+                startActivity(new Intent(mycontext, CustomerActivity.class));
+                finish();
+            }else{
+                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+                dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
+                dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
+                startActivity(new Intent(mycontext, OwnerActivity.class));
                 finish();
             }
         }

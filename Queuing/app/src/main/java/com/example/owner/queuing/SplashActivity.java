@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 
 public class SplashActivity extends ActionBarActivity {
     public String isLogin = null;
     public Context mycontext = this;
+    public String auth = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,17 +23,24 @@ public class SplashActivity extends ActionBarActivity {
 
             @Override
             public void run() {
-                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test.db", null, 1);
+                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                 isLogin                     = dbManagerLogin.PrintData();
+                auth                        = dbManagerLogin.PrintAuth();
                 if(isLogin == "first"){
-                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no')");
+                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null)");
                     isLogin = dbManagerLogin.PrintData();
                 }
-                if(isLogin.length()==2){
+                if(true/*isLogin.length()==2*/){
                     startActivity(new Intent(mycontext, LoginActivity.class));
                 }
                 else{
-                    startActivity(new Intent(mycontext, MainActivity.class));
+                    Log.e("auth", auth);
+                    if(auth.length() == 5){
+                        startActivity(new Intent(mycontext, OwnerActivity.class));
+                    }
+                    else{
+                        startActivity(new Intent(mycontext, CustomerActivity.class));
+                    }
                 }
                 finish();
             }
