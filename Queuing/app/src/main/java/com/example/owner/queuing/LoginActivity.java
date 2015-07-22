@@ -1,14 +1,18 @@
 package com.example.owner.queuing;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -20,19 +24,26 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends Activity {
     public Context mycontext    = this;
     public String isConnected   = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
+
 
         final EditText u_name   = (EditText)findViewById(R.id.login_name);
         final EditText u_email  = (EditText)findViewById(R.id.login_mail);
         final EditText u_passwd = (EditText)findViewById(R.id.login_password);
-        Button sign_in          = (Button)  findViewById(R.id.login_button);
+        TextView sign_in          = (TextView)  findViewById(R.id.login_button);
+
+        //sign_in.setTypeface(Typeface.createFromAsset(getAssets(), "Dosis-Medium.ttf"));
+        //u_email.setTypeface(Typeface.createFromAsset(getAssets(), "Dosis-Medium.ttf"));
+        //u_name.setTypeface(Typeface.createFromAsset(getAssets(), "Dosis-Medium.ttf"));
+        //u_passwd.setTypeface(Typeface.createFromAsset(getAssets(), "Dosis-Medium.ttf"));
 
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override

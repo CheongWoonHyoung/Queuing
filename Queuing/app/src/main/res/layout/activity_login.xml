@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="2"
-        android:background="#FFFFFF">
+        android:background="#2196F3">
         <TextView
             android:id="@+id/test"
             android:text="test"
@@ -19,63 +19,74 @@
         android:layout_height="0px"
         android:layout_weight="5"
         android:weightSum="10"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#2196F3">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="9px"
-            android:layout_weight="2">
-            <EditText
-                android:id="@+id/login_name"
-                android:hint="username"
+            android:layout_height="0px"
+            android:layout_weight="7"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="130px"
-                android:layout_gravity="center_vertical"
-                android:background="#DDDDDD"
-                android:layout_marginLeft="50px"
-                android:layout_marginRight="50px"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="10px"
-            android:layout_weight="2">
+                android:layout_height="0px"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+            </LinearLayout>
             <EditText
-                android:id="@+id/login_mail"
-                android:hint="email"
                 android:layout_width="match_parent"
-                android:layout_height="130px"
-                android:layout_gravity="center_vertical"
-                android:background="#DDDDDD"
-                android:layout_marginLeft="50px"
-                android:layout_marginRight="50px"/>
+                android:layout_height="50dp"
+                android:background="@drawable/group_top"
+                android:hint="@string/login_name"
+                android:textSize="20dp"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/group_row"
+                android:hint="@string/login_email"
+                android:textSize="20dp"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/group_bottom"
+                android:hint="@string/login_password"
+                android:textSize="20dp"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="10px"
-            android:layout_weight="2">
-            <EditText
-                android:id="@+id/login_password"
-                android:hint="password"
-                android:layout_width="match_parent"
-                android:layout_height="130px"
-                android:layout_gravity="center_vertical"
-                android:background="#DDDDDD"
-                android:layout_marginLeft="50px"
-                android:layout_marginRight="50px"/>
 
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="10px"
+            android:layout_height="0px"
             android:layout_weight="3">
-            <Button
+            <TextView
+                android:background="@drawable/group_button"
                 android:id="@+id/login_button"
-                android:text="Sign in"
+                android:text="@string/login_button"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
                 android:layout_width="match_parent"
-                android:layout_height="130px"
-                android:layout_marginRight="100px"
-                android:layout_marginLeft="100px"
-                android:layout_marginTop="50px"/>
+                android:layout_height="50dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"/>
 
         </LinearLayout>
     </LinearLayout>
