@@ -10,4 +10,8 @@
     <string name="loc_alert_confirm">확인</string>
     <string name="loc_alert_cancel">취소</string>
     <string name="title_activity_owner">OwnerActivity</string>
+    <string name="login_name">Username</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_button">Sign In</string>
 </resources>
