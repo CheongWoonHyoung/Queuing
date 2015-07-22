@@ -93,7 +93,13 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     public void AddMarker(){
         mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(35.57252, 129.19034)).title("UNIST").snippet("Ulsan national institute of science and technology"));
-
+        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent intent = new Intent(CustomerActivity.this, RestaurantInfo.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private LatLng myLocation;
@@ -205,6 +211,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         // TODO Auto-generated method stub
 
     }
+
+
 
 
 }
