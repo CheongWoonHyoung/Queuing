@@ -15,7 +15,7 @@ public class DBManager_login extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE IS_LOGIN( _id INTEGER PRIMARY KEY AUTOINCREMENT, is_login TEXT, _auth TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE IS_LOGIN( _id INTEGER PRIMARY KEY AUTOINCREMENT, is_login TEXT, _auth TEXT, _user TEXT);");
     }
 
     @Override
@@ -40,7 +40,19 @@ public class DBManager_login extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String PrintData() {
+    public String returnUser() {
+        SQLiteDatabase db = getReadableDatabase();
+        String str = "null";
+
+        Cursor cursor = db.rawQuery("select _user from IS_LOGIN where _id=1", null);
+        while(cursor.moveToNext()) {
+            str = cursor.getString(0);
+        }
+
+        return str;
+    }
+
+    public String returnData() {
         SQLiteDatabase db = getReadableDatabase();
         String str = "first";
 
@@ -51,7 +63,7 @@ public class DBManager_login extends SQLiteOpenHelper {
 
         return str;
     }
-    public String PrintAuth() {
+    public String returnAuth() {
         SQLiteDatabase db = getReadableDatabase();
         String str = "first";
 

@@ -77,7 +77,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
             if (!isGPSEnabled) {
-            //location service -- X
+                //location service -- X
                 setUpMapIfNeeded();
                 new AlertDialog.Builder(CustomerActivity.this)
                         .setTitle(R.string.loc_alert_title)
@@ -94,7 +94,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                         })
                         .show();
             } else {
-            //location service -- O
+                //location service -- O
+                Log.d("KTH","location service on");
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, CustomerActivity.this);
                 setUpMapIfNeeded();
                 setMyLocation();
@@ -221,6 +222,15 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+       /* ImageButton loc_btn= (ImageButton)findViewById(R.id.loc);
+        loc_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                log.e("ONCLICK NPC", "loc is " + loc);
+                if(loc!=null)
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
+            }
+        });*/
 
     }
 
@@ -246,14 +256,17 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
         mGoogleMap.getUiSettings().setRotateGesturesEnabled(false);
         ImageButton loc_btn= (ImageButton)findViewById(R.id.loc);
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, false);
-        final Location loc = locationManager.getLastKnownLocation(provider);
-        locationManager.requestLocationUpdates(provider, 2000, 1, this);
+       // Criteria criteria = new Criteria();
+      //  String provider = locationManager.getBestProvider(criteria, false);
+        //Log.e("NPC","loc is " + loc);
+        final Location loc = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 2000, 1, this);
         loc_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
+                Log.e("ONCLICK NPC", "loc is " + loc);
+                if(loc!=null)
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
             }
         });
 
@@ -263,6 +276,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     @Override
     public void onLocationChanged(Location location) {
+        if (location == null) return;
+
         if(locationTag){
             Log.d("myLog"  , "onLocationChanged: !!"  + "onLocationChanged!!");
             locationTag=false;
@@ -292,4 +307,3 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
 
 }
-
