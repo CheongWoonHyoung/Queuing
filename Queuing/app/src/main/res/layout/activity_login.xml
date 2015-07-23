@@ -3,33 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="2"
-        android:background="#607D8B">
 
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="5"
-        android:weightSum="10"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
         android:orientation="vertical"
-        android:background="#607D8B">
+        android:background="@color/material_deep_teal_500">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="7"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:orientation="vertical"
-                android:layout_weight="1">
 
-            </LinearLayout>
+
             <EditText
                 android:id="@+id/u_name"
                 android:layout_width="match_parent"
@@ -41,6 +24,9 @@
                 android:singleLine="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:textColorHint="#757575"
+                android:elevation="5dp"
+
 
                 />
             <EditText
@@ -54,6 +40,9 @@
                 android:singleLine="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:textColorHint="#757575"
+                android:elevation="5dp"
+
                 />
             <EditText
                 android:id="@+id/u_passwd"
@@ -65,14 +54,10 @@
                 android:paddingLeft="10dp"
                 android:singleLine="true"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp" />
+                android:layout_marginRight="30dp"
+                android:textColorHint="#757575"
+                android:elevation="5dp"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="3">
             <TextView
                 android:background="@drawable/group_button"
                 android:id="@+id/login_button"
@@ -84,10 +69,17 @@
                 android:gravity="center"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="50px"/>
+                android:layout_marginTop="50px"
+                android:elevation="5dp"
+                android:layout_marginBottom="40dp"/>
 
         </LinearLayout>
-    </LinearLayout>
+
+
+
+
+
+
 
 
 </LinearLayout>

@@ -8,44 +8,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#607D8B">
-        <LinearLayout
+        android:orientation="vertical">
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="2"
             android:weightSum="5"
-            android:background="@drawable/group_title"
+            android:background="@color/accent_material_light"
+            android:elevation="10dp"
             android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0px"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0px"
+                >
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3">
+                >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/app_name"
                     android:textSize="25dp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0px"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_view_headline_white_24dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
 
 
-            </LinearLayout>
+            </FrameLayout>
 
 
-        </LinearLayout>
+        </RelativeLayout>
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -64,9 +73,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Search"
+                    android:textColorHint="#BDBDBD"
                     android:textSize="20dp"
                     android:paddingLeft="10dp"
                     android:background="@null"
+                    android:elevation="20dp"
                     />
 
             </FrameLayout>
@@ -96,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
-            android:background="#263238">
+            android:background="@color/material_deep_teal_500">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
