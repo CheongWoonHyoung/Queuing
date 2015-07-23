@@ -25,19 +25,20 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
-                isLogin                     = dbManagerLogin.PrintData();
-                auth                        = dbManagerLogin.PrintAuth();
+                isLogin                     = dbManagerLogin.returnData();
+                auth                        = dbManagerLogin.returnAuth();
                 if(isLogin == "first"){
-                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null)");
-                    isLogin = dbManagerLogin.PrintData();
+                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null, null)");
+                    isLogin = dbManagerLogin.returnData();
                 }
 
-                if(true/*isLogin.length()==2*/){
+                if(isLogin.length()==2){
 
                     startActivity(new Intent(mycontext, LoginActivity.class));
                 }
                 else{
                     Log.e("auth", auth);
+                    Log.e("u_name",dbManagerLogin.returnUser());
                     if(auth.length() == 5){
                         startActivity(new Intent(mycontext, OwnerActivity.class));
                     }
