@@ -9,21 +9,112 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="2"
-            android:background="#000000">
+            android:weightSum="5"
+            android:background="@color/accent_material_light"
+            android:elevation="10dp"
+            android:orientation="horizontal">
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
 
-        </LinearLayout>
-        <LinearLayout
+                >
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textSize="25dp"
+                    android:textColor="#FFFFFF"
+                    />
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_view_headline_white_24dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+
+
+            </FrameLayout>
+
+
+        </RelativeLayout>
+        <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0px"
-            android:layout_weight="8"
+            android:layout_weight="15"
             android:background="#FFFFFF"
             android:id="@+id/layout_map">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/group_map_search"
+                android:id="@+id/frame"
+                >
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Search"
+                    android:textColorHint="#BDBDBD"
+                    android:textSize="20dp"
+                    android:paddingLeft="10dp"
+                    android:background="@null"
+                    android:elevation="20dp"
+                    />
 
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/group_loc_btn"
+                android:id="@+id/loc_btn_frame"
+                >
+                <ImageButton
+                    android:id="@+id/loc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="18dp"
+                    android:background="@drawable/ic_my_location_black_24dp"/>
+
+            </FrameLayout>
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@color/material_deep_teal_500">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:text="@string/map_info"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

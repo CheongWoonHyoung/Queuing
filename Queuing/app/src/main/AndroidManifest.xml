@@ -42,7 +42,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".CustomerActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data
@@ -54,7 +55,8 @@
 
         <activity
             android:name=".SplashActivity"
-            android:label="@string/title_activity_splash" >
+            android:label="@string/title_activity_splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,16 +65,19 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".OwnerActivity"
-            android:label="@string/title_activity_owner" >
+            android:label="@string/title_activity_owner"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".RestaurantInfo"
-            android:label="RestaurantInfo">
+            android:label="RestaurantInfo"
+            android:screenOrientation="portrait">
         </activity>
         <receiver
             android:name=".GcmBroadcastReceiver"

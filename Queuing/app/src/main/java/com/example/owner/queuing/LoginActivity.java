@@ -1,17 +1,21 @@
 package com.example.owner.queuing;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -25,7 +29,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends Activity {
     public Context mycontext    = this;
     public String isConnected   = null;
 
@@ -45,13 +49,13 @@ public class LoginActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
 
-        final EditText u_name   = (EditText)findViewById(R.id.login_name);
-        final EditText u_email  = (EditText)findViewById(R.id.login_mail);
-        final EditText u_passwd = (EditText)findViewById(R.id.login_password);
-        Button sign_up          = (Button)  findViewById(R.id.login_button);
-        Button sign_in          = (Button)  findViewById(R.id.sign_in);
+        final EditText u_name   = (EditText)findViewById(R.id.u_name);
+        final EditText u_email  = (EditText)findViewById(R.id.u_email);
+        final EditText u_passwd = (EditText)findViewById(R.id.u_passwd);
+        TextView sign_up          = (TextView)  findViewById(R.id.login_button);
 
         context = getApplicationContext();
         gcm = GoogleCloudMessaging.getInstance(this);
@@ -62,7 +66,6 @@ public class LoginActivity extends ActionBarActivity {
             registerInBackground();
         }
 
-
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,12 +73,7 @@ public class LoginActivity extends ActionBarActivity {
                 new HttpPostRequest().execute(u_name.getText().toString(), u_email.getText().toString(), u_passwd.getText().toString(), "up",regid);
             }
         });
-        sign_in.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                new HttpPostRequest().execute(u_name.getText().toString(), u_email.getText().toString(), u_passwd.getText().toString(), "in");
-            }
-        });
+
     }
 
     private class HttpPostRequest extends AsyncTask<String, Void, String> {
@@ -85,6 +83,7 @@ public class LoginActivity extends ActionBarActivity {
             String sResult = "Error";
 
             try {
+                Log.e("z","z");
                 URL url = new URL("http://52.69.163.43/test.php/");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 

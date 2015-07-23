@@ -1,5 +1,6 @@
 package com.example.owner.queuing;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -9,7 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-public class SplashActivity extends ActionBarActivity {
+public class SplashActivity extends Activity {
     public String isLogin = null;
     public Context mycontext = this;
     public String auth = null;
@@ -30,7 +31,9 @@ public class SplashActivity extends ActionBarActivity {
                     dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null, null)");
                     isLogin = dbManagerLogin.returnData();
                 }
-                if(isLogin.length()==2){
+
+                if(true/*isLogin.length()==2*/){
+
                     startActivity(new Intent(mycontext, LoginActivity.class));
                 }
                 else{
