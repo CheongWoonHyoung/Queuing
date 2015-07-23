@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -37,6 +39,11 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private boolean isLocationChangeTag = true;
     FrameLayout mFrame;
     FrameLayout loc_btn_frame;
+    Boolean isOpen = false;
+    FrameLayout sliding_menu;
+    FrameLayout menu_btn;
+
+
 
 
     @Override
@@ -97,6 +104,53 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         loc_btn_frame.bringToFront();
         mFrame.bringToFront();
         //AddMarker();
+
+        //top menu sliding animation
+        final Animation tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
+        final Animation tran_downward           = AnimationUtils.loadAnimation(this,R.anim.tran_downward);
+        SlidingAnimationListener animListener   = new SlidingAnimationListener();
+        tran_upward.setAnimationListener(animListener);
+        tran_downward.setAnimationListener(animListener);
+        menu_btn = (FrameLayout) findViewById(R.id.menu_btn);
+        sliding_menu = (FrameLayout) findViewById(R.id.sliding_menu);
+        menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sliding_menu.bringToFront();
+                if(isOpen){
+                    sliding_menu.startAnimation(tran_downward);
+                }else{
+                    sliding_menu.startAnimation(tran_upward);
+                }
+            }
+        });
+    }
+
+    public class SlidingAnimationListener implements Animation.AnimationListener {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            if(!isOpen){
+                sliding_menu.setVisibility(View.VISIBLE);
+            }
+            menu_btn.setClickable(false);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            if(isOpen){
+                sliding_menu.setVisibility(View.INVISIBLE);
+                isOpen = false;
+            }
+            else{
+                isOpen = true;
+            }
+            menu_btn.setClickable(true);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
     }
 
 

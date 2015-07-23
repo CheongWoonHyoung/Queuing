@@ -32,7 +32,7 @@ public class SplashActivity extends Activity {
                     isLogin = dbManagerLogin.PrintData();
                 }
 
-                if(true/*isLogin.length()==2*/){
+                if(isLogin.length()==2){
 
                     startActivity(new Intent(mycontext, LoginActivity.class));
                 }
