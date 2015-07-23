@@ -35,9 +35,9 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
 
-        final EditText u_name   = (EditText)findViewById(R.id.login_name);
-        final EditText u_email  = (EditText)findViewById(R.id.login_mail);
-        final EditText u_passwd = (EditText)findViewById(R.id.login_password);
+        final EditText u_name   = (EditText)findViewById(R.id.u_name);
+        final EditText u_email  = (EditText)findViewById(R.id.u_email);
+        final EditText u_passwd = (EditText)findViewById(R.id.u_passwd);
         TextView sign_up          = (TextView)  findViewById(R.id.login_button);
 
         sign_up.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +55,7 @@ public class LoginActivity extends Activity {
             String sResult = "Error";
 
             try {
+                Log.e("z","z");
                 URL url = new URL("http://52.69.163.43/test.php/");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 

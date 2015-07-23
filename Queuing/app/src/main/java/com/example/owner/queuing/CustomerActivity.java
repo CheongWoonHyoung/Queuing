@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,7 +12,11 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -24,12 +29,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
-    LinearLayout mmap;
+    RelativeLayout mmap;
     GoogleMap mGoogleMap;
     private LocationManager locationManager;
     private boolean isGPSEnabled = false;
     private boolean isNetworkEnabled = false;
     private boolean isLocationChangeTag = true;
+    FrameLayout mFrame;
+    FrameLayout loc_btn_frame;
 
 
     @Override
@@ -38,9 +45,11 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         setContentView(R.layout.activity_main);
 
-        mmap = (LinearLayout) findViewById(R.id.layout_map);
+        mmap = (RelativeLayout) findViewById(R.id.layout_map);
         View child = getLayoutInflater().inflate(R.layout.activity_maps, null);
         mmap.addView(child);
+        mFrame = (FrameLayout)findViewById(R.id.frame);
+        loc_btn_frame = (FrameLayout)findViewById(R.id.loc_btn_frame);
 
         int googlePlayServiceResult = GooglePlayServicesUtil.isGooglePlayServicesAvailable(CustomerActivity.this);
         if( googlePlayServiceResult !=   ConnectionResult.SUCCESS){
@@ -85,9 +94,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             }
 
         }
-
-
-        AddMarker();
+        loc_btn_frame.bringToFront();
+        mFrame.bringToFront();
+        //AddMarker();
     }
 
 
@@ -180,6 +189,19 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private void setUpMap() {
         mGoogleMap.setMyLocationEnabled(true);
         mGoogleMap.getMyLocation();
+        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mGoogleMap.getUiSettings().setRotateGesturesEnabled(false);
+        ImageButton loc_btn= (ImageButton)findViewById(R.id.loc);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, false);
+        final Location loc = locationManager.getLastKnownLocation(provider);
+        locationManager.requestLocationUpdates(provider, 2000, 1, this);
+        loc_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
+            }
+        });
 
     }
 

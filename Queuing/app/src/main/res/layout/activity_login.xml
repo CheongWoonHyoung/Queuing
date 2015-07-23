@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="2"
-        android:background="#2196F3">
+        android:background="#607D8B">
 
     </LinearLayout>
     <LinearLayout
@@ -16,7 +16,7 @@
         android:layout_weight="5"
         android:weightSum="10"
         android:orientation="vertical"
-        android:background="#2196F3">
+        android:background="#607D8B">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,6 +31,7 @@
 
             </LinearLayout>
             <EditText
+                android:id="@+id/u_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/group_top"
@@ -43,6 +44,7 @@
 
                 />
             <EditText
+                android:id="@+id/u_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/group_row"
@@ -54,6 +56,7 @@
                 android:layout_marginRight="30dp"
                 />
             <EditText
+                android:id="@+id/u_passwd"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/group_bottom"
@@ -74,6 +77,8 @@
                 android:background="@drawable/group_button"
                 android:id="@+id/login_button"
                 android:text="@string/login_button"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"

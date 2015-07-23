@@ -14,4 +14,6 @@
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="login_button">Sign In</string>
+    <string name="map_info">주변 식당 보기</string>
+
 </resources>
