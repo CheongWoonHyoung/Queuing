@@ -4,23 +4,31 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
@@ -38,6 +46,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         setContentView(R.layout.activity_main);
 
+        // realizing google map
         mmap = (LinearLayout) findViewById(R.id.layout_map);
         View child = getLayoutInflater().inflate(R.layout.activity_maps, null);
         mmap.addView(child);
@@ -89,7 +98,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         AddMarker();
     }
-
 
     public void AddMarker(){
         mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(35.57252, 129.19034)).title("UNIST").snippet("Ulsan national institute of science and technology"));
@@ -211,9 +219,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         // TODO Auto-generated method stub
 
     }
-
-
-
 
 }
 
