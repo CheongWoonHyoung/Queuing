@@ -25,6 +25,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -96,7 +97,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             } else {
                 //location service -- O
                 Log.d("KTH","location service on");
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, CustomerActivity.this);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 2000, CustomerActivity.this);
                 setUpMapIfNeeded();
                 setMyLocation();
             }
@@ -104,23 +105,25 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         }
         loc_btn_frame.bringToFront();
         mFrame.bringToFront();
-        //AddMarker();
+        AddMarker();
 
         //top menu sliding animation
         final Animation tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
         final Animation tran_downward           = AnimationUtils.loadAnimation(this,R.anim.tran_downward);
+
         SlidingAnimationListener animListener   = new SlidingAnimationListener();
         tran_upward.setAnimationListener(animListener);
         tran_downward.setAnimationListener(animListener);
         menu_btn = (FrameLayout) findViewById(R.id.menu_btn);
         sliding_menu = (FrameLayout) findViewById(R.id.sliding_menu);
+
         menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sliding_menu.bringToFront();
-                if(isOpen){
+                if (isOpen) {
                     sliding_menu.startAnimation(tran_downward);
-                }else{
+                } else {
                     sliding_menu.startAnimation(tran_upward);
                 }
             }
@@ -156,7 +159,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
 
     public void AddMarker(){
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(35.57252, 129.19034)).title("UNIST").snippet("Ulsan national institute of science and technology"));
+        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(34.058052, -118.302212)).title("Taylor's Steak House").snippet("Taylor's Steak House"));
         mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -171,6 +174,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     private void setMyLocation(){
         isLocationChangeTag = true;
+
         mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
     }
 
@@ -182,12 +186,18 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             if(isLocationChangeTag) {
                 Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + location.getLatitude() + "," + location.getLongitude());
                 LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                mMarker = mGoogleMap.addMarker(new MarkerOptions().position(loc));
                 if (mGoogleMap != null) {
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 14));
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
                 }
             }
             isLocationChangeTag = false;
+        }
+    };
+
+    protected GoogleMap.OnCameraChangeListener myCameraChangeListener = new GoogleMap.OnCameraChangeListener() {
+        @Override
+        public void onCameraChange(CameraPosition cameraPosition) {
+            Log.e("NPC","CAMERA CHANGED");
         }
     };
 
@@ -204,7 +214,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 if(!isGPSEnabled){
                     finish();
                 }else{
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1L, 2F, CustomerActivity.this);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 2F, CustomerActivity.this);
                     Log.d("KTH","117 locationManger done");
                     setUpMapIfNeeded();
                     setMyLocation();
@@ -222,16 +232,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-       /* ImageButton loc_btn= (ImageButton)findViewById(R.id.loc);
-        loc_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                log.e("ONCLICK NPC", "loc is " + loc);
-                if(loc!=null)
-                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
-            }
-        });*/
-
     }
 
     @Override
@@ -256,17 +256,10 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
         mGoogleMap.getUiSettings().setRotateGesturesEnabled(false);
         ImageButton loc_btn= (ImageButton)findViewById(R.id.loc);
-       // Criteria criteria = new Criteria();
-      //  String provider = locationManager.getBestProvider(criteria, false);
-        //Log.e("NPC","loc is " + loc);
-        final Location loc = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 2000, 1, this);
         loc_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("ONCLICK NPC", "loc is " + loc);
-                if(loc!=null)
-                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
+                setMyLocation();
             }
         });
 
