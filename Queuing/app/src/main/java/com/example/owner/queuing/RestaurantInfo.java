@@ -2,6 +2,7 @@ package com.example.owner.queuing;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
@@ -22,7 +23,7 @@ import android.widget.RelativeLayout;
  */
 public class RestaurantInfo extends Activity{
 
-    FrameLayout mFrame;
+    FrameLayout frame_back_btn_resinfo;
     RelativeLayout btn_queue;
     LinearLayout btn_confirm;
     LinearLayout btn_cancel;
@@ -43,8 +44,8 @@ public class RestaurantInfo extends Activity{
 
         mWidthPixels = metrics.widthPixels;
         mHeightPixels = metrics.heightPixels;
-        mFrame = (FrameLayout)findViewById(R.id.res_back_btn);
-        mFrame.setOnClickListener(new View.OnClickListener() {
+        frame_back_btn_resinfo = (FrameLayout)findViewById(R.id.res_back_btn);
+        frame_back_btn_resinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -81,6 +82,9 @@ public class RestaurantInfo extends Activity{
             btn_cancel = (LinearLayout)layout.findViewById(R.id.btn_cancel);
             btn_cancel.setOnClickListener(cancel_button_click_listener);
 
+            btn_confirm = (LinearLayout)layout.findViewById(R.id.btn_confirm);
+            btn_confirm.setOnClickListener(confirm_button_click_listener);
+
         }catch (Exception e){
 
         }
@@ -90,5 +94,13 @@ public class RestaurantInfo extends Activity{
         public void onClick(View v){
             pwindo.dismiss();
         }
+    };
+
+    private View.OnClickListener confirm_button_click_listener = new View.OnClickListener(){
+        public void onClick(View v){
+            Intent intent = new Intent(RestaurantInfo.this, ConfirmActivity.class);
+            startActivity(intent);
+        }
+
     };
 }

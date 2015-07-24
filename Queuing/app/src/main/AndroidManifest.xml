@@ -75,6 +75,13 @@
         </activity>
 
         <activity
+            android:name=".ConfirmActivity"
+            android:label="ConfirmActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
             android:name=".RestaurantInfo"
             android:label="RestaurantInfo"
             android:screenOrientation="portrait">

@@ -16,5 +16,13 @@
     <string name="login_button">Sign Up</string>
     <string name="map_info">주변 식당 보기</string>
     <string name="queue_btn">Queuing!</string>
+    <string name="info_num">NUMBER</string>
+    <string name="info_time">TIMINGS</string>
+    <string name="info_category">CUISINES</string>
+    <string name="sample_num">(213)332-7766</string>
+    <string name="sample_time">12:30 PM to 11 PM</string>
+    <string name="sample_category">Chinese, North Indian</string>
+    <string name="num">#</string>
+
 
 </resources>
