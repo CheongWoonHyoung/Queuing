@@ -24,14 +24,20 @@ public class BackPressCloseHandler {
             return;
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            activity.finish();
+            programShutdown();
             toast.cancel();
         }
     }
 
     public void showGuide() {
         toast = Toast.makeText(activity,
-                "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT);
+                "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         toast.show();
+    }
+    private void programShutdown() {
+        activity .moveTaskToBack(true);
+        activity .finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
     }
 }

@@ -83,7 +83,7 @@ public class LoginActivity extends Activity {
             String sResult = "Error";
 
             try {
-                Log.e("z","z");
+                Log.e("LOGINACTIVITY","httppostrequest");
                 URL url = new URL("http://52.69.163.43/test.php/");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -118,7 +118,9 @@ public class LoginActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result){
-            Log.e("sResult", result);
+            Log.d("SINGUP_RESULT", result);
+            Log.d("SINGUP_RESULT",User_ID);
+
             if(result.length() == 4){
                 Toast.makeText(mycontext,"fail",Toast.LENGTH_SHORT).show();
             }else if(result.length() == 8 ) {

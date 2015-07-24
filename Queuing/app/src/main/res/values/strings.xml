@@ -23,6 +23,7 @@
     <string name="sample_time">12:30 PM to 11 PM</string>
     <string name="sample_category">Chinese, North Indian</string>
     <string name="num">#</string>
+    <string name="signout">Sign out</string>
 
 
 </resources>

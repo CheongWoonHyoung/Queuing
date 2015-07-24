@@ -6,6 +6,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/real"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -72,26 +73,32 @@
                     android:background="#FFFFFF"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:id="@+id/submenu01"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginBottom="2dp"
                         android:background="@drawable/group_menu"
-                        android:elevation="5dp">
+                        android:elevation="5dp"
+                        android:orientation="horizontal">
 
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/submenu02"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginBottom="2dp"
                         android:background="@drawable/group_menu"
-                        android:elevation="5dp">
+                        android:elevation="5dp"
+                        android:orientation="horizontal">
 
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/submenu03"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@drawable/group_menu"
-                        android:elevation="5dp">
+                        android:elevation="5dp"
+                        android:orientation="horizontal">
 
                     </LinearLayout>
 
@@ -142,6 +149,7 @@
 
         </RelativeLayout>
         <FrameLayout
+            android:id="@+id/upward_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
@@ -154,5 +162,58 @@
                 android:textColor="#FFFFFF"
                 android:text="@string/map_info"/>
         </FrameLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-200dp"
+            android:id="@+id/res_list"
+            android:background="#FFFFFF">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:text="zzzzz"/>
+        </LinearLayout>
+    </LinearLayout>
+    
+
+    <LinearLayout
+        android:id="@+id/fake"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="#00000000">
+
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/upward_btn2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@color/material_deep_teal_500">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:text="@string/map_info"/>
+        </FrameLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-200dp"
+            android:id="@+id/res_list2"
+            android:background="#FFFFFF">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:text="zzzzz"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

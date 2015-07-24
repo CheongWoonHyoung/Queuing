@@ -86,6 +86,11 @@
             android:label="RestaurantInfo"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".MypageActivity"
+            android:label="MypageActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <receiver
             android:name=".GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >

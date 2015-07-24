@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -30,7 +28,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import static com.google.android.gms.location.LocationServices.FusedLocationApi;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
@@ -43,9 +40,22 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     FrameLayout mFrame;
     FrameLayout loc_btn_frame;
     Boolean isOpen = false;
+    Boolean isOpen2 = false;
     FrameLayout sliding_menu;
+    LinearLayout submenu01;
+    LinearLayout submenu02;
+    LinearLayout submenu03;
     FrameLayout menu_btn;
+    LinearLayout res_list;
+    FrameLayout upward_btn;
+    LinearLayout fake;
+    LinearLayout res_list2;
+    FrameLayout  upward_btn2;
+    LinearLayout real;
+    LinearLayout up;
     EditText search;
+    private Animation tran_upward = null;
+    private Animation tran_downward = null;
 
     private BackPressCloseHandler backPressCloseHandler;
 
@@ -54,7 +64,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_customer);
 
         backPressCloseHandler = new BackPressCloseHandler(this);
         mmap = (RelativeLayout) findViewById(R.id.layout_map);
@@ -62,6 +72,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         mmap.addView(child);
         mFrame = (FrameLayout)findViewById(R.id.frame);
         loc_btn_frame = (FrameLayout)findViewById(R.id.loc_btn_frame);
+
 
         int googlePlayServiceResult = GooglePlayServicesUtil.isGooglePlayServicesAvailable(CustomerActivity.this);
         if( googlePlayServiceResult !=   ConnectionResult.SUCCESS){
@@ -112,27 +123,83 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         AddMarker();
 
         //top menu sliding animation
-        final Animation tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
-        final Animation tran_downward           = AnimationUtils.loadAnimation(this,R.anim.tran_downward);
+        tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
+        tran_downward           = AnimationUtils.loadAnimation(this,R.anim.tran_downward);
         SlidingAnimationListener animListener   = new SlidingAnimationListener();
         tran_upward.setAnimationListener(animListener);
         tran_downward.setAnimationListener(animListener);
+
         menu_btn = (FrameLayout) findViewById(R.id.menu_btn);
         sliding_menu = (FrameLayout) findViewById(R.id.sliding_menu);
+        upward_btn = (FrameLayout) findViewById(R.id.upward_btn);
+        res_list   = (LinearLayout) findViewById(R.id.res_list);
+        upward_btn2= (FrameLayout) findViewById(R.id.upward_btn2);
+        res_list2 = (LinearLayout) findViewById(R.id.res_list2);
+        fake = (LinearLayout) findViewById(R.id.fake);
+        real = (LinearLayout) findViewById(R.id.real);
+        submenu01 = (LinearLayout) findViewById(R.id.submenu01);
+        submenu02 = (LinearLayout) findViewById(R.id.submenu02);
+        submenu03 = (LinearLayout) findViewById(R.id.submenu03);
         search = (EditText) findViewById(R.id.search);
 
-        menu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sliding_menu.bringToFront();
-                if (isOpen) {
-                    sliding_menu.startAnimation(tran_downward);
-                } else {
-                    sliding_menu.startAnimation(tran_upward);
+        menu_btn.setOnClickListener(myOnClick);
+        submenu01.setOnClickListener(myOnClick);
+        submenu02.setOnClickListener(myOnClick);
+        submenu03.setOnClickListener(myOnClick);
+        upward_btn.setOnClickListener(myOnClick);
+        upward_btn2.setOnClickListener(myOnClick);
+
+    }
+
+    private View.OnClickListener myOnClick=new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            Log.d("NPC","onClick");
+            // TODO Auto-generated method stub
+            switch(view.getId()){
+                case R.id.menu_btn: {
+                    sliding_menu.bringToFront();
+                    if (isOpen) {
+                        sliding_menu.startAnimation(tran_upward);
+                    } else {
+                        sliding_menu.startAnimation(tran_downward);
+                    }
+                    break;
+                }
+                case R.id.submenu01: {
+                    Log.d("NPC","SUBMENU01_CLICKED");
+                    break;
+                }
+                case R.id.submenu02: {
+                    Log.d("NPC","SUBMENU02_CLICKED");
+                    break;
+                }
+                case R.id.submenu03: {
+                    Log.d("NPC","SUBMENU03_CLICKED");
+                    Intent intent = new Intent(CustomerActivity.this, MypageActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.upward_btn: {
+                    Log.d("NPC","upward_btn");
+                    fake.bringToFront();
+                    final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
+                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
+                    ex_Ani.setAnimationListener(ani_listener);
+                    res_list2.startAnimation(ex_Ani);
+                    break;
+                }
+                case R.id.upward_btn2: {
+                    Log.d("NPC","upward_btn2");
+                    fake.bringToFront();
+                    final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
+                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
+                    ex_Ani.setAnimationListener(ani_listener);
+                    res_list2.startAnimation(ex_Ani);
                 }
             }
-        });
-    }
+        }
+    };
 
     public class SlidingAnimationListener implements Animation.AnimationListener {
         @Override
@@ -142,12 +209,13 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 search.setEnabled(false);
             }
             menu_btn.setClickable(false);
+            upward_btn.setClickable(false);
         }
 
         @Override
         public void onAnimationEnd(Animation animation) {
             if(isOpen){
-                sliding_menu.setVisibility(View.INVISIBLE);
+                sliding_menu.setVisibility(View.GONE);
                 isOpen = false;
                 search.setEnabled(true);
             }
@@ -155,6 +223,28 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 isOpen = true;
             }
             menu_btn.setClickable(true);
+            upward_btn.setClickable(true);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    }
+    public class SlidingAnimationListener2 implements Animation.AnimationListener {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            if(isOpen2){
+                real.bringToFront();
+                isOpen2 = false;
+            }else{
+                isOpen2 = true;
+            }
         }
 
         @Override
@@ -300,7 +390,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         if (location == null) return;
 
         if(locationTag){
-            Log.d("myLog"  , "onLocationChanged: !!"  + "onLocationChanged!!");
             locationTag=false;
         }
 
