@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import static com.google.android.gms.location.LocationServices.FusedLocationApi;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
@@ -174,8 +175,28 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     private void setMyLocation(){
         isLocationChangeTag = true;
+        if(mGoogleMap.getMyLocation()==null) {
+            mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
+        }
+        else {
+            Location new_location = mGoogleMap.getMyLocation();
+            LatLng loc = new LatLng(new_location.getLatitude(), new_location.getLongitude());
+            Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + new_location.getLatitude() + "," + new_location.getLongitude());
+            if (mGoogleMap != null) {
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15),400, new GoogleMap.CancelableCallback() {
+                    @Override
+                    public void onFinish() {
 
-        mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+            }
+            isLocationChangeTag = false;
+        }
     }
 
     Marker mMarker;
@@ -187,7 +208,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + location.getLatitude() + "," + location.getLongitude());
                 LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
                 if (mGoogleMap != null) {
-                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
+                    //mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,15));
                 }
             }
             isLocationChangeTag = false;
@@ -214,7 +236,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 if(!isGPSEnabled){
                     finish();
                 }else{
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 2F, CustomerActivity.this);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 2F, CustomerActivity.this);
                     Log.d("KTH","117 locationManger done");
                     setUpMapIfNeeded();
                     setMyLocation();
