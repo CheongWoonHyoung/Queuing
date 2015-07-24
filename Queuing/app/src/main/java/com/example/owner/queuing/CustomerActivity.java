@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import static com.google.android.gms.location.LocationServices.FusedLocationApi;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
@@ -43,8 +45,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     Boolean isOpen = false;
     FrameLayout sliding_menu;
     FrameLayout menu_btn;
+    EditText search;
 
-
+    private BackPressCloseHandler backPressCloseHandler;
 
 
     @Override
@@ -53,6 +56,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         setContentView(R.layout.activity_main);
 
+        backPressCloseHandler = new BackPressCloseHandler(this);
         mmap = (RelativeLayout) findViewById(R.id.layout_map);
         View child = getLayoutInflater().inflate(R.layout.activity_maps, null);
         mmap.addView(child);
@@ -110,12 +114,12 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         //top menu sliding animation
         final Animation tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
         final Animation tran_downward           = AnimationUtils.loadAnimation(this,R.anim.tran_downward);
-
         SlidingAnimationListener animListener   = new SlidingAnimationListener();
         tran_upward.setAnimationListener(animListener);
         tran_downward.setAnimationListener(animListener);
         menu_btn = (FrameLayout) findViewById(R.id.menu_btn);
         sliding_menu = (FrameLayout) findViewById(R.id.sliding_menu);
+        search = (EditText) findViewById(R.id.search);
 
         menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +137,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     public class SlidingAnimationListener implements Animation.AnimationListener {
         @Override
         public void onAnimationStart(Animation animation) {
-            if(!isOpen){
+            if(!isOpen) {
                 sliding_menu.setVisibility(View.VISIBLE);
+                search.setEnabled(false);
             }
             menu_btn.setClickable(false);
         }
@@ -144,6 +149,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             if(isOpen){
                 sliding_menu.setVisibility(View.INVISIBLE);
                 isOpen = false;
+                search.setEnabled(true);
             }
             else{
                 isOpen = true;
@@ -174,8 +180,28 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     private void setMyLocation(){
         isLocationChangeTag = true;
+        if(mGoogleMap.getMyLocation()==null) {
+            mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
+        }
+        else {
+            Location new_location = mGoogleMap.getMyLocation();
+            LatLng loc = new LatLng(new_location.getLatitude(), new_location.getLongitude());
+            Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + new_location.getLatitude() + "," + new_location.getLongitude());
+            if (mGoogleMap != null) {
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15),400, new GoogleMap.CancelableCallback() {
+                    @Override
+                    public void onFinish() {
 
-        mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+            }
+            isLocationChangeTag = false;
+        }
     }
 
     Marker mMarker;
@@ -187,7 +213,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + location.getLatitude() + "," + location.getLongitude());
                 LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
                 if (mGoogleMap != null) {
-                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
+                    //mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,15));
                 }
             }
             isLocationChangeTag = false;
@@ -214,7 +241,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 if(!isGPSEnabled){
                     finish();
                 }else{
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 2F, CustomerActivity.this);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 2F, CustomerActivity.this);
                     Log.d("KTH","117 locationManger done");
                     setUpMapIfNeeded();
                     setMyLocation();
@@ -225,7 +252,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     @Override
     public void onBackPressed() {
-        this.finish();
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 
     @Override
