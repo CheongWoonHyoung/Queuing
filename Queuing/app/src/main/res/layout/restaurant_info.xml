@@ -60,7 +60,8 @@
         android:layout_height="50dp"
         android:elevation="5dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF">
+        android:background="#FFFFFF"
+        android:id="@+id/btn_queue">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
