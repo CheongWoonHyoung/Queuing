@@ -15,5 +15,7 @@
     <string name="login_password">Password</string>
     <string name="login_button">Sign Up</string>
     <string name="map_info">주변 식당 보기</string>
+    <string name="queue_btn">Queuing!</string>
+    <string name="signout">Sign out</string>
 
 </resources>

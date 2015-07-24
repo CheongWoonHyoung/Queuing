@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -25,6 +24,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,26 +42,31 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     Boolean isOpen = false;
     Boolean isOpen2 = false;
     FrameLayout sliding_menu;
+    LinearLayout submenu01;
+    LinearLayout submenu02;
+    LinearLayout submenu03;
     FrameLayout menu_btn;
     LinearLayout res_list;
     FrameLayout upward_btn;
-
     LinearLayout fake;
     LinearLayout res_list2;
     FrameLayout  upward_btn2;
     LinearLayout real;
-
     LinearLayout up;
+    EditText search;
+    private Animation tran_upward = null;
+    private Animation tran_downward = null;
 
-
+    private BackPressCloseHandler backPressCloseHandler;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_customer);
 
+        backPressCloseHandler = new BackPressCloseHandler(this);
         mmap = (RelativeLayout) findViewById(R.id.layout_map);
         View child = getLayoutInflater().inflate(R.layout.activity_maps, null);
         mmap.addView(child);
@@ -106,7 +111,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                         .show();
             } else {
                 //location service -- O
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, CustomerActivity.this);
+                Log.d("KTH","location service on");
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 2000, CustomerActivity.this);
                 setUpMapIfNeeded();
                 setMyLocation();
             }
@@ -114,64 +120,93 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         }
         loc_btn_frame.bringToFront();
         mFrame.bringToFront();
-        //AddMarker();
+        AddMarker();
 
         //top menu sliding animation
-        final Animation tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
-        final Animation tran_downward           = AnimationUtils.loadAnimation(this,R.anim.tran_downward);
+        tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
+        tran_downward           = AnimationUtils.loadAnimation(this,R.anim.tran_downward);
         SlidingAnimationListener animListener   = new SlidingAnimationListener();
         tran_upward.setAnimationListener(animListener);
         tran_downward.setAnimationListener(animListener);
+
         menu_btn = (FrameLayout) findViewById(R.id.menu_btn);
         sliding_menu = (FrameLayout) findViewById(R.id.sliding_menu);
-        sliding_menu.bringToFront();
-        menu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sliding_menu.bringToFront();
-                if(isOpen){
-                    sliding_menu.startAnimation(tran_upward);
-                }else{
-                    sliding_menu.startAnimation(tran_downward);
-                }
-            }
-        });
-
-
-        //bottom restaurant list animation
         upward_btn = (FrameLayout) findViewById(R.id.upward_btn);
         res_list   = (LinearLayout) findViewById(R.id.res_list);
         upward_btn2= (FrameLayout) findViewById(R.id.upward_btn2);
         res_list2 = (LinearLayout) findViewById(R.id.res_list2);
         fake = (LinearLayout) findViewById(R.id.fake);
         real = (LinearLayout) findViewById(R.id.real);
-        final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
-        upward_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("f", "f");
-                fake.bringToFront();
-                final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
-                ex_Ani.setAnimationListener(ani_listener);
-                res_list2.startAnimation(ex_Ani);
-            }
-        });
-        upward_btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fake.bringToFront();
-                final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
-                ex_Ani.setAnimationListener(ani_listener);
-                res_list2.startAnimation(ex_Ani);
-            }
-        });
+        submenu01 = (LinearLayout) findViewById(R.id.submenu01);
+        submenu02 = (LinearLayout) findViewById(R.id.submenu02);
+        submenu03 = (LinearLayout) findViewById(R.id.submenu03);
+        search = (EditText) findViewById(R.id.search);
+
+        menu_btn.setOnClickListener(myOnClick);
+        submenu01.setOnClickListener(myOnClick);
+        submenu02.setOnClickListener(myOnClick);
+        submenu03.setOnClickListener(myOnClick);
+        upward_btn.setOnClickListener(myOnClick);
+        upward_btn2.setOnClickListener(myOnClick);
+
     }
+
+    private View.OnClickListener myOnClick=new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            Log.d("NPC","onClick");
+            // TODO Auto-generated method stub
+            switch(view.getId()){
+                case R.id.menu_btn: {
+                    sliding_menu.bringToFront();
+                    if (isOpen) {
+                        sliding_menu.startAnimation(tran_upward);
+                    } else {
+                        sliding_menu.startAnimation(tran_downward);
+                    }
+                    break;
+                }
+                case R.id.submenu01: {
+                    Log.d("NPC","SUBMENU01_CLICKED");
+                    break;
+                }
+                case R.id.submenu02: {
+                    Log.d("NPC","SUBMENU02_CLICKED");
+                    break;
+                }
+                case R.id.submenu03: {
+                    Log.d("NPC","SUBMENU03_CLICKED");
+                    Intent intent = new Intent(CustomerActivity.this, MypageActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.upward_btn: {
+                    Log.d("NPC","upward_btn");
+                    fake.bringToFront();
+                    final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
+                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
+                    ex_Ani.setAnimationListener(ani_listener);
+                    res_list2.startAnimation(ex_Ani);
+                    break;
+                }
+                case R.id.upward_btn2: {
+                    Log.d("NPC","upward_btn2");
+                    fake.bringToFront();
+                    final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
+                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
+                    ex_Ani.setAnimationListener(ani_listener);
+                    res_list2.startAnimation(ex_Ani);
+                }
+            }
+        }
+    };
 
     public class SlidingAnimationListener implements Animation.AnimationListener {
         @Override
         public void onAnimationStart(Animation animation) {
-            if(!isOpen){
+            if(!isOpen) {
                 sliding_menu.setVisibility(View.VISIBLE);
+                search.setEnabled(false);
             }
             menu_btn.setClickable(false);
             upward_btn.setClickable(false);
@@ -182,6 +217,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             if(isOpen){
                 sliding_menu.setVisibility(View.GONE);
                 isOpen = false;
+                search.setEnabled(true);
             }
             else{
                 isOpen = true;
@@ -219,7 +255,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
 
     public void AddMarker(){
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(35.57252, 129.19034)).title("UNIST").snippet("Ulsan national institute of science and technology"));
+        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(34.058052, -118.302212)).title("Taylor's Steak House").snippet("Taylor's Steak House"));
         mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -234,7 +270,28 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     private void setMyLocation(){
         isLocationChangeTag = true;
-        mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
+        if(mGoogleMap.getMyLocation()==null) {
+            mGoogleMap.setOnMyLocationChangeListener(myLocationChangeListener);
+        }
+        else {
+            Location new_location = mGoogleMap.getMyLocation();
+            LatLng loc = new LatLng(new_location.getLatitude(), new_location.getLongitude());
+            Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + new_location.getLatitude() + "," + new_location.getLongitude());
+            if (mGoogleMap != null) {
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15),400, new GoogleMap.CancelableCallback() {
+                    @Override
+                    public void onFinish() {
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+            }
+            isLocationChangeTag = false;
+        }
     }
 
     Marker mMarker;
@@ -245,12 +302,19 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             if(isLocationChangeTag) {
                 Log.d("KTH", "location.getLatitude(), location.getLongitude() -> " + location.getLatitude() + "," + location.getLongitude());
                 LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                mMarker = mGoogleMap.addMarker(new MarkerOptions().position(loc));
                 if (mGoogleMap != null) {
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 14));
+                    //mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,15));
                 }
             }
             isLocationChangeTag = false;
+        }
+    };
+
+    protected GoogleMap.OnCameraChangeListener myCameraChangeListener = new GoogleMap.OnCameraChangeListener() {
+        @Override
+        public void onCameraChange(CameraPosition cameraPosition) {
+            Log.e("NPC","CAMERA CHANGED");
         }
     };
 
@@ -267,7 +331,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 if(!isGPSEnabled){
                     finish();
                 }else{
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1L, 2F, CustomerActivity.this);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 2F, CustomerActivity.this);
                     Log.d("KTH","117 locationManger done");
                     setUpMapIfNeeded();
                     setMyLocation();
@@ -278,23 +342,14 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     @Override
     public void onBackPressed() {
-        this.finish();
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-       /* ImageButton loc_btn= (ImageButton)findViewById(R.id.loc);
-        loc_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                log.e("ONCLICK NPC", "loc is " + loc);
-                if(loc!=null)
-                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
-            }
-        });*/
-
     }
 
     @Override
@@ -319,16 +374,10 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
         mGoogleMap.getUiSettings().setRotateGesturesEnabled(false);
         ImageButton loc_btn= (ImageButton)findViewById(R.id.loc);
-       // Criteria criteria = new Criteria();
-      //  String provider = locationManager.getBestProvider(criteria, false);
-        //Log.e("NPC","loc is " + loc);
-        final Location loc = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, 2000, 1, this);
         loc_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(loc!=null)
-                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
+                setMyLocation();
             }
         });
 
