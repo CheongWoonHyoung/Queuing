@@ -11,9 +11,7 @@
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="2"
-            android:weightSum="5"
+            android:layout_height="50dp"
             android:background="@color/accent_material_light"
             android:elevation="10dp"
             android:orientation="horizontal">
@@ -65,9 +63,40 @@
                 android:id="@+id/sliding_menu"
                 android:visibility="invisible"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:background="#000000">
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/group_menu"
+                        android:elevation="5dp">
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/group_menu"
+                        android:elevation="5dp">
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@drawable/group_menu"
+                        android:elevation="5dp">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
             </FrameLayout>
             <FrameLayout
@@ -111,7 +140,7 @@
 
 
         </RelativeLayout>
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
@@ -123,6 +152,6 @@
                 android:textSize="20dp"
                 android:textColor="#FFFFFF"
                 android:text="@string/map_info"/>
-        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 </RelativeLayout>
