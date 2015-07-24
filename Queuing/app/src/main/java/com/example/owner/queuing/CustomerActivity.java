@@ -40,8 +40,18 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     FrameLayout mFrame;
     FrameLayout loc_btn_frame;
     Boolean isOpen = false;
+    Boolean isOpen2 = false;
     FrameLayout sliding_menu;
     FrameLayout menu_btn;
+    LinearLayout res_list;
+    FrameLayout upward_btn;
+
+    LinearLayout fake;
+    LinearLayout res_list2;
+    FrameLayout  upward_btn2;
+    LinearLayout real;
+
+    LinearLayout up;
 
 
 
@@ -57,6 +67,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         mmap.addView(child);
         mFrame = (FrameLayout)findViewById(R.id.frame);
         loc_btn_frame = (FrameLayout)findViewById(R.id.loc_btn_frame);
+
 
         int googlePlayServiceResult = GooglePlayServicesUtil.isGooglePlayServicesAvailable(CustomerActivity.this);
         if( googlePlayServiceResult !=   ConnectionResult.SUCCESS){
@@ -95,7 +106,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                         .show();
             } else {
                 //location service -- O
-                Log.d("KTH","location service on");
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, CustomerActivity.this);
                 setUpMapIfNeeded();
                 setMyLocation();
@@ -114,15 +124,45 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         tran_downward.setAnimationListener(animListener);
         menu_btn = (FrameLayout) findViewById(R.id.menu_btn);
         sliding_menu = (FrameLayout) findViewById(R.id.sliding_menu);
+        sliding_menu.bringToFront();
         menu_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sliding_menu.bringToFront();
                 if(isOpen){
-                    sliding_menu.startAnimation(tran_downward);
-                }else{
                     sliding_menu.startAnimation(tran_upward);
+                }else{
+                    sliding_menu.startAnimation(tran_downward);
                 }
+            }
+        });
+
+
+        //bottom restaurant list animation
+        upward_btn = (FrameLayout) findViewById(R.id.upward_btn);
+        res_list   = (LinearLayout) findViewById(R.id.res_list);
+        upward_btn2= (FrameLayout) findViewById(R.id.upward_btn2);
+        res_list2 = (LinearLayout) findViewById(R.id.res_list2);
+        fake = (LinearLayout) findViewById(R.id.fake);
+        real = (LinearLayout) findViewById(R.id.real);
+        final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
+        upward_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("f", "f");
+                fake.bringToFront();
+                final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
+                ex_Ani.setAnimationListener(ani_listener);
+                res_list2.startAnimation(ex_Ani);
+            }
+        });
+        upward_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fake.bringToFront();
+                final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
+                ex_Ani.setAnimationListener(ani_listener);
+                res_list2.startAnimation(ex_Ani);
             }
         });
     }
@@ -134,18 +174,41 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 sliding_menu.setVisibility(View.VISIBLE);
             }
             menu_btn.setClickable(false);
+            upward_btn.setClickable(false);
         }
 
         @Override
         public void onAnimationEnd(Animation animation) {
             if(isOpen){
-                sliding_menu.setVisibility(View.INVISIBLE);
+                sliding_menu.setVisibility(View.GONE);
                 isOpen = false;
             }
             else{
                 isOpen = true;
             }
             menu_btn.setClickable(true);
+            upward_btn.setClickable(true);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    }
+    public class SlidingAnimationListener2 implements Animation.AnimationListener {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            if(isOpen2){
+                real.bringToFront();
+                isOpen2 = false;
+            }else{
+                isOpen2 = true;
+            }
         }
 
         @Override
@@ -264,7 +327,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         loc_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("ONCLICK NPC", "loc is " + loc);
                 if(loc!=null)
                     mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 15));
             }
@@ -279,7 +341,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         if (location == null) return;
 
         if(locationTag){
-            Log.d("myLog"  , "onLocationChanged: !!"  + "onLocationChanged!!");
             locationTag=false;
         }
 
