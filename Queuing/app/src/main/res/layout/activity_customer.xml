@@ -220,8 +220,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="15dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
                 android:background="@drawable/group_loc_btn"
                 android:id="@+id/loc_btn_frame"
                 >

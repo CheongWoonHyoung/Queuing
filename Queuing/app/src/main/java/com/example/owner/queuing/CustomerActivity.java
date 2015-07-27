@@ -172,12 +172,14 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 }
                 case R.id.submenu02: {
                     Log.d("NPC","SUBMENU02_CLICKED");
+                    Intent intent2 = new Intent(CustomerActivity.this, ReservationInfo.class);
+                    startActivity(intent2);
                     break;
                 }
                 case R.id.submenu03: {
                     Log.d("NPC","SUBMENU03_CLICKED");
-                    Intent intent = new Intent(CustomerActivity.this, MypageActivity.class);
-                    startActivity(intent);
+                    Intent intent3 = new Intent(CustomerActivity.this, MypageActivity.class);
+                    startActivity(intent3);
                     break;
                 }
                 case R.id.upward_btn: {
@@ -255,7 +257,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
 
     public void AddMarker(){
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(34.058052, -118.302212)).title("Taylor's Steak House").snippet("Taylor's Steak House"));
+        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(34.058052, -118.302212)).title("Taylor's Steak House").snippet("Taylor's Steak House\nddqwqdq"));
         mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {

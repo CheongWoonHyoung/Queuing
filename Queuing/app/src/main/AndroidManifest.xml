@@ -80,7 +80,11 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".ReservationInfo"
+            android:label="ReservationInfo"
+            android:screenOrientation="portrait">
 
+        </activity>
         <activity
             android:name=".RestaurantInfo"
             android:label="RestaurantInfo"
