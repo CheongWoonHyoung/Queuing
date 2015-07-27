@@ -37,8 +37,6 @@ public class SplashActivity extends Activity {
                     startActivity(new Intent(mycontext, LoginActivity.class));
                 }
                 else{
-                    Log.e("auth", auth);
-//                    Log.e("u_name",dbManagerLogin.returnUser());
                     if(auth.length() == 5){
                         startActivity(new Intent(mycontext, OwnerActivity.class));
                     }

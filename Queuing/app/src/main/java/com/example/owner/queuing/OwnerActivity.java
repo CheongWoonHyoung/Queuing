@@ -1,9 +1,15 @@
 package com.example.owner.queuing;
 
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class OwnerActivity extends ActionBarActivity {
@@ -12,6 +18,41 @@ public class OwnerActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner);
+
+
+        final ArrayList<CusListItem> items = new ArrayList<CusListItem>();
+        for(int i=0;i<15;i++) {
+            items.add(new CusListItem(":"+i, "Mark", "3 people","use Queuing"));
+        }
+        for(int i=0;i<15;i++){
+            items.add(new CusListItem(":"+(i+15),"Yoon","2 people","010-xxxx-xxxx"));
+        }
+        final CusListAdpater adapter = new CusListAdpater(this,R.layout.cus_listview,items);
+        final ListView cus_listview = (ListView) findViewById(R.id.cus_listview);
+        cus_listview.setAdapter(adapter);
+
+
+        final ReservDialog reservDialog = new ReservDialog(this);
+        reservDialog.setTitle("Queuing");
+        reservDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                adapter.add(new CusListItem("z", reservDialog._name, reservDialog._phone, reservDialog._number));
+            }
+        });
+        reservDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+            }
+        });
+
+        TextView AddCustomer = (TextView) findViewById(R.id.reservation);
+        AddCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reservDialog.show();
+            }
+        });
     }
 
     @Override

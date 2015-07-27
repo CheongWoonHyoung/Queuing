@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
@@ -148,6 +151,18 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         submenu03.setOnClickListener(myOnClick);
         upward_btn.setOnClickListener(myOnClick);
         upward_btn2.setOnClickListener(myOnClick);
+
+
+
+
+        //about Listview
+        ArrayList<ResListItem> items = new ArrayList<ResListItem>();
+        for(int i=0;i<15;i++) {
+            items.add(new ResListItem(null, "taylor's steak house", "1.5miles"));
+        }
+        ResListAdapter adapter = new ResListAdapter(this,R.layout.res_listview,items);
+        ListView res_listview = (ListView) findViewById(R.id.res_listview);
+        res_listview.setAdapter(adapter);
 
     }
 
