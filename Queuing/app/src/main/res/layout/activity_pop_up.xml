@@ -4,7 +4,7 @@
     android:layout_width="300dp"
     android:layout_height="200dp"
     android:id="@+id/popup_element"
-    android:background="@drawable/group_menu"
+    android:background="#FFFFFF"
 
     >
     <LinearLayout

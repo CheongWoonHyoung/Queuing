@@ -3,6 +3,8 @@ package com.example.owner.queuing;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
@@ -78,7 +80,8 @@ public class RestaurantInfo extends Activity{
             View layout = inflater.inflate(R.layout.activity_pop_up, (ViewGroup)findViewById(R.id.popup_element));
             pwindo = new PopupWindow(layout, mWidthPixels-200, mHeightPixels-800, true);
             pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
+            pwindo.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            pwindo.setElevation(10f);
             btn_cancel = (LinearLayout)layout.findViewById(R.id.btn_cancel);
             btn_cancel.setOnClickListener(cancel_button_click_listener);
 

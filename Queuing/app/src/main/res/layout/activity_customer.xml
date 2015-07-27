@@ -80,6 +80,35 @@
                         android:background="@drawable/group_menu"
                         android:elevation="5dp"
                         android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4">
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/ic_star_border_black_24dp"/>
+
+                            </FrameLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical|left"
+                                android:text="@string/favorite"
+                                android:textSize="20dp"
+                                android:paddingLeft="20dp"
+                                android:textColor="#212121"/>
+                        </LinearLayout>
 
                     </LinearLayout>
                     <LinearLayout
@@ -90,6 +119,36 @@
                         android:background="@drawable/group_menu"
                         android:elevation="5dp"
                         android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:orientation="horizontal">
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/ic_info_outline_black_24dp"/>
+
+                            </FrameLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical|left"
+                                android:text="@string/myreservationinfo"
+                                android:textSize="20dp"
+                                android:paddingLeft="20dp"
+                                android:textColor="#212121"/>
+                        </LinearLayout>
 
                     </LinearLayout>
                     <LinearLayout
@@ -99,6 +158,35 @@
                         android:background="@drawable/group_menu"
                         android:elevation="5dp"
                         android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4">
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/ic_perm_identity_black_24dp"/>
+
+                            </FrameLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical|left"
+                                android:text="@string/myinfo"
+                                android:textSize="20dp"
+                                android:paddingLeft="20dp"
+                                android:textColor="#212121"/>
+                        </LinearLayout>
 
                     </LinearLayout>
 
