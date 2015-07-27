@@ -1,34 +1,38 @@
 package com.example.owner.queuing;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 /**
  * Created by owner on 2015-07-12.
  */
-public class RestaurantInfo extends Activity{
+public class RestaurantInfo extends Activity implements NumberPicker.OnValueChangeListener{
 
     FrameLayout frame_back_btn_resinfo;
     RelativeLayout btn_queue;
     LinearLayout btn_confirm;
     LinearLayout btn_cancel;
-    private PopupWindow pwindo;
-    private int mWidthPixels, mHeightPixels;
+    NumberPicker numberPicker;
+    Dialog dialog;
 
 
     @Override
@@ -36,14 +40,6 @@ public class RestaurantInfo extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_info);
 
-
-        WindowManager w = getWindowManager();
-        Display d = w.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        d.getMetrics(metrics);
-
-        mWidthPixels = metrics.widthPixels;
-        mHeightPixels = metrics.heightPixels;
         frame_back_btn_resinfo = (FrameLayout)findViewById(R.id.res_back_btn);
         frame_back_btn_resinfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,12 +52,9 @@ public class RestaurantInfo extends Activity{
         btn_queue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initiatePopupWindow();
+                show_dialog();
             }
         });
-
-
-
 
 
 
@@ -72,35 +65,55 @@ public class RestaurantInfo extends Activity{
         finish();
     }
 
-    private void initiatePopupWindow(){
+    private void show_dialog(){
         try{
-            LayoutInflater inflater = (LayoutInflater)RestaurantInfo.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.activity_pop_up, (ViewGroup)findViewById(R.id.popup_element));
-            pwindo = new PopupWindow(layout, mWidthPixels-200, mHeightPixels-800, true);
-            pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            dialog = new Dialog(RestaurantInfo.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-            btn_cancel = (LinearLayout)layout.findViewById(R.id.btn_cancel);
-            btn_cancel.setOnClickListener(cancel_button_click_listener);
+            dialog.setContentView(R.layout.activity_pop_up);
+            btn_cancel = (LinearLayout)dialog.findViewById(R.id.btn_cancel);
+            btn_confirm = (LinearLayout)dialog.findViewById(R.id.btn_confirm);
+            numberPicker =(NumberPicker) dialog.findViewById(R.id.picker_popup);
 
-            btn_confirm = (LinearLayout)layout.findViewById(R.id.btn_confirm);
-            btn_confirm.setOnClickListener(confirm_button_click_listener);
+            btn_cancel.setOnClickListener(myOnClick);
+            btn_confirm.setOnClickListener(myOnClick);
 
-        }catch (Exception e){
+            numberPicker.setMinValue(1);
+            numberPicker.setMaxValue(10);
+            numberPicker.setValue(2);
+            numberPicker.setOnValueChangedListener(this);
+            numberPicker.setWrapSelectorWheel(false);
+            dialog.show();
+        } catch (Exception e){
+            Log.d("NPC","PASS_FAIL DUE TO " + e);
 
         }
     }
 
-    private View.OnClickListener cancel_button_click_listener= new View.OnClickListener(){
-        public void onClick(View v){
-            pwindo.dismiss();
+
+    private View.OnClickListener myOnClick=new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            Log.d("NPC", "onClick");
+            // TODO Auto-generated method stub
+            switch(view.getId()){
+                case R.id.btn_confirm: {
+                    Intent intent = new Intent(RestaurantInfo.this, ConfirmActivity.class);
+                    intent.putExtra("reserve_num",numberPicker.getValue());
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.btn_cancel: {
+                    dialog.dismiss();
+                    break;
+                }
+            }
         }
     };
 
-    private View.OnClickListener confirm_button_click_listener = new View.OnClickListener(){
-        public void onClick(View v){
-            Intent intent = new Intent(RestaurantInfo.this, ConfirmActivity.class);
-            startActivity(intent);
-        }
-
-    };
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        Log.d("NUMBERPICKER","Number Changed from " + oldVal + " to " + newVal);
+    }
 }

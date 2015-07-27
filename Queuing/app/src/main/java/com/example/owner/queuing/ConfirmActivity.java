@@ -1,7 +1,9 @@
 package com.example.owner.queuing;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -16,7 +18,8 @@ public class ConfirmActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
-
+        Intent intent_num = getIntent();
+        Log.d("GET NUM FROM RES.java","# of people = " + intent_num.getExtras().getInt("reserve_num"));
         frame_back_btn_confirm = (FrameLayout)findViewById(R.id.confirm_back_btn);
         frame_back_btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
