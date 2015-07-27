@@ -8,4 +8,8 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.DoNotDim" parent="android:Theme">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 </resources>

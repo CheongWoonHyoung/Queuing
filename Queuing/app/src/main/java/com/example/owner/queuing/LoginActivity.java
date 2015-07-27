@@ -39,7 +39,7 @@ public class LoginActivity extends Activity {
     // SharedPreferences에 저장할 때 key 값으로 사용됨.
     private static final String PROPERTY_APP_VERSION = "1.0";
     private static final String TAG = "NPC";
-
+    private BackPressCloseHandler backPressCloseHandler;
     private String SENDER_ID = "870647983286";
     private String User_ID = "null";
     GoogleCloudMessaging gcm;
@@ -52,6 +52,7 @@ public class LoginActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
 
+        backPressCloseHandler = new BackPressCloseHandler(this);
         final EditText u_name   = (EditText)findViewById(R.id.u_name);
         final EditText u_email  = (EditText)findViewById(R.id.u_email);
         final EditText u_passwd = (EditText)findViewById(R.id.u_passwd);
@@ -74,6 +75,12 @@ public class LoginActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 
     private class HttpPostRequest extends AsyncTask<String, Void, String> {
@@ -139,6 +146,7 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
     // Methods for realizing GCM
     private String getRegistrationId(Context context) {
         final SharedPreferences prefs = getGCMPreferences(context);
