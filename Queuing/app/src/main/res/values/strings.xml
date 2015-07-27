@@ -14,7 +14,7 @@
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="login_button">Sign Up</string>
-    <string name="map_info">주변 식당 보기</string>
+    <string name="map_info">See Restaurants nearby</string>
     <string name="queue_btn">Queuing!</string>
     <string name="info_num">NUMBER</string>
     <string name="info_time">TIMINGS</string>
@@ -24,6 +24,12 @@
     <string name="sample_category">Chinese, North Indian</string>
     <string name="num">#</string>
     <string name="signout">Sign out</string>
-
-
+    <string name="info_name">Name :</string>
+    <string name="info_party">Party :</string>
+    <string name="info_watingtime">Waiting Time :</string>
+    <string name="info_arrivaltime">Arrival Time :</string>
+    <string name="info_fee">Total Fee :</string>
+    <string name="myinfo">My Info</string>
+    <string name="myreservationinfo">Reservation Info</string>
+    <string name="favorite">Favorites</string>
 </resources>
