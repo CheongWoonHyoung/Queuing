@@ -297,10 +297,10 @@
             android:layout_marginBottom="-200dp"
             android:id="@+id/res_list2"
             android:background="#FFFFFF">
-            <TextView
+            <ListView
+                android:id="@+id/res_listview"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:text="zzzzz"/>
+                android:layout_height="200dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
