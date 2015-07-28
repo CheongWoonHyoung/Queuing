@@ -169,7 +169,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private View.OnClickListener myOnClick=new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-            Log.d("NPC","onClick");
             // TODO Auto-generated method stub
             switch(view.getId()){
                 case R.id.menu_btn: {
@@ -182,23 +181,19 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                     break;
                 }
                 case R.id.submenu01: {
-                    Log.d("NPC","SUBMENU01_CLICKED");
                     break;
                 }
                 case R.id.submenu02: {
-                    Log.d("NPC","SUBMENU02_CLICKED");
                     Intent intent2 = new Intent(CustomerActivity.this, ReservationInfo.class);
                     startActivity(intent2);
                     break;
                 }
                 case R.id.submenu03: {
-                    Log.d("NPC","SUBMENU03_CLICKED");
                     Intent intent3 = new Intent(CustomerActivity.this, MypageActivity.class);
                     startActivity(intent3);
                     break;
                 }
                 case R.id.upward_btn: {
-                    Log.d("NPC","upward_btn");
                     fake.bringToFront();
                     final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
                     final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
