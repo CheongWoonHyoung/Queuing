@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -30,7 +31,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
@@ -59,9 +65,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     EditText search;
     private Animation tran_upward = null;
     private Animation tran_downward = null;
-
+    private HashMap<String, String> markers;
     private BackPressCloseHandler backPressCloseHandler;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +126,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             }
 
         }
+
         loc_btn_frame.bringToFront();
         mFrame.bringToFront();
         AddMarker();
@@ -270,9 +276,36 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         }
     }
 
+    private void AddMarker(){
+        String url = "http://52.69.163.43/get_info.php";
+        String jsonString = MakeJson(url);
+        JSONArray jArray = null;
 
-    public void AddMarker(){
-        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(34.058052, -118.302212)).title("Taylor's Steak House").snippet("Taylor's Steak House\nddqwqdq"));
+        String res_name;
+        String cuisine;
+        double x, y;
+        int remaining_num;
+
+        try{
+            jArray = new JSONArray(jsonString);
+            JSONObject json_data = null;
+
+            for(int i=0; i<jArray.length(); i++){
+                json_data = jArray.getJSONObject(i);
+                x = json_data.getDouble("x_cordinate");
+                y = json_data.getDouble("y_cordinate");
+                res_name = json_data.getString("name");
+                cuisine = json_data.getString("cuisine");
+                remaining_num = json_data.getInt("line_num");
+
+                mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(x,y)).title(res_name).snippet(cuisine + " / "+remaining_num + " lefts" ));
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -280,6 +313,19 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 startActivity(intent);
             }
         });
+
+    }
+
+    private String MakeJson(String url){
+        String jsonall = null;
+
+        try {
+            jsonall =new JsonParser_toString().execute(url).get();
+        } catch (Exception e){
+            Log.e("JSON", "Error in JSONPARSER : " + e.toString());
+        }
+        Log.d("JSON","whole json result : " + jsonall);
+        return jsonall;
     }
 
     private LatLng myLocation;
@@ -390,6 +436,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         mGoogleMap.getMyLocation();
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
         mGoogleMap.getUiSettings().setRotateGesturesEnabled(false);
+        mGoogleMap.setInfoWindowAdapter(new InfoWindowAdapterMarker(this));
         ImageButton loc_btn= (ImageButton)findViewById(R.id.loc);
         loc_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,6 +46,7 @@ public class LoginActivity extends Activity {
     SharedPreferences prefs;
     Context context;
     String regid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
