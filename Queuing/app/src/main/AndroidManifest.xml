@@ -71,7 +71,7 @@
         <activity
             android:name=".OwnerActivity"
             android:label="@string/title_activity_owner"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
         </activity>
 
         <activity

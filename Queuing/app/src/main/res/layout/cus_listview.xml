@@ -1,35 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_alignParentLeft="true"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/cus_priority"/>
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/group_map_search"
+        >
         <LinearLayout
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:orientation="horizontal">
+            android:layout_width="70dp"
+            android:layout_height="match_parent">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:id="@+id/cus_name"
-                android:layout_marginRight="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:id="@+id/cus_method"
-                android:layout_marginLeft="10dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/cus_priority"
+                android:text="1"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:textColor="#00695C"/>
+
         </LinearLayout>
-        <TextView
-            android:layout_alignParentRight="true"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/cus_number"/>
-        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="500dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cus_name"
+                    android:gravity="center"
+                    android:textSize="30dp"
+                    android:textColor="#212121"
+                    android:text="Mark Yoon"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cus_number"
+                    android:gravity="center"
+                    android:textColor="#212121"
+                    android:textSize="20dp"
+                    android:text="3"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cus_method"
+                    android:textSize="15dp"
+                    android:gravity="center"
+                    android:textColor="#212121"
+                    android:text="for using Queuing"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

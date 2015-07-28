@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
+        android:gravity="bottom|center_horizontal"
         android:orientation="vertical"
         android:background="@color/material_deep_teal_500">
 
@@ -15,7 +15,7 @@
 
             <EditText
                 android:id="@+id/u_name"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:background="@drawable/group_top"
                 android:hint="@string/login_name"
@@ -31,7 +31,7 @@
                 />
             <EditText
                 android:id="@+id/u_email"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:background="@drawable/group_row"
                 android:hint="@string/login_email"
@@ -46,7 +46,7 @@
                 />
             <EditText
                 android:id="@+id/u_passwd"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:background="@drawable/group_bottom"
                 android:hint="@string/login_password"
@@ -64,7 +64,7 @@
                 android:text="@string/login_button"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:layout_marginRight="30dp"
