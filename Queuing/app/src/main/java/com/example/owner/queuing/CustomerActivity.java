@@ -324,6 +324,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 String phone_num = null;
                 String timing = null;
                 String kinds = null;
+                String dummy_name = null;
+
 
                 try {
                     jsonall = new req_specific_info().execute(marker.getTitle()).get();
@@ -344,6 +346,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                         kinds = json_data.getString("cuisine");
                         phone_num = json_data.getString("phone_num");
                         timing = json_data.getString("timing");
+                        dummy_name = json_data.getString("dummy_name");
 
                     }
                 }catch (Exception e){
@@ -357,6 +360,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 intent.putExtra("cuisine",kinds);
                 intent.putExtra("phone_num",phone_num);
                 intent.putExtra("timing",timing);
+                intent.putExtra("dummy_name",dummy_name);
 
                 startActivity(intent);
             }
@@ -372,7 +376,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         } catch (Exception e){
             Log.e("JSON", "Error in JSONPARSER : " + e.toString());
         }
-        Log.d("JSON","whole json result : " + jsonall);
+        Log.d("JSON", "whole json result : " + jsonall);
         return jsonall;
     }
 
