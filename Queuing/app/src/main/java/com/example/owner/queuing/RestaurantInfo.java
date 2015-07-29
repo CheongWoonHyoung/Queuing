@@ -124,17 +124,19 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
 
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        height_image = sample.getHeight();
+        width_image = sample.getWidth();
+        Picasso.with(getApplicationContext()).load(img_url).resize(width_image, height_image).centerCrop().into(res_image_v);
+    }
+
 
     @Override
     protected void onResume(){
         super.onResume();
-        sample.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) sample.getLayoutParams();
-        height_image = sample.getMeasuredHeight();
-        width_image = sample.getMeasuredWidth();
-        Log.d("GGGGGG", "HEIGHT: " + height_image);
-        Log.d("GGGGGG", "WIDTH: " + width_image);
-        Picasso.with(getApplicationContext()).load(img_url).resize(width_image, height_image).centerCrop().into(res_image_v);
+
 
     }
     @Override
