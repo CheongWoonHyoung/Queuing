@@ -8,6 +8,7 @@ public class CusListItem {
     public String cus_name;
     public String cus_number;
     public String cus_method;
+    public boolean isOpen = true;
 
     public CusListItem(String priority, String name,String method, String number){
         this.cus_priority = priority;
