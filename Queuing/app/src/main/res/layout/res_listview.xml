@@ -3,6 +3,61 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="@drawable/group_map_search">
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="30dp">
+            <LinearLayout
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:padding="1dp">
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/taylor_round" />
+            </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Taylor`s steak House"
+                    android:textSize="20dp"
+                    android:gravity="center_vertical|bottom"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#212121"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="American dining, old-world vibe"
+                    android:textSize="15dp"
+                    android:gravity="top|left"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="12dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/res_image"
         android:layout_width="50dp"

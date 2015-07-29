@@ -238,16 +238,19 @@
         <FrameLayout
             android:id="@+id/upward_btn"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:background="@color/material_deep_teal_500">
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:textColor="#FFFFFF"
-                android:text="@string/map_info"/>
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:background="@drawable/ic_keyboard_arrow_up_white_24dp"/>
+            </LinearLayout>
         </FrameLayout>
         <LinearLayout
             android:visibility="gone"
@@ -277,30 +280,33 @@
 
         </LinearLayout>
         <FrameLayout
+            android:visibility="gone"
             android:id="@+id/upward_btn2"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:background="@color/material_deep_teal_500">
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:textColor="#FFFFFF"
-                android:text="@string/map_info"/>
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_keyboard_arrow_down_white_24dp"/>
+            </LinearLayout>
         </FrameLayout>
         <LinearLayout
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-200dp"
+            android:layout_marginBottom="-300dp"
             android:id="@+id/res_list2"
             android:background="#FFFFFF">
             <ListView
                 android:id="@+id/res_listview"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="300dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

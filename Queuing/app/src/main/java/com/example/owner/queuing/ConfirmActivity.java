@@ -34,13 +34,14 @@ public class ConfirmActivity extends Activity{
         final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
         final String u_name = dbManagerLogin.returnUser();
         final String number = String.valueOf(intent_num.getExtras().getInt("reserve_num"));
+        final String dummy_name = intent_num.getExtras().getString("dummy_name");
         frame_back_btn_confirm = (FrameLayout)findViewById(R.id.confirm_back_btn);
         confirm = (TextView) findViewById(R.id.confirm);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("confirm","start");
-                new HttpPostRequest().execute("in", u_name,number,"using Queuing");
+                Log.e("pass",dummy_name);
+                new HttpPostRequest().execute("in", u_name,number,"using Queuing",dummy_name);
             }
         });
     }
@@ -59,7 +60,8 @@ public class ConfirmActivity extends Activity{
                 String body = "in_out=" + info[0] +"&"
                         +"name=" + info[1] + "&"
                         +"number=" + info[2] + "&"
-                        +"method=" + info[3];
+                        +"method=" + info[3] + "&"
+                        +"resname=" + info[4];
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(body);
@@ -74,6 +76,7 @@ public class ConfirmActivity extends Activity{
                     builder.append(str);
                 }
                 sResult     = builder.toString();
+                Log.e("pass",sResult);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
