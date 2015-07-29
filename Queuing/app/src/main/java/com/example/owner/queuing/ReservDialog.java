@@ -3,6 +3,7 @@ package com.example.owner.queuing;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -38,12 +39,15 @@ public class ReservDialog extends Dialog implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if(view==Ok){
+            Log.e("ok", "z");
             _name=name.getText().toString();
             _phone=phone.getText().toString();
             _number=number.getText().toString();
-            dismiss();
-        }else if(view == Cancel){
             cancel();
+        }
+        if(view == Cancel){
+            Log.e("cacel","z");
+            dismiss();
         }
         return false;
     }

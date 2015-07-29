@@ -232,6 +232,7 @@
             android:background="#F44336"
             android:elevation="5dp">
             <TextView
+                android:id="@+id/confirm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
