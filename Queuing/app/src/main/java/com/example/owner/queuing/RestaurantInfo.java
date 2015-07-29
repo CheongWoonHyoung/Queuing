@@ -53,7 +53,8 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     LinearLayout btn_cancel;
     NumberPicker numberPicker;
     Dialog dialog;
-
+    int height_image;
+    int width_image;
     TextView name_v;
     TextView loc_v;
     TextView phone_v;
@@ -61,7 +62,8 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     TextView cuisine_v;
     TextView num_lefts_v;
     ImageView res_image_v;
-
+    View test;
+    RelativeLayout sample;
     String rest_name = null;
     String location = null;
     String img_url = null;
@@ -94,16 +96,15 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         phone_v = (TextView) findViewById(R.id.phone);
         timing_v = (TextView) findViewById(R.id.timing);
         num_lefts_v = (TextView) findViewById(R.id.num_lefts);
+        sample = (RelativeLayout)findViewById(R.id.sample);
         res_image_v = (ImageView) findViewById(R.id.res_image);
-        Log.e("pass",dummy_name);
+        Log.e("pass", dummy_name);
         name_v.setText(rest_name);
         loc_v.setText(location);
         cuisine_v.setText(kinds);
         phone_v.setText(phone_num);
         timing_v.setText(timing);
         num_lefts_v.setText(Integer.toString(num_remain));
-
-
         frame_back_btn_resinfo = (FrameLayout)findViewById(R.id.res_back_btn);
         frame_back_btn_resinfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +128,14 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     @Override
     protected void onResume(){
         super.onResume();
-        Picasso.with(getApplicationContext()).load(img_url).into(res_image_v);
+        sample.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) sample.getLayoutParams();
+        height_image = sample.getMeasuredHeight();
+        width_image = sample.getMeasuredWidth();
+        Log.d("GGGGGG", "HEIGHT: " + height_image);
+        Log.d("GGGGGG", "WIDTH: " + width_image);
+        Picasso.with(getApplicationContext()).load(img_url).resize(width_image, height_image).centerCrop().into(res_image_v);
+
     }
     @Override
     public void onBackPressed() {
