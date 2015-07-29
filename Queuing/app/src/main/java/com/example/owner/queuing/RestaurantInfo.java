@@ -29,6 +29,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -68,6 +70,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     String kinds = null;
     int num_remain = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,12 +101,6 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         timing_v.setText(timing);
         num_lefts_v.setText(Integer.toString(num_remain));
 
-        try {
-            res_image_v.setImageBitmap(new loadBitmap().execute(img_url).get());
-        } catch (Exception e) {
-
-            Log.e("SETBITMAP", "ERROR in setting image bitmap : " + e.toString());
-        }
 
         frame_back_btn_resinfo = (FrameLayout)findViewById(R.id.res_back_btn);
         frame_back_btn_resinfo.setOnClickListener(new View.OnClickListener() {
@@ -122,43 +119,14 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         });
 
 
-
     }
 
-    private class loadBitmap extends AsyncTask<String, Void, Bitmap> {
 
-        @Override
-        protected Bitmap doInBackground(String... url) {
-            Bitmap bitmap = null;
-            InputStream in = null;
-            BufferedOutputStream out = null;
-
-            final int IO_BUFFER_SIZE = 4*1024;
-            try {
-                Log.d("INFO","img url is " + url[0]);
-
-                in = new BufferedInputStream(new URL(url[0]).openStream(), IO_BUFFER_SIZE);
-                final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
-                out = new BufferedOutputStream(dataStream, IO_BUFFER_SIZE);
-                int bytesRead;
-                byte[] buffer = new byte[IO_BUFFER_SIZE];
-                while ((bytesRead = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, bytesRead);
-                }
-                out.flush();
-
-                final byte[] data = dataStream.toByteArray();
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                //options.inSampleSize = 1;
-
-                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-            } catch (Exception e) {
-                Log.e("BITMAP","Error in loading Bitmap : " + e.toString());
-            }
-            return bitmap;
-        }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Picasso.with(getApplicationContext()).load(img_url).into(res_image_v);
     }
-
     @Override
     public void onBackPressed() {
         finish();

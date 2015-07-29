@@ -44,11 +44,6 @@ public class InfoWindowAdapterMarker implements GoogleMap.InfoWindowAdapter {
 
         popUpTitle.setText(marker.getTitle());
         popupContent.setText(marker.getSnippet());
-        //popupCuisine.setText();
-        // Load the image thumbnail
-        //final String imagePath = markers.get(marker.getId());
-        //ImageLoader imageLoader = ((AppConfig)mContext.getApplicationContext()).getImageLoader();
-        //imageLoader.loadBitmap(imagePath, popUpImage, 0, 0, onImageLoaded);
 
         // Returning the view containing InfoWindow contents
         return popUp;
