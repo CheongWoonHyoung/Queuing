@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,6 +29,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -132,6 +137,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         AddMarker();
 
         //top menu sliding animation
+
         tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
         tran_downward           = AnimationUtils.loadAnimation(this,R.anim.tran_downward);
         SlidingAnimationListener animListener   = new SlidingAnimationListener();
@@ -150,6 +156,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         submenu02 = (LinearLayout) findViewById(R.id.submenu02);
         submenu03 = (LinearLayout) findViewById(R.id.submenu03);
         search = (EditText) findViewById(R.id.search);
+        upward_btn.bringToFront();
 
         menu_btn.setOnClickListener(myOnClick);
         submenu01.setOnClickListener(myOnClick);
@@ -206,8 +213,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 case R.id.upward_btn: {
                     Log.d("NPC","upward_btn");
                     fake.bringToFront();
+                    upward_btn2.setVisibility(View.VISIBLE);
                     final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
-                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
+                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,300);
                     ex_Ani.setAnimationListener(ani_listener);
                     res_list2.startAnimation(ex_Ani);
                     break;
@@ -216,7 +224,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                     Log.d("NPC","upward_btn2");
                     fake.bringToFront();
                     final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
-                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,500);
+                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,300);
                     ex_Ani.setAnimationListener(ani_listener);
                     res_list2.startAnimation(ex_Ani);
                 }
@@ -286,6 +294,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         double x, y;
         int remaining_num;
 
+        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
+
         try{
             jArray = new JSONArray(jsonString);
             JSONObject json_data = null;
@@ -298,7 +308,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 cuisine = json_data.getString("cuisine");
                 remaining_num = json_data.getInt("line_num");
 
-                mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(x,y)).title(res_name).snippet(cuisine + " / "+remaining_num + " lefts" ));
+                mGoogleMap.addMarker(new MarkerOptions()
+                        .icon(bitmapDescriptor)
+                        .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " lefts"));
 
 
             }
