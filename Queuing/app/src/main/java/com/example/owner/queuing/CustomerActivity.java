@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -31,10 +33,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -281,7 +292,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         String jsonString = MakeJson(url);
         JSONArray jArray = null;
 
-        String res_name;
+        String res_name = null;
         String cuisine;
         double x, y;
         int remaining_num;
@@ -309,7 +320,49 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                String jsonall = null;
+                JSONArray jArray = null;
+
+                int line_num = 0;
+                String location = null;
+                String img_large = null;
+                String phone_num = null;
+                String timing = null;
+                String kinds = null;
+
+                try {
+                    jsonall = new req_specific_info().execute(marker.getTitle()).get();
+                } catch (Exception e){
+                    Log.e("JSON", "Error in JSONPARSER : " + e.toString());
+                }
+                Log.d("JSON", "whole json result : " + jsonall);
+
+                try {
+                    jArray = new JSONArray(jsonall);
+                    JSONObject json_data = null;
+
+                    for (int i = 0; i < jArray.length(); i++) {
+                        json_data = jArray.getJSONObject(i);
+                        line_num = json_data.getInt("line_num");
+                        img_large = json_data.getString("img_large");
+                        location = json_data.getString("location");
+                        kinds = json_data.getString("cuisine");
+                        phone_num = json_data.getString("phone_num");
+                        timing = json_data.getString("timing");
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(CustomerActivity.this, RestaurantInfo.class);
+                intent.putExtra("name",marker.getTitle());
+                intent.putExtra("line_num",line_num);
+                intent.putExtra("img_large",img_large);
+                intent.putExtra("location",location);
+                intent.putExtra("cuisine",kinds);
+                intent.putExtra("phone_num",phone_num);
+                intent.putExtra("timing",timing);
+
                 startActivity(intent);
             }
         });
@@ -326,6 +379,42 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         }
         Log.d("JSON","whole json result : " + jsonall);
         return jsonall;
+    }
+
+    private class req_specific_info extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... info) {
+            String sResult = null;
+
+            try {
+                Log.d("INFO","rest name is " + info[0]);
+                URL url = new URL("http://52.69.163.43/one_restinfo.php");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("POST");
+                String post_value = "name=" + info[0];
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(post_value);
+                osw.flush();
+
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder builder = new StringBuilder();
+                String str;
+
+                while ((str = reader.readLine()) != null) {
+                    builder.append(str);
+                }
+                sResult = builder.toString();
+
+            } catch (Exception e) {
+                Log.e("HTTPPOST","Error in Http POST REQUEST : " + e.toString());
+            }
+            return sResult;
+        }
     }
 
     private LatLng myLocation;
