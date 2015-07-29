@@ -125,9 +125,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/reserv_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Michael Jordan"
                         android:textSize="20dp"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
@@ -138,9 +138,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/reserv_party"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="3"
                         android:textSize="20dp"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
@@ -151,9 +151,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/reserv_waitingtime"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="20 min"
                         android:textColor="#212121"
                         android:textSize="20dp"
                         android:gravity="center_vertical"
@@ -165,9 +165,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/reserv_fee"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="0.5 USD"
                         android:textSize="20dp"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
@@ -201,12 +201,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2">
                 <TextView
+                    android:id="@+id/reserv_left"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="#212121"
                     android:textSize="60dp"
-                    android:gravity="center_vertical"
-                    android:text="11"/>
+                    android:gravity="center_vertical" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -253,6 +253,7 @@
             android:background="#F44336"
             android:elevation="5dp">
             <TextView
+                android:id="@+id/reserv_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

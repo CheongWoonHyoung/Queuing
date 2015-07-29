@@ -25,6 +25,12 @@ public class ConfirmActivity extends Activity{
 
     private FrameLayout frame_back_btn_confirm;
     private TextView confirm;
+    private TextView confirm_name;
+    private TextView confirm_party;
+    private TextView confirm_waitingtime;
+    private TextView confirm_arrivaltime;
+    private TextView confirm_fee;
+    String dummy_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -34,9 +40,30 @@ public class ConfirmActivity extends Activity{
         final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
         final String u_name = dbManagerLogin.returnUser();
         final String number = String.valueOf(intent_num.getExtras().getInt("reserve_num"));
-        final String dummy_name = intent_num.getExtras().getString("dummy_name");
+        dummy_name = intent_num.getExtras().getString("dummy_name");
+
+        confirm_name = (TextView) findViewById(R.id.confirm_name);
+        confirm_party = (TextView) findViewById(R.id.confirm_party);
+        confirm_waitingtime = (TextView) findViewById(R.id.confirm_waitingtime);
+        confirm_arrivaltime = (TextView) findViewById(R.id.confirm_arrivaltime);
+        confirm_fee = (TextView) findViewById(R.id.confirm_fee);
+
+        confirm_name.setText(u_name);
+        confirm_party.setText(number);
+        confirm_arrivaltime.setText("Unknown");
+        confirm_waitingtime.setText("Unknown");
+        confirm_fee.setText("Unknown");
+
+
+
         frame_back_btn_confirm = (FrameLayout)findViewById(R.id.confirm_back_btn);
         confirm = (TextView) findViewById(R.id.confirm);
+        frame_back_btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +114,11 @@ public class ConfirmActivity extends Activity{
 
         @Override
         protected void onPostExecute(String result){
+            DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
+            manager.insert("insert into RESERV_LIST values (null,'"+dummy_name+"','"+confirm_party.getText().toString()+"')");
             Toast.makeText(getApplicationContext(),"Queuing complete!",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(),ReservationInfo.class);
+            startActivity(intent);
             finish();
         }
     }

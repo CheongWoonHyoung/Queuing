@@ -174,6 +174,8 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
                     intent.putExtra("dummy_name",dummy_name);
                     intent.putExtra("reserve_num",numberPicker.getValue());
                     startActivity(intent);
+                    dialog.dismiss();
+                    finish();
                     break;
                 }
                 case R.id.btn_cancel: {
