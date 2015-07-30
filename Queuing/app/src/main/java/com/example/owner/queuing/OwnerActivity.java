@@ -1,8 +1,11 @@
 package com.example.owner.queuing;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -37,7 +40,7 @@ import java.util.ArrayList;
 
 public class OwnerActivity extends Activity {
     ReservDialog reservDialog;
-
+    CusListAdpater adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,7 @@ public class OwnerActivity extends Activity {
             Log.e("JSON", "Error in JSONPARSER : " + e.toString());
         }
         Log.e("JSON", "whole json result : " + jsonall);
+
 
 
 
@@ -109,11 +113,12 @@ public class OwnerActivity extends Activity {
 
             }
         });
+
         reservDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 adapter.add(new CusListItem("z", reservDialog._name, reservDialog._phone, reservDialog._number));
-                new HttpPostRequest().execute("in",reservDialog._name,reservDialog._number,"using Offline");
+                new HttpPostRequest().execute("in", reservDialog._name, reservDialog._number, "using Offline", "Taylors");
             }
         });
 
@@ -127,6 +132,31 @@ public class OwnerActivity extends Activity {
 
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getApplicationContext().registerReceiver(mReceiver,new IntentFilter("key"));
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        getApplicationContext().unregisterReceiver(mReceiver);
+    }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String name = intent.getStringExtra("name");
+            String num = intent.getStringExtra("num");
+            Log.d("MSG_RECEIVED", "message : " + name + " " + num);
+            adapter.add(new CusListItem("z", name,"ADDING BY APP", num));
+        }
+    };
 
 
     @Override
@@ -158,7 +188,7 @@ public class OwnerActivity extends Activity {
             String sResult = "Error";
 
             try {
-                URL url = new URL("http://52.69.163.43/line_test.php/");
+                URL url = new URL("http://52.69.163.43/line_test.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestMethod("POST");
@@ -180,6 +210,7 @@ public class OwnerActivity extends Activity {
                 while ((str = reader.readLine()) != null) {
                     builder.append(str);
                 }
+
                 sResult     = builder.toString();
                 Log.e("NPC:",sResult);
             } catch (MalformedURLException e) {

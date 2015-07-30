@@ -73,8 +73,8 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.e("length",":"+u_name.getText().toString().length());
-                if(u_name.getText().toString().length()==0 || u_email.toString().length()==0 || u_passwd.toString().length()==0) Toast.makeText(getApplicationContext(),"Input All information",Toast.LENGTH_LONG);
-                else if(u_passwd.toString().length()<8) Toast.makeText(getApplicationContext(),"Input at least 8 digit password",Toast.LENGTH_LONG);
+                if(u_name.getText().toString().length()==0 || u_email.toString().length()==0 || u_passwd.toString().length()==0) Toast.makeText(getApplicationContext(),"Input All information",Toast.LENGTH_LONG).show();
+                else if(u_passwd.toString().length()<8) Toast.makeText(getApplicationContext(),"Input at least 8 digit password",Toast.LENGTH_LONG).show();
                 else{
                     User_ID = u_name.getText().toString();
                     new HttpPostRequest().execute(u_name.getText().toString(), u_email.getText().toString(), u_passwd.getText().toString(), "up",regid);

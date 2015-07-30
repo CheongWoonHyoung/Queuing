@@ -80,7 +80,7 @@ public class ConfirmActivity extends Activity{
             String sResult = "Error";
 
             try {
-                URL url = new URL("http://52.69.163.43/line_test.php/");
+                URL url = new URL("http://52.69.163.43/line_test.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestMethod("POST");

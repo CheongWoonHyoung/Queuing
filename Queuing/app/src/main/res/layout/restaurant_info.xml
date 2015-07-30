@@ -56,15 +56,30 @@
         android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
         android:orientation="vertical">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3">
+            android:layout_weight="3"
+            android:id="@+id/plz">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sample">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/test">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/test2"/>
+
+            </FrameLayout>
             <ImageView
                 android:id="@+id/res_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/sample_image"/>
+                android:background="#E0E0E0"/>
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -94,6 +109,7 @@
 
 
         </RelativeLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
