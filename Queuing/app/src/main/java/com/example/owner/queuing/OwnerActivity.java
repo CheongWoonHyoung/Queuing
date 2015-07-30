@@ -1,8 +1,11 @@
 package com.example.owner.queuing;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -19,6 +22,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,6 +44,7 @@ public class OwnerActivity extends Activity {
     EditText name;
     EditText phone;
     EditText company;
+    CusListAdpater adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,17 +54,42 @@ public class OwnerActivity extends Activity {
         name = (EditText)findViewById(R.id.input_name);
         phone = (EditText)findViewById(R.id.input_phoneno);
         company = (EditText)findViewById(R.id.input_number);
+        final DBManager_login manager = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+        final String res_name = manager.returnUser();
 
 
         final ArrayList<CusListItem> items = new ArrayList<CusListItem>();
         final CusListAdpater adapter = new CusListAdpater(this,R.layout.cus_listview,items);
+
+        String jsonall = null;
+        String url = "http://52.69.163.43/line_parse.php?name="+"Taylors";
+        try {
+            jsonall =new JsonParser_toString().execute(url).get();
+            String jsonString = jsonall;
+            JSONArray jArray = null;
+            jArray = new JSONArray(jsonString);
+            JSONObject json_data = null;
+
+            for(int i=0; i<jArray.length(); i++){
+                json_data = jArray.getJSONObject(i);
+                items.add(new CusListItem(String.valueOf(json_data.getInt("pid")),json_data.getString("name"),json_data.getString("method"),json_data.getString("number")));
+            }
+        } catch (Exception e){
+            Log.e("JSON", "Error in JSONPARSER : " + e.toString());
+        }
+        Log.e("JSON", "whole json result : " + jsonall);
+
+
+
+
+
         final ListView cus_listview = (ListView) findViewById(R.id.cus_listview);
         cus_listview.setAdapter(adapter);
         cus_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 LinearLayout cus_item = (LinearLayout) view.findViewById(R.id.cus_item);
-                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "using Offline");
+                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "using Offline","Taylors");
                 ExpandAnimation ex_Ani = new ExpandAnimation(cus_item, 500);
                 ex_Ani.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -84,14 +120,18 @@ public class OwnerActivity extends Activity {
 
             }
         });
+
         reservDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 adapter.add(new CusListItem("z", reservDialog._name, reservDialog._phone, reservDialog._number));
-                new HttpPostRequest().execute("in",reservDialog._name,reservDialog._number,"using Offline");
+
                 name.clearComposingText();
                 phone.clearComposingText();
                 company.clearComposingText();
+
+
+                new HttpPostRequest().execute("in", reservDialog._name, reservDialog._number, "using Offline", res_name);
 
             }
         });
@@ -103,7 +143,34 @@ public class OwnerActivity extends Activity {
                 reservDialog.show();
             }
         });
+
+
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getApplicationContext().registerReceiver(mReceiver,new IntentFilter("key"));
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        getApplicationContext().unregisterReceiver(mReceiver);
+    }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String name = intent.getStringExtra("name");
+            String num = intent.getStringExtra("num");
+            Log.d("MSG_RECEIVED", "message : " + name + " " + num);
+            adapter.add(new CusListItem("z", name,"ADDING BY APP", num));
+        }
+    };
 
 
     @Override
@@ -135,14 +202,15 @@ public class OwnerActivity extends Activity {
             String sResult = "Error";
 
             try {
-                URL url = new URL("http://52.69.163.43/line_test.php/");
+                URL url = new URL("http://52.69.163.43/line_test.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestMethod("POST");
                 String body = "in_out=" + info[0] +"&"
                         +"name=" + info[1] + "&"
                         +"number=" + info[2] + "&"
-                        +"method=" + info[3];
+                        +"method=" + info[3] + "&"
+                        +"resname=" + info[4];
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(body);
@@ -156,6 +224,7 @@ public class OwnerActivity extends Activity {
                 while ((str = reader.readLine()) != null) {
                     builder.append(str);
                 }
+
                 sResult     = builder.toString();
                 Log.e("NPC:",sResult);
             } catch (MalformedURLException e) {
@@ -171,4 +240,5 @@ public class OwnerActivity extends Activity {
 
         }
     }
+
 }

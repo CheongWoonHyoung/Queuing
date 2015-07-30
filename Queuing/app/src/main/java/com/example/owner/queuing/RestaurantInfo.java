@@ -2,6 +2,7 @@ package com.example.owner.queuing;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;

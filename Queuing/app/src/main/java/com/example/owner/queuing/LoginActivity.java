@@ -47,7 +47,7 @@ public class LoginActivity extends Activity {
     Context context;
     String regid;
     TextView login;
-
+    String isRight;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +73,13 @@ public class LoginActivity extends Activity {
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User_ID = u_name.getText().toString();
-                new HttpPostRequest().execute(u_name.getText().toString(), u_email.getText().toString(), u_passwd.getText().toString(), "up",regid);
+                Log.e("length",":"+u_name.getText().toString().length());
+                if(u_name.getText().toString().length()==0 || u_email.toString().length()==0 || u_passwd.toString().length()==0) Toast.makeText(getApplicationContext(),"Input All information",Toast.LENGTH_LONG).show();
+                else if(u_passwd.toString().length()<8) Toast.makeText(getApplicationContext(),"Input at least 8 digit password",Toast.LENGTH_LONG).show();
+                else{
+                    User_ID = u_name.getText().toString();
+                    new HttpPostRequest().execute(u_name.getText().toString(), u_email.getText().toString(), u_passwd.getText().toString(), "up",regid);
+                }
             }
         });
 
@@ -124,7 +129,7 @@ public class LoginActivity extends Activity {
                     builder.append(str);
                 }
                 sResult     = builder.toString();
-
+                isRight     = sResult;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -136,23 +141,23 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(String result){
             Log.d("SINGUP_RESULT", result);
-            Log.d("SINGUP_RESULT",User_ID);
+            Log.d("SINGUP_RESULT", User_ID);
 
-            if(result.length() == 4){
-                Toast.makeText(mycontext,"fail",Toast.LENGTH_SHORT).show();
-            }else if(result.length() == 8 ) {
+            if(result.length() == 8 ) {
                 final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                 dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                 dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
                 dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
                 startActivity(new Intent(mycontext, CustomerActivity.class));
                 finish();
-            }else{
+            }else if(result.length() == 5 ){
                 final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                 dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                 dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
                 startActivity(new Intent(mycontext, OwnerActivity.class));
                 finish();
+            }else{
+                Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG);
             }
         }
     }

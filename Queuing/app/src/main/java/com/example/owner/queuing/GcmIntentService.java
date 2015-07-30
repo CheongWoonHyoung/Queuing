@@ -45,7 +45,10 @@ public class GcmIntentService extends IntentService
         // The getMessageType() intent parameter must be the intent you received
         // in your BroadcastReceiver.
         String messageType = gcm.getMessageType(intent);
+        String u_name = extras.getString("user_name");
+        String num_party = extras.getString("num_party");
 
+        Log.d("NPC","user name is" + extras.get("user_name"));
         if (!extras.isEmpty())
         { // has effect of unparcelling Bundle
       /*
@@ -55,6 +58,7 @@ public class GcmIntentService extends IntentService
        */
             if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType))
             {
+
                 sendNotification("Send error: " + extras.toString());
             }
             else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType))
@@ -66,7 +70,8 @@ public class GcmIntentService extends IntentService
             {
                 String msg = intent.getStringExtra("msg");
                 // Post notification of received message.
-//            sendNotification("Received: " + extras.toString());
+//             sendNotification("Received: " + extras.toString());
+                updateMyActivity(getApplicationContext(),u_name,num_party);
                 sendNotification("Received: " + msg);
                 Log.i("IntentService onHandle", "Received: " + extras.toString());
             }
@@ -79,6 +84,14 @@ public class GcmIntentService extends IntentService
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
+
+    private void updateMyActivity(Context context, String name, String num){
+        Intent intent = new Intent("key");
+        intent.putExtra("name",name);
+        intent.putExtra("num",num);
+      //  intent.putExtra("msg",msg);
+        context.sendBroadcast(intent);
+    }
     private void sendNotification(String msg)
     {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
