@@ -18,6 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,16 +44,41 @@ public class OwnerActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_owner);
 
+        final DBManager_login manager = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+        final String res_name = manager.returnUser();
+
 
         final ArrayList<CusListItem> items = new ArrayList<CusListItem>();
         final CusListAdpater adapter = new CusListAdpater(this,R.layout.cus_listview,items);
+
+        String jsonall = null;
+        String url = "http://52.69.163.43/line_parse.php?name="+"Taylors";
+        try {
+            jsonall =new JsonParser_toString().execute(url).get();
+            String jsonString = jsonall;
+            JSONArray jArray = null;
+            jArray = new JSONArray(jsonString);
+            JSONObject json_data = null;
+
+            for(int i=0; i<jArray.length(); i++){
+                json_data = jArray.getJSONObject(i);
+                items.add(new CusListItem(String.valueOf(json_data.getInt("pid")),json_data.getString("name"),json_data.getString("method"),json_data.getString("number")));
+            }
+        } catch (Exception e){
+            Log.e("JSON", "Error in JSONPARSER : " + e.toString());
+        }
+        Log.e("JSON", "whole json result : " + jsonall);
+
+
+
+
         final ListView cus_listview = (ListView) findViewById(R.id.cus_listview);
         cus_listview.setAdapter(adapter);
         cus_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 LinearLayout cus_item = (LinearLayout) view.findViewById(R.id.cus_item);
-                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "using Offline");
+                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "using Offline","Taylors");
                 ExpandAnimation ex_Ani = new ExpandAnimation(cus_item, 500);
                 ex_Ani.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -92,6 +124,8 @@ public class OwnerActivity extends Activity {
                 reservDialog.show();
             }
         });
+
+
     }
 
 
@@ -131,7 +165,8 @@ public class OwnerActivity extends Activity {
                 String body = "in_out=" + info[0] +"&"
                         +"name=" + info[1] + "&"
                         +"number=" + info[2] + "&"
-                        +"method=" + info[3];
+                        +"method=" + info[3] + "&"
+                        +"resname=" + info[4];
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(body);
@@ -160,4 +195,5 @@ public class OwnerActivity extends Activity {
 
         }
     }
+
 }
