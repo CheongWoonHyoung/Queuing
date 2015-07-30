@@ -72,9 +72,9 @@ public class LoginActivity extends Activity {
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("length",":"+u_name.getText().toString().length());
-                if(u_name.getText().toString().length()==0 || u_email.toString().length()==0 || u_passwd.toString().length()==0) Toast.makeText(getApplicationContext(),"Input All information",Toast.LENGTH_LONG).show();
-                else if(u_passwd.toString().length()<8) Toast.makeText(getApplicationContext(),"Input at least 8 digit password",Toast.LENGTH_LONG).show();
+                Log.e("length", ":" + u_name.getText().toString().length() + " " + u_email.toString().length() + " " + u_passwd.toString().length());
+                if(u_name.getText().toString().length()==0 || u_email.getText().toString().length()==0 || u_passwd.getText().toString().length()==0) Toast.makeText(getApplicationContext(),"Input All information",Toast.LENGTH_SHORT).show();
+                else if(u_passwd.getText().toString().length()<8) Toast.makeText(getApplicationContext(),"Input at least 8 digit password",Toast.LENGTH_SHORT).show();
                 else{
                     User_ID = u_name.getText().toString();
                     new HttpPostRequest().execute(u_name.getText().toString(), u_email.getText().toString(), u_passwd.getText().toString(), "up",regid);
@@ -146,6 +146,7 @@ public class LoginActivity extends Activity {
                 final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                 dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                 dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
+                dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
                 startActivity(new Intent(mycontext, OwnerActivity.class));
                 finish();
             }else{

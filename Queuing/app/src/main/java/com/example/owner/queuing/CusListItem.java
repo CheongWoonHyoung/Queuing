@@ -17,4 +17,8 @@ public class CusListItem {
         this.cus_method = method;
     }
 
+    public String getCus_name(){
+        return cus_name;
+    }
+
 }

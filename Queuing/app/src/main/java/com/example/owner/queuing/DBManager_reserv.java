@@ -66,7 +66,7 @@ public class DBManager_reserv extends SQLiteOpenHelper {
     }
     public String returnName() {
         SQLiteDatabase db = getReadableDatabase();
-        String str = "nothing";
+        String str = "n";
 
         Cursor cursor = db.rawQuery("select res_name from RESERV_LIST", null);
         while(cursor.moveToNext()) {

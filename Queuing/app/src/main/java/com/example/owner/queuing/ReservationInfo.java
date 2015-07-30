@@ -57,7 +57,7 @@ public class ReservationInfo extends Activity{
         super.onCreate(savedInstanceState);
         DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test.db", null, 1);
         Log.e("123",":"+manager.returnData());
-        if(manager.returnData().length()==7){
+        if(manager.returnData().length()==1){
             marking = 0;
         }else{
             marking = 1;

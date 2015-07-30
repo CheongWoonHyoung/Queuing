@@ -41,6 +41,9 @@ import java.util.ArrayList;
 public class OwnerActivity extends Activity {
     ReservDialog reservDialog;
     CusListAdpater adapter;
+    ExpandAnimation ex_Ani;
+    ArrayList<CusListItem> items;
+    ListView cus_listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +52,9 @@ public class OwnerActivity extends Activity {
 
         final DBManager_login manager = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
         final String res_name = manager.returnUser();
-
-
-        final ArrayList<CusListItem> items = new ArrayList<CusListItem>();
-        final CusListAdpater adapter = new CusListAdpater(this,R.layout.cus_listview,items);
+        Log.d("MANAGER","Res name : " + res_name);
+        items = new ArrayList<CusListItem>();
+        adapter = new CusListAdpater(this,R.layout.cus_listview,items);
 
         String jsonall = null;
         String url = "http://52.69.163.43/line_parse.php?name="+"Taylors";
@@ -76,14 +78,15 @@ public class OwnerActivity extends Activity {
 
 
 
-        final ListView cus_listview = (ListView) findViewById(R.id.cus_listview);
+        cus_listview = (ListView) findViewById(R.id.cus_listview);
         cus_listview.setAdapter(adapter);
         cus_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "using Offline", "Taylors");
                 LinearLayout cus_item = (LinearLayout) view.findViewById(R.id.cus_item);
-                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "using Offline","Taylors");
-                ExpandAnimation ex_Ani = new ExpandAnimation(cus_item, 500);
+
+                ex_Ani = new ExpandAnimation(cus_item, 500);
                 ex_Ani.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
@@ -153,8 +156,45 @@ public class OwnerActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             String name = intent.getStringExtra("name");
             String num = intent.getStringExtra("num");
+            int find_index = 0;
             Log.d("MSG_RECEIVED", "message : " + name + " " + num);
-            adapter.add(new CusListItem("z", name,"ADDING BY APP", num));
+            if(num.length()==4) {
+                for (int i = 0; i < items.size(); i++) {
+                    if (name.equals(items.get(i).getCus_name())) {
+                        find_index = i;
+                        break;
+                    }
+                }
+                if (cus_listview.getChildAt(find_index) == null) {
+                    items.remove(find_index);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    LinearLayout cus_item = (LinearLayout) cus_listview.getChildAt(find_index).findViewById(R.id.cus_item);
+                    ex_Ani = new ExpandAnimation(cus_item, 500);
+                    final int i = find_index;
+                    ex_Ani.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            items.remove(i);
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    cus_item.startAnimation(ex_Ani);
+                }
+            }
+            else{
+                Log.d("MSG",num);
+                adapter.add(new CusListItem("z", name,"ADDING BY APP", num));
+            }
         }
     };
 
