@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,12 +31,18 @@ import java.util.ArrayList;
 
 public class OwnerActivity extends Activity {
     ReservDialog reservDialog;
-
+    EditText name;
+    EditText phone;
+    EditText company;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_owner);
+
+        name = (EditText)findViewById(R.id.input_name);
+        phone = (EditText)findViewById(R.id.input_phoneno);
+        company = (EditText)findViewById(R.id.input_number);
 
 
         final ArrayList<CusListItem> items = new ArrayList<CusListItem>();
@@ -82,6 +89,10 @@ public class OwnerActivity extends Activity {
             public void onCancel(DialogInterface dialogInterface) {
                 adapter.add(new CusListItem("z", reservDialog._name, reservDialog._phone, reservDialog._number));
                 new HttpPostRequest().execute("in",reservDialog._name,reservDialog._number,"using Offline");
+                name.clearComposingText();
+                phone.clearComposingText();
+                company.clearComposingText();
+
             }
         });
 

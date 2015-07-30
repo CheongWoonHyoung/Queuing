@@ -40,6 +40,7 @@
                     android:layout_height="50dp"
                     android:text="Taylor`s steak House"
                     android:textSize="20dp"
+                    android:textStyle="bold"
                     android:gravity="center_vertical|bottom"
                     android:paddingLeft="10dp"
                     android:paddingBottom="5dp"
