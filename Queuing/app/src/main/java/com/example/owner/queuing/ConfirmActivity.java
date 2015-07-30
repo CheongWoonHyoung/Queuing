@@ -117,8 +117,6 @@ public class ConfirmActivity extends Activity{
             DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
             manager.insert("insert into RESERV_LIST values (null,'"+dummy_name+"','"+confirm_party.getText().toString()+"')");
             Toast.makeText(getApplicationContext(),"Queuing complete!",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(),ReservationInfo.class);
-            startActivity(intent);
             finish();
         }
     }

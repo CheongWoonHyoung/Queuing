@@ -148,6 +148,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             }
 
         }
+        AddMarker();
 
         loc_btn_frame.bringToFront();
         mFrame.bringToFront();
@@ -306,7 +307,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         double x, y;
         int remaining_num;
 
-        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
+
+
+
 
         try{
             jArray = new JSONArray(jsonString);
@@ -319,6 +322,17 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 res_name = json_data.getString("name");
                 cuisine = json_data.getString("cuisine");
                 remaining_num = json_data.getInt("line_num");
+                BitmapDescriptor bitmapDescriptor;
+
+                if(remaining_num >=0 && remaining_num <6){
+                    bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+                }else if(remaining_num >=6 && remaining_num <11){
+                    bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+                }else if(remaining_num >= 11 && remaining_num< 21){
+                    bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
+                }else{
+                    bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                }
                 mGoogleMap.addMarker(new MarkerOptions()
                         .icon(bitmapDescriptor)
                         .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " lefts"));
@@ -328,6 +342,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
 
         mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -378,6 +394,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 intent.putExtra("phone_num",phone_num);
                 intent.putExtra("timing",timing);
                 intent.putExtra("dummy_name",dummy_name);
+
 
                 startActivity(intent);
             }
@@ -518,8 +535,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     protected void onResume() {
         super.onResume();
         Log.e("onResume","welcome");
-        setUpMapIfNeeded();
-        AddMarker();
+
     }
 
     @Override

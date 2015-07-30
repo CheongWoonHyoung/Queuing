@@ -90,7 +90,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         timing = intent.getExtras().getString("timing");
         dummy_name = intent.getExtras().getString("dummy_name");
         num_remain = intent.getExtras().getInt("line_num");
-        Log.d("RESINFO","number line is " + num_remain);
+        //Log.d("RESINFO","number line is " + num_remain);
         name_v = (TextView) findViewById(R.id.rest_name);
         cuisine_v = (TextView) findViewById(R.id.cuisine);
         loc_v = (TextView) findViewById(R.id.loc);
@@ -99,7 +99,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         num_lefts_v = (TextView) findViewById(R.id.num_lefts);
         sample = (RelativeLayout)findViewById(R.id.sample);
         res_image_v = (ImageView) findViewById(R.id.res_image);
-        Log.e("pass", dummy_name);
+        //Log.e("pass", dummy_name);
         name_v.setText(rest_name);
         loc_v.setText(location);
         cuisine_v.setText(kinds);
