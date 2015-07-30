@@ -135,9 +135,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/confirm_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Michael Jordan"
                         android:textSize="20dp"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
@@ -148,9 +148,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/confirm_party"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="3"
                         android:textSize="20dp"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
@@ -161,6 +161,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/confirm_waitingtime"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="20 min"
@@ -175,6 +176,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/confirm_arrivaltime"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="12 : 30"
@@ -188,6 +190,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/confirm_fee"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="0.5 USD"

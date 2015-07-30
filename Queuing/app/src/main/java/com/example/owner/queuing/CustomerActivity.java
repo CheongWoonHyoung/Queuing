@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -83,6 +84,11 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private Animation tran_downward = null;
     private HashMap<String, String> markers;
     private BackPressCloseHandler backPressCloseHandler;
+
+    /**
+     *
+     */
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +151,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         loc_btn_frame.bringToFront();
         mFrame.bringToFront();
-        AddMarker();
+
 
         //top menu sliding animation
 
@@ -313,7 +319,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 res_name = json_data.getString("name");
                 cuisine = json_data.getString("cuisine");
                 remaining_num = json_data.getInt("line_num");
-
                 mGoogleMap.addMarker(new MarkerOptions()
                         .icon(bitmapDescriptor)
                         .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " lefts"));
@@ -512,7 +517,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e("onResume","welcome");
         setUpMapIfNeeded();
+        AddMarker();
     }
 
     @Override
