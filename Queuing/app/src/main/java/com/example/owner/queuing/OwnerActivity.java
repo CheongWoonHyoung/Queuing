@@ -53,10 +53,6 @@ public class OwnerActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_owner);
-
-        name = (EditText)findViewById(R.id.input_name);
-        phone = (EditText)findViewById(R.id.input_phoneno);
-        company = (EditText)findViewById(R.id.input_number);
         final DBManager_login manager = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
         final String res_name = manager.returnUser();
         Log.d("MANAGER","Res name : " + res_name);
@@ -90,7 +86,7 @@ public class OwnerActivity extends Activity {
         cus_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "using Offline", "Taylors");
+                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "OFFLINE", "Taylors");
                 LinearLayout cus_item = (LinearLayout) view.findViewById(R.id.cus_item);
 
                 ex_Ani = new ExpandAnimation(cus_item, 500);
@@ -127,14 +123,11 @@ public class OwnerActivity extends Activity {
         reservDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                adapter.add(new CusListItem("z", reservDialog._name, reservDialog._phone, reservDialog._number));
-
-                name.clearComposingText();
-                phone.clearComposingText();
-                company.clearComposingText();
+                adapter.add(new CusListItem("z", reservDialog._name, "OFFLINE", reservDialog._number));
+                Log.d("NULL","null : " + name + " "  + phone + " " + company);
 
 
-                new HttpPostRequest().execute("in", reservDialog._name, reservDialog._number, "using Offline", res_name);
+                new HttpPostRequest().execute("in", reservDialog._name, reservDialog._number, "OFFLINE", res_name);
 
             }
         });
@@ -144,6 +137,8 @@ public class OwnerActivity extends Activity {
             @Override
             public void onClick(View view) {
                 reservDialog.show();
+
+
             }
         });
 

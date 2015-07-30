@@ -43,6 +43,13 @@ public class ReservDialog extends Dialog implements View.OnTouchListener {
             _name=name.getText().toString();
             _phone=phone.getText().toString();
             _number=number.getText().toString();
+            name.setText(null);
+            phone.setText(null);
+            number.setText(null);
+            name.setHint("Input your name");
+            phone.setHint("Input your Phone number");
+            number.setHint("Input your Company number");
+            name.requestFocus();
             cancel();
         }
         if(view == Cancel){
