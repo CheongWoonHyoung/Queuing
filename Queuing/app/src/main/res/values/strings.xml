@@ -33,4 +33,6 @@
     <string name="myinfo">My Info</string>
     <string name="myreservationinfo">Reservation Info</string>
     <string name="favorite">Favorites</string>
+    <string name="sign_in">Sign In</string>
+    <string name="team_name">N P C</string>
 </resources>

@@ -27,6 +27,7 @@
             >
             <TextView
                 android:layout_width="match_parent"
+                android:textStyle="bold"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Confirm Info"
@@ -72,6 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/info_name"
+                        android:textStyle="bold"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"
                         />
@@ -83,6 +85,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textStyle="bold"
                         android:text="@string/info_party"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"
@@ -96,6 +99,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/info_watingtime"
+                        android:textStyle="bold"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"/>
                 </LinearLayout>
@@ -107,6 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/info_arrivaltime"
+                        android:textStyle="bold"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"/>
                 </LinearLayout>
@@ -117,6 +122,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textStyle="bold"
                         android:text="@string/info_fee"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"/>
@@ -240,6 +246,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
+                android:textStyle="bold"
                 android:text="Confirm"
                 android:textSize="25dp"/>
         </LinearLayout>

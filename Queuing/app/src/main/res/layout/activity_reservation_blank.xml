@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="Reservation Info"
                 android:textSize="25dp"
                 android:textColor="#000000"

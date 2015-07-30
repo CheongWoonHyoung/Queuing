@@ -46,8 +46,8 @@ public class LoginActivity extends Activity {
     SharedPreferences prefs;
     Context context;
     String regid;
+    TextView login;
     String isRight;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,7 @@ public class LoginActivity extends Activity {
         final EditText u_name   = (EditText)findViewById(R.id.u_name);
         final EditText u_email  = (EditText)findViewById(R.id.u_email);
         final EditText u_passwd = (EditText)findViewById(R.id.u_passwd);
+        login = (TextView)findViewById(R.id.login);
         TextView sign_up          = (TextView)  findViewById(R.id.login_button);
 
         context = getApplicationContext();
@@ -82,6 +83,13 @@ public class LoginActivity extends Activity {
             }
         });
 
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LoginLoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

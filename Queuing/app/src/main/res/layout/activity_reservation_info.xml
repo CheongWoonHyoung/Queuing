@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="Reservation Info"
                 android:textSize="25dp"
                 android:textColor="#000000"
@@ -72,6 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/info_name"
+                        android:textStyle="bold"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"
                         />
@@ -84,6 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/info_party"
+                        android:textStyle="bold"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"
                         />
@@ -96,6 +99,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/info_watingtime"
+                        android:textStyle="bold"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"/>
                 </LinearLayout>
@@ -108,6 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/info_fee"
+                        android:textStyle="bold"
                         android:textSize="20dp"
                         android:gravity="right|center_vertical"/>
                 </LinearLayout>
@@ -190,6 +195,7 @@
                     android:layout_height="match_parent"
                     android:textColor="#009688"
                     android:textSize="60dp"
+                    android:textStyle="bold"
                     android:paddingLeft="70dp"
                     android:gravity="center_vertical|right"
                     android:paddingRight="20dp"
@@ -205,12 +211,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="#212121"
+                    android:textStyle="bold"
                     android:textSize="60dp"
                     android:gravity="center_vertical" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="20dp"
+                    android:textStyle="bold"
                     android:textColor="#009688"
                     android:gravity="bottom"
                     android:text="Left"
@@ -253,6 +261,7 @@
             android:background="#F44336"
             android:elevation="5dp">
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/reserv_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

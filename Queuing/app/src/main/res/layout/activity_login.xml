@@ -11,7 +11,40 @@
         android:orientation="vertical"
         android:background="@color/material_deep_teal_500">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:background="#00796B">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:text="Have an account?"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:layout_marginRight="15dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="60dp"
+                android:id="@+id/login"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                android:text="LogIn"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:elevation="5dp"
+                android:background="@drawable/group_login_btn"/>
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></LinearLayout>
 
             <EditText
                 android:id="@+id/u_name"
@@ -65,6 +98,7 @@
                 android:text="@string/login_button"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
+                android:textStyle="bold"
                 android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:gravity="center"

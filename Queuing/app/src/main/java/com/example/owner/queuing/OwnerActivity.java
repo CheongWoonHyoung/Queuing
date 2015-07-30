@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,6 +41,9 @@ import java.util.ArrayList;
 
 public class OwnerActivity extends Activity {
     ReservDialog reservDialog;
+    EditText name;
+    EditText phone;
+    EditText company;
     CusListAdpater adapter;
     ExpandAnimation ex_Ani;
     ArrayList<CusListItem> items;
@@ -50,6 +54,9 @@ public class OwnerActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_owner);
 
+        name = (EditText)findViewById(R.id.input_name);
+        phone = (EditText)findViewById(R.id.input_phoneno);
+        company = (EditText)findViewById(R.id.input_number);
         final DBManager_login manager = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
         final String res_name = manager.returnUser();
         Log.d("MANAGER","Res name : " + res_name);
@@ -121,7 +128,14 @@ public class OwnerActivity extends Activity {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 adapter.add(new CusListItem("z", reservDialog._name, reservDialog._phone, reservDialog._number));
-                new HttpPostRequest().execute("in", reservDialog._name, reservDialog._number, "using Offline", "Taylors");
+
+                name.clearComposingText();
+                phone.clearComposingText();
+                company.clearComposingText();
+
+
+                new HttpPostRequest().execute("in", reservDialog._name, reservDialog._number, "using Offline", res_name);
+
             }
         });
 

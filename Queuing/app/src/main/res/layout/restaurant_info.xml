@@ -27,6 +27,7 @@
             >
             <TextView
                 android:id="@+id/rest_name"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -130,6 +131,7 @@
                         android:layout_height="match_parent"
                         android:textColor="#009688"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:paddingLeft="40dp"
                         android:text="@string/info_category"
                         android:gravity="center_vertical"
@@ -167,6 +169,7 @@
                         android:paddingLeft="40dp"
                         android:textColor="#009688"
                         android:textSize="15dp"
+                        android:textStyle="bold"
                         android:text="@string/info_num"
                         android:gravity="center_vertical"
                         android:layout_marginRight="10dp"/>
@@ -203,6 +206,7 @@
                         android:textSize="15dp"
                         android:paddingLeft="40dp"
                         android:text="@string/info_time"
+                        android:textStyle="bold"
                         android:gravity="center_vertical"
                         android:layout_marginRight="10dp"/>
                 </LinearLayout>
@@ -245,6 +249,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textColor="#009688"
+                            android:textStyle="bold"
                             android:textSize="60dp"
                             android:paddingLeft="70dp"
                             android:gravity="center_vertical"
@@ -260,12 +265,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textColor="#212121"
+                            android:textStyle="bold"
                             android:textSize="60dp"
                             android:gravity="center_vertical"
                             android:text="11"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textStyle="bold"
                             android:textSize="20dp"
                             android:textColor="#009688"
                             android:gravity="bottom"
@@ -295,6 +302,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textStyle="bold"
             android:gravity="center"
             android:textColor="#FFFFFF"
             android:text="@string/queue_btn"
