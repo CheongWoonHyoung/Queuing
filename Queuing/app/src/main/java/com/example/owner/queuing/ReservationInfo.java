@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -42,6 +43,8 @@ public class ReservationInfo extends Activity{
 
     FrameLayout frame_back_btn_reservationinfo;
     FrameLayout frame_back_btn_reservationinfo_blank;
+    FrameLayout realback_res;
+    FrameLayout realback_res_blank;
     int marking =0;
 
     private TextView reserv_name;
@@ -66,10 +69,24 @@ public class ReservationInfo extends Activity{
             case 0:
                 setContentView(R.layout.activity_reservation_blank);
                 frame_back_btn_reservationinfo_blank = (FrameLayout)findViewById(R.id.reservationinfo_blank_back_btn);
+                realback_res_blank = (FrameLayout)findViewById(R.id.realback_res_info_blank);
                 frame_back_btn_reservationinfo_blank.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         finish();
+                    }
+                });
+
+                frame_back_btn_reservationinfo_blank.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            realback_res_blank.setBackgroundResource(R.drawable.ic_navigate_before_black_24dp);
+                        }
+                        if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                            realback_res_blank.setBackgroundResource(R.drawable.ic_navigate_before_white_24dp);
+                        }
+                        return false;
                     }
                 });
                 break;
@@ -86,7 +103,7 @@ public class ReservationInfo extends Activity{
                 reserv_left = (TextView) findViewById(R.id.reserv_left);
                 reserv_cancel = (TextView) findViewById(R.id.reserv_cancel);
                 frame_back_btn_reservationinfo = (FrameLayout)findViewById(R.id.reservationinfo_back_btn);
-
+                realback_res = (FrameLayout)findViewById(R.id.realback_res_info);
                 final DBManager_reserv dbManagerReserv = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
                 reserv_name.setText(u_name);
                 reserv_party.setText(dbManagerReserv.returnParty());
@@ -100,6 +117,18 @@ public class ReservationInfo extends Activity{
                     @Override
                     public void onClick(View view) {
                         finish();
+                    }
+                });
+                frame_back_btn_reservationinfo.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            realback_res.setBackgroundResource(R.drawable.ic_navigate_before_black_24dp);
+                        }
+                        if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                            realback_res.setBackgroundResource(R.drawable.ic_navigate_before_white_24dp);
+                        }
+                        return false;
                     }
                 });
                 reserv_cancel.setOnClickListener(new View.OnClickListener() {

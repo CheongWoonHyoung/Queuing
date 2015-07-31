@@ -27,10 +27,10 @@
                     android:id="@+id/back_btn_login"
                     android:paddingTop="5dp">
                     <LinearLayout
+                        android:id="@+id/realback_signin"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-
-                        android:background="@drawable/ic_keyboard_arrow_left_white_24dp">
+                        android:background="@drawable/ic_navigate_before_white_24dp">
 
                     </LinearLayout>
                 </LinearLayout>
