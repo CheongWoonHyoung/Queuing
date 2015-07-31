@@ -86,10 +86,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private BackPressCloseHandler backPressCloseHandler;
     ArrayList markerlist;
     Marker marker;
-    /**
-     *
-     */
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,11 +148,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         }
 
-
         loc_btn_frame.bringToFront();
         mFrame.bringToFront();
-
-
         //top menu sliding animation
 
         tran_upward             = AnimationUtils.loadAnimation(this,R.anim.tran_upward);
@@ -197,7 +190,51 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         ResListAdapter adapter = new ResListAdapter(this,R.layout.res_listview,items);
         ListView res_listview = (ListView) findViewById(R.id.res_listview);
         res_listview.setAdapter(adapter);
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String jsonall = null;
+                JSONArray jArray = null;
+                String cuisine = null;
+                int line_num = 0;
+                try {
+                    jsonall = new req_specific_info().execute(marker.getTitle()).get();
+                } catch (Exception e){
+                    Log.e("JSON", "Error in JSONPARSER : " + e.toString());
+                }
+                Log.d("JSON", "whole json result : " + jsonall);
 
+                try {
+                    jArray = new JSONArray(jsonall);
+                    JSONObject json_data = null;
+
+                    for (int i = 0; i < jArray.length(); i++) {
+                        json_data = jArray.getJSONObject(i);
+                        line_num = json_data.getInt("line_num");
+                        cuisine = json_data.getString("cuisine");
+
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                BitmapDescriptor bitmapDescriptor;
+                if(line_num >=0 && line_num <6){
+                    bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+                }else if(line_num >=6 && line_num <11){
+                    bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+                }else if(line_num >= 11 && line_num< 21){
+                    bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
+                }else{
+                    bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+                }
+
+                marker.setSnippet(cuisine + " / " + line_num + " lefts");
+                marker.setIcon(bitmapDescriptor);
+                marker.showInfoWindow();
+
+                return false;
+            }
+        });
     }
 
     private View.OnClickListener myOnClick=new View.OnClickListener(){
@@ -311,9 +348,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         int remaining_num;
 
 
-
-
-
         try{
             jArray = new JSONArray(jsonString);
             JSONObject json_data = null;
@@ -338,7 +372,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 }
                     marker = mGoogleMap.addMarker(new MarkerOptions()
                         .icon(bitmapDescriptor)
-                        .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " lefts"));
+                            .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " lefts"));
 
 
             }
@@ -538,7 +572,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     protected void onResume() {
         super.onResume();
         Log.e("onResume", "welcome");
-
 
         AddMarker();
 

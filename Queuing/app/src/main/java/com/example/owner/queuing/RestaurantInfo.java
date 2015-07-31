@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -49,6 +51,7 @@ import java.util.concurrent.ExecutionException;
 public class RestaurantInfo extends Activity implements NumberPicker.OnValueChangeListener{
 
     FrameLayout frame_back_btn_resinfo;
+    FrameLayout real_back;
     RelativeLayout btn_queue;
     LinearLayout btn_confirm;
     LinearLayout btn_cancel;
@@ -107,13 +110,25 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         timing_v.setText(timing);
         num_lefts_v.setText(Integer.toString(num_remain));
         frame_back_btn_resinfo = (FrameLayout)findViewById(R.id.res_back_btn);
+        real_back = (FrameLayout) findViewById(R.id.real_back);
         frame_back_btn_resinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
+        frame_back_btn_resinfo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                    real_back.setBackgroundResource(R.drawable.ic_navigate_before_black_24dp);
+                }
+                if(event.getAction()==MotionEvent.ACTION_UP|| event.getAction()==MotionEvent.ACTION_CANCEL){
+                    real_back.setBackgroundResource(R.drawable.ic_navigate_before_white_24dp);
+                }
+                return false;
+            }
+        });
         btn_queue = (RelativeLayout)findViewById(R.id.btn_queue);
         btn_queue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +172,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
             btn_confirm = (LinearLayout)dialog.findViewById(R.id.btn_confirm);
             numberPicker =(NumberPicker) dialog.findViewById(R.id.picker_popup);
 
-            btn_cancel.setOnClickListener(myOnClick);
+            //btn_cancel.setOnClickListener(myOnClick);
             btn_confirm.setOnClickListener(myOnClick);
 
             numberPicker.setMinValue(1);

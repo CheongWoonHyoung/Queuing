@@ -54,7 +54,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/ic_view_headline_white_24dp"
+                    android:background="@drawable/ic_view_headline"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true">
@@ -241,7 +241,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="18dp"
-                    android:background="@drawable/ic_my_location_black_24dp"/>
+                    android:background="@drawable/ic_my_location"/>
 
             </FrameLayout>
 

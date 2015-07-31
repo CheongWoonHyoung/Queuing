@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.net.URL;
 public class ConfirmActivity extends Activity{
 
     private FrameLayout frame_back_btn_confirm;
+    private FrameLayout realback_confirm;
     private TextView confirm;
     private TextView confirm_name;
     private TextView confirm_party;
@@ -57,6 +59,7 @@ public class ConfirmActivity extends Activity{
 
 
         frame_back_btn_confirm = (FrameLayout)findViewById(R.id.confirm_back_btn);
+        realback_confirm = (FrameLayout)findViewById(R.id.realback_confirm);
         confirm = (TextView) findViewById(R.id.confirm);
         frame_back_btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +71,20 @@ public class ConfirmActivity extends Activity{
             @Override
             public void onClick(View view) {
                 Log.e("pass",dummy_name);
-                new HttpPostRequest().execute("in", u_name,number,"using Queuing",dummy_name);
+                new HttpPostRequest().execute("in", u_name, number, "Queuing", dummy_name);
+            }
+        });
+
+        frame_back_btn_confirm.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    realback_confirm.setBackgroundResource(R.drawable.ic_navigate_before_black_24dp);
+                }
+                if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    realback_confirm.setBackgroundResource(R.drawable.ic_navigate_before_white_24dp);
+                }
+                return false;
             }
         });
     }
