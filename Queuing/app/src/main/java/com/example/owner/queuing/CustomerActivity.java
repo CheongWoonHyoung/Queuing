@@ -84,7 +84,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private Animation tran_downward = null;
     private HashMap<String, String> markers;
     private BackPressCloseHandler backPressCloseHandler;
-
+    ArrayList markerlist;
+    Marker marker;
     /**
      *
      */
@@ -102,7 +103,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         mmap.addView(child);
         mFrame = (FrameLayout)findViewById(R.id.frame);
         loc_btn_frame = (FrameLayout)findViewById(R.id.loc_btn_frame);
-
+        markerlist = new ArrayList();
 
         int googlePlayServiceResult = GooglePlayServicesUtil.isGooglePlayServicesAvailable(CustomerActivity.this);
         if( googlePlayServiceResult !=   ConnectionResult.SUCCESS){
@@ -147,8 +148,10 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 setMyLocation();
             }
 
+
+
         }
-        AddMarker();
+
 
         loc_btn_frame.bringToFront();
         mFrame.bringToFront();
@@ -333,7 +336,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 }else{
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
                 }
-                mGoogleMap.addMarker(new MarkerOptions()
+                    marker = mGoogleMap.addMarker(new MarkerOptions()
                         .icon(bitmapDescriptor)
                         .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " lefts"));
 
@@ -534,7 +537,10 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("onResume","welcome");
+        Log.e("onResume", "welcome");
+
+
+        AddMarker();
 
     }
 
@@ -542,6 +548,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     protected void onPause() {
         super.onPause();
         locationManager.removeUpdates(this);
+        mGoogleMap.clear();
+
     }
 
     private void setUpMapIfNeeded() {
