@@ -174,7 +174,33 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
 
             //btn_cancel.setOnClickListener(myOnClick);
             btn_confirm.setOnClickListener(myOnClick);
+            btn_confirm.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        btn_confirm.setBackgroundColor(Color.parseColor("#00695C"));
+                    }
+                    if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                        btn_confirm.setBackgroundColor(Color.parseColor("#009688"));
+                    }
+                    return false;
 
+                }
+            });
+            btn_cancel.setOnClickListener(myOnClick);
+            btn_cancel.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        btn_cancel.setBackgroundColor(Color.parseColor("#26A69A"));
+                    }
+                    if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                        btn_cancel.setBackgroundColor(Color.parseColor("#B2DFDB"));
+                    }
+                    return false;
+
+                }
+            });
             numberPicker.setMinValue(1);
             numberPicker.setMaxValue(10);
             numberPicker.setValue(2);
