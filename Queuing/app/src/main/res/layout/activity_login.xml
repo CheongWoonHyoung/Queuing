@@ -28,7 +28,7 @@
                 android:layout_marginRight="15dp"
                 android:gravity="center"/>
             <TextView
-                android:layout_width="45dp"
+                android:layout_width="50dp"
                 android:id="@+id/login"
                 android:layout_height="30dp"
                 android:gravity="center"
