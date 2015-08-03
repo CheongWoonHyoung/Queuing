@@ -14,12 +14,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -74,7 +77,11 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     FrameLayout  upward_btn2;
     LinearLayout real;
     LinearLayout up;
-    EditText search;
+
+    AutoCompleteTextView search;
+    private ArrayList<String> restaurants;
+    ArrayAdapter<String> search_adapter;
+
     private Animation tran_upward = null;
     private Animation tran_downward = null;
     private HashMap<String, String> markers;
@@ -164,7 +171,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         submenu01 = (LinearLayout) findViewById(R.id.submenu01);
         submenu02 = (LinearLayout) findViewById(R.id.submenu02);
         submenu03 = (LinearLayout) findViewById(R.id.submenu03);
-        search = (EditText) findViewById(R.id.search);
+        search = (AutoCompleteTextView) findViewById(R.id.search);
+        restaurants = new ArrayList<>();
         upward_btn.bringToFront();
 
         menu_btn.setOnClickListener(myOnClick);
@@ -179,17 +187,28 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         //about Listview
         ArrayList<ResListItem> items = new ArrayList<ResListItem>();
-        for(int i=0;i<15;i++) {
-            items.add(new ResListItem(null, "taylor's steak house", "1.5miles"));
+
+
+
+        JSONArray jArray = null;
+        String url = "http://52.69.163.43/get_info.php";
+        String jsonString = MakeJson(url);
+        String r_name;
+        String r_cuisine;
+        try {
+            JSONObject json_data = null;
+            jArray = new JSONArray(jsonString);
+            for(int i=0; i<jArray.length(); i++){
+                json_data = jArray.getJSONObject(i);
+                items.add(new ResListItem(null,json_data.getString("name"),json_data.getString("cuisine"),"0.5 miles"));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         ResListAdapter adapter = new ResListAdapter(this,R.layout.res_listview,items);
         ListView res_listview = (ListView) findViewById(R.id.res_listview);
         res_listview.setAdapter(adapter);
-
-        String jsonall = null;
-        JSONArray jArray = null;
-        String cuisine = null;
-
 
 
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -362,7 +381,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 cuisine = json_data.getString("cuisine");
                 remaining_num = json_data.getInt("line_num");
                 BitmapDescriptor bitmapDescriptor;
-
+                restaurants.add(res_name);
                 if(remaining_num >=0 && remaining_num <6){
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
                 }else if(remaining_num >=6 && remaining_num <11){
@@ -374,10 +393,11 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 }
                     marker = mGoogleMap.addMarker(new MarkerOptions()
                         .icon(bitmapDescriptor)
-                            .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " lefts"));
-
-
+                            .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " waiting"));
             }
+
+            search_adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,restaurants);
+            search.setAdapter(search_adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
