@@ -71,6 +71,7 @@ public class LoginLoginActivity extends Activity{
             public void onClick(View view) {
                 if(email.getText().toString().length()==0 || passwd.getText().toString().length()==0) Toast.makeText(getApplicationContext(),"Input All information",Toast.LENGTH_SHORT).show();
                 else{
+                    Log.e("WHOLE",email.getText().toString()+" "+passwd.getText().toString());
                     new HttpPostRequest().execute("", email.getText().toString(), passwd.getText().toString(), "in","");
                 }
             }
@@ -108,6 +109,7 @@ public class LoginLoginActivity extends Activity{
                     builder.append(str);
                 }
                 sResult     = builder.toString();
+                Log.e("WHOLE",sResult);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -120,35 +122,36 @@ public class LoginLoginActivity extends Activity{
         protected void onPostExecute(String result){
             JSONArray jarray = null;
             JSONObject json_data = null;
-
-            try {
-                jarray = new JSONArray(result);
-                for(int i = 0; i < jarray.length(); i++) {
-                    json_data = jarray.getJSONObject(i);
-                    id = json_data.getString("name");
-                    auth = json_data.getString("auth");
+            if(!result.equals("Wrong Email or Password") && !result.equals("SignIn Error")) {
+                try {
+                    jarray = new JSONArray(result);
+                    for (int i = 0; i < jarray.length(); i++) {
+                        json_data = jarray.getJSONObject(i);
+                        id = json_data.getString("name");
+                        auth = json_data.getString("auth");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            if(auth.length() == 8 ) {
-                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
-                dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
-                dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
-                dbManagerLogin.update("update IS_LOGIN set _user='" + id + "' where _id =1");
-                startActivity(new Intent(getApplicationContext(), CustomerActivity.class));
-                finish();
-            }else if(auth.length() == 5 ){
-                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
-                dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
-                dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
-                dbManagerLogin.update("update IS_LOGIN set _user='" + id + "' where _id =1");
-                startActivity(new Intent(getApplicationContext(), OwnerActivity.class));
-                finish();
-            }else{
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
-            }
+                if (auth.length() == 8) {
+                    final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+                    dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
+                    dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
+                    dbManagerLogin.update("update IS_LOGIN set _user='" + id + "' where _id =1");
+                    startActivity(new Intent(getApplicationContext(), CustomerActivity.class));
+                    finish();
+                } else if (auth.length() == 5) {
+                    final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+                    dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
+                    dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
+                    dbManagerLogin.update("update IS_LOGIN set _user='" + id + "' where _id =1");
+                    startActivity(new Intent(getApplicationContext(), OwnerActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                }
+            }else Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
         }
     }
 }
