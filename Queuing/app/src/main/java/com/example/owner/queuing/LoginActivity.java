@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -48,6 +51,7 @@ public class LoginActivity extends Activity {
     String regid;
     TextView login;
     String isRight;
+    String auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,16 +145,28 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(String result){
             Log.d("SINGUP_RESULT", result);
-            Log.d("SINGUP_RESULT", User_ID);
+            JSONArray jarray = null;
+            JSONObject json_data = null;
 
-            if(result.length() == 8 ) {
+            try {
+                jarray = new JSONArray(result);
+                for(int i = 0; i < jarray.length(); i++) {
+                    json_data = jarray.getJSONObject(i);
+                    User_ID = json_data.getString("name");
+                    auth = json_data.getString("auth");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if(auth.length() == 8 ) {
                 final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                 dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                 dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
                 dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
                 startActivity(new Intent(mycontext, CustomerActivity.class));
                 finish();
-            }else if(result.length() == 5 ){
+            }else if(auth.length() == 5 ){
                 final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                 dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                 dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
