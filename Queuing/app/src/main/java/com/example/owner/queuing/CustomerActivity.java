@@ -185,6 +185,13 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         ResListAdapter adapter = new ResListAdapter(this,R.layout.res_listview,items);
         ListView res_listview = (ListView) findViewById(R.id.res_listview);
         res_listview.setAdapter(adapter);
+
+        String jsonall = null;
+        JSONArray jArray = null;
+        String cuisine = null;
+
+
+
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -635,8 +642,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         // TODO Auto-generated method stub
 
     }
-
-
 
 
 }

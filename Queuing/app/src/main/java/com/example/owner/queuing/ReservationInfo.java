@@ -28,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
@@ -137,6 +139,24 @@ public class ReservationInfo extends Activity{
                         new HttpPostRequest().execute("out",reserv_name.getText().toString(),reserv_party.getText().toString(),"using Queuing",res_name);
                     }
                 });
+
+                String jsonall = null;
+                String url = "http://52.69.163.43/line_parse.php?name="+res_name;
+                try {
+                    jsonall =new JsonParser_toString().execute(url).get();
+                    String jsonString = jsonall;
+                    JSONArray jArray = null;
+                    jArray = new JSONArray(jsonString);
+                    JSONObject json_data = null;
+
+                    for(int i=0; i<jArray.length(); i++){
+                        json_data = jArray.getJSONObject(i);
+                        if(reserv_name.equals(json_data.getString("name"))) reserv_left.setText(String.valueOf(i));
+                    }
+                } catch (Exception e){
+                    Log.e("JSON", "Error in JSONPARSER : " + e.toString());
+                }
+                Log.e("JSON", "whole json result : " + jsonall);
                 break;
         }
     }
@@ -192,6 +212,7 @@ public class ReservationInfo extends Activity{
 
 
     }
+
 
     @Override
     public void onBackPressed() {
