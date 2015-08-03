@@ -33,12 +33,11 @@
             android:layout_height="match_parent"
             >
             <TextView
-                android:id="@+id/rest_name"
                 android:textStyle="normal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="My Page"
+                android:text="Setting"
                 android:textSize="18dp"
                 android:textColor="#FFFFFF"
                 />
@@ -165,6 +164,7 @@
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/change_name"
         android:layout_height="50dp"
         android:orientation="horizontal">
         <RelativeLayout

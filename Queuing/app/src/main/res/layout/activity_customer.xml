@@ -82,10 +82,15 @@
                     android:background="#FFFFFF"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#D4D4D4">
+
+                    </LinearLayout>
+                    <LinearLayout
                         android:id="@+id/submenu01"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginBottom="2dp"
                         android:background="@drawable/group_menu"
                         android:elevation="5dp"
                         android:orientation="horizontal">
@@ -99,8 +104,9 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/ic_star_border_black_24dp"/>
+                                    android:layout_gravity="center_vertical|right"
+                                    android:layout_marginRight="5dp"
+                                    android:background="@drawable/icon_menu_star"/>
 
                             </FrameLayout>
 
@@ -115,17 +121,22 @@
                                 android:gravity="center_vertical|left"
                                 android:textStyle="normal"
                                 android:text="@string/favorite"
-                                android:textSize="18dp"
+                                android:textSize="15dp"
                                 android:paddingLeft="20dp"
-                                android:textColor="#212121"/>
+                                android:textColor="#009688"/>
                         </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#D4D4D4">
 
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/submenu02"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginBottom="2dp"
                         android:background="@drawable/group_menu"
                         android:elevation="5dp"
                         android:orientation="horizontal">
@@ -140,8 +151,9 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/ic_info_outline_black_24dp"/>
+                                    android:layout_gravity="center_vertical|right"
+                                    android:layout_marginRight="5dp"
+                                    android:background="@drawable/icon_menu_info"/>
 
                             </FrameLayout>
 
@@ -156,10 +168,16 @@
                                 android:gravity="center_vertical|left"
                                 android:textStyle="normal"
                                 android:text="@string/myreservationinfo"
-                                android:textSize="18dp"
+                                android:textSize="15dp"
                                 android:paddingLeft="20dp"
-                                android:textColor="#212121"/>
+                                android:textColor="#009688"/>
                         </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#D4D4D4">
 
                     </LinearLayout>
                     <LinearLayout
@@ -179,8 +197,9 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/ic_perm_identity_black_24dp"/>
+                                    android:layout_gravity="center_vertical|right"
+                                    android:layout_marginRight="5dp"
+                                    android:background="@drawable/icon_menu_gear"/>
 
                             </FrameLayout>
 
@@ -194,11 +213,17 @@
                                 android:layout_height="match_parent"
                                 android:textStyle="normal"
                                 android:gravity="center_vertical|left"
-                                android:text="@string/myinfo"
-                                android:textSize="18dp"
+                                android:text="Setting"
+                                android:textSize="15dp"
                                 android:paddingLeft="20dp"
-                                android:textColor="#212121"/>
+                                android:textColor="#009688"/>
                         </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#D4D4D4">
 
                     </LinearLayout>
 
@@ -217,6 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Search"
+                    android:singleLine="true"
                     android:completionThreshold="1"
                     android:textColorHint="#BDBDBD"
                     android:textSize="20dp"

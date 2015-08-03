@@ -64,7 +64,7 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="260dp"
             android:orientation="horizontal"
             android:elevation="5dp"
             android:background="#FAFAFA">
@@ -80,37 +80,37 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/info_name"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"
+                        android:text="Name"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"
+                    android:layout_marginLeft="45dp"></LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textStyle="bold"
-                        android:text="@string/info_party"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"
+                        android:text="Party"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/info_watingtime"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"/>
-                </LinearLayout>
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"
+                    android:layout_marginLeft="45dp"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -118,11 +118,18 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/info_arrivaltime"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"/>
+                        android:text="Wait time"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
+                        />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"
+                    android:layout_marginLeft="45dp"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -130,11 +137,36 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textStyle="bold"
-                        android:text="@string/info_fee"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"/>
+                        android:text="Arrival time"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
+                        />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"
+                    android:layout_marginLeft="45dp"></LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Total Fee"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
 
 
 
@@ -152,11 +184,16 @@
                         android:id="@+id/confirm_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
+                        android:text="Cheong"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -165,11 +202,16 @@
                         android:id="@+id/confirm_party"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
+                        android:text="6"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -180,11 +222,14 @@
                         android:layout_height="match_parent"
                         android:text="20 min"
                         android:textColor="#212121"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -194,11 +239,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="12 : 30"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -208,12 +257,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="0.5 USD"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout

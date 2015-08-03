@@ -16,6 +16,7 @@ import android.widget.TextView;
 public class AccountInfoActivity extends Activity{
     FrameLayout back_btn;
     RelativeLayout change_pw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

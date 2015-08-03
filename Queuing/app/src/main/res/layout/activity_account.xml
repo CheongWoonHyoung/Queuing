@@ -31,7 +31,6 @@
             android:layout_height="match_parent"
             >
             <TextView
-                android:id="@+id/rest_name"
                 android:textStyle="normal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

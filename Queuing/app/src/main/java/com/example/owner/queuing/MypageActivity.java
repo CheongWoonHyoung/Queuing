@@ -18,11 +18,14 @@ public class MypageActivity extends Activity{
     private TextView sign_out;
     FrameLayout back_btn;
     RelativeLayout go_account_info;
+    RelativeLayout change_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
+        change_name = (RelativeLayout)findViewById(R.id.change_name);
+        change_name.setOnClickListener(changeName);
         sign_out = (TextView) findViewById(R.id.signout_btn);
         sign_out.setOnClickListener(myOnClick);
         back_btn = (FrameLayout)findViewById(R.id.mypage_back);
@@ -60,6 +63,15 @@ public class MypageActivity extends Activity{
             // TODO Auto-generated method stub
             Intent intent2 = new Intent(MypageActivity.this, AccountInfoActivity.class);
             startActivity(intent2);
+        }
+    };
+
+    private  View.OnClickListener changeName = new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            // TODO Auto-generated method stub
+            Intent intent3 = new Intent(MypageActivity.this, NameChangeActivity.class);
+            startActivity(intent3);
         }
     };
 

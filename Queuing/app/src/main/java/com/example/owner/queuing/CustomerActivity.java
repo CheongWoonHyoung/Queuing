@@ -183,7 +183,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         upward_btn2.setOnClickListener(myOnClick);
 
 
-
+        //search.setOnClickListener(searchmap);
 
         //about Listview
         ArrayList<ResListItem> items = new ArrayList<ResListItem>();
@@ -257,6 +257,19 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             }
         });
     }
+
+   /* private View.OnClickListener searchmap = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            for(int i=0; i<restaurants.size(); i++){
+                if(search.getText().toString().equals(restaurants.get(i))){
+                    LatLng latlng_search = new LatLng();
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng_search,15));
+                }
+            }
+
+        }
+    } */
 
     private View.OnClickListener myOnClick=new View.OnClickListener(){
         @Override

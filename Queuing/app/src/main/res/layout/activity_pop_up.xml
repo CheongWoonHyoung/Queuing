@@ -1,32 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="300dp"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:id="@+id/popup_element"
     android:background="@drawable/group_menu">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_height="300dp"
+        android:gravity="top"
+        android:background="#EEEEEE"
+        android:orientation="vertical"
         >
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Number of Party?"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="20dp"/>
+            android:background="#E0E0E0"
+            android:orientation="vertical"
+            android:layout_height="150dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginRight="110dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/icon_people"
+                    android:layout_height="80dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:textSize="16dp"
+                    android:textColor="#434343"
+                    android:gravity="center_horizontal"
+                    android:text="Choose your Party number"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#D4D4D4">
+
+        </LinearLayout>
         <NumberPicker
             android:id="@+id/picker_popup"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="160dp"
             >
         </NumberPicker>
     </LinearLayout>
@@ -73,4 +102,4 @@
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

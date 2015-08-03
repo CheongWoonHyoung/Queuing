@@ -316,13 +316,17 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"/>
                         <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"></LinearLayout>
+                        <LinearLayout
                             android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp">
                             <ImageView
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
-                                android:layout_marginLeft="20dp"
+                                android:layout_marginLeft="30dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/icon_refresh"/>
 

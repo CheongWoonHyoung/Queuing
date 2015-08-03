@@ -23,7 +23,7 @@
         <item  android:bottom="1dp">
             <shape
                 android:shape="rectangle">
-                <solid android:color="@android:color/white"/>
+                <solid android:color="#EEEEEE"/>
 
             </shape>
         </item>
@@ -34,7 +34,7 @@
                     android:centerColor="#00000000"
                     android:centerX="0.9"
                     android:endColor="#99BBBBBB"
-                    android:startColor="#00FFFFFF" />
+                    android:startColor="#00EEEEEE" />
 
 
             </shape>

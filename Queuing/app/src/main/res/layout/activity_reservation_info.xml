@@ -61,10 +61,10 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="190dp"
             android:orientation="horizontal"
-            android:background="#FAFAFA"
-            android:elevation="5dp">
+            android:elevation="5dp"
+            android:background="#FAFAFA">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -77,12 +77,18 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/info_name"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"
+                        android:text="Name"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
                         />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"
+                    android:layout_marginLeft="45dp"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -90,12 +96,18 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/info_party"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"
+                        android:text="Party"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
                         />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"
+                    android:layout_marginLeft="45dp"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -103,24 +115,38 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/info_watingtime"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"/>
+                        android:text="Wait time"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"
+                    android:layout_marginLeft="45dp"></LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/info_fee"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:gravity="right|center_vertical"/>
+                        android:text="Total Fee"
+                        android:textStyle="normal"
+                        android:textSize="15dp"
+                        android:paddingLeft="50dp"
+                        android:gravity="left|center_vertical"
+                        />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="45dp"
+                    android:background="#D4D4D4"></LinearLayout>
 
 
 
@@ -138,11 +164,16 @@
                         android:id="@+id/reserv_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
+                        android:text="Cheong"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -151,11 +182,16 @@
                         android:id="@+id/reserv_party"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
+                        android:text="6"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -164,12 +200,17 @@
                         android:id="@+id/reserv_waitingtime"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:text="20 min"
                         android:textColor="#212121"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -178,14 +219,19 @@
                         android:id="@+id/reserv_fee"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="20dp"
+                        android:text="0.5 USD"
+                        android:textSize="18dp"
                         android:textColor="#212121"
                         android:gravity="center_vertical"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D4D4D4"></LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -198,13 +244,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="#009688"
-                    android:textSize="60dp"
-                    android:textStyle="bold"
-                    android:paddingLeft="70dp"
-                    android:gravity="center_vertical|right"
-                    android:paddingRight="20dp"
-                    android:text="@string/num"/>
+                    android:text="Waiting"
+                    android:textStyle="normal"
+                    android:textSize="15dp"
+                    android:paddingLeft="50dp"
+                    android:gravity="left|center_vertical"
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -216,14 +261,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="#212121"
-                    android:textStyle="bold"
-                    android:textSize="60dp"
+                    android:paddingLeft="30dp"
+                    android:textStyle="normal"
+                    android:textSize="40dp"
                     android:gravity="center_vertical" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:textStyle="normal"
                     android:textColor="#009688"
                     android:gravity="bottom"
                     android:text="Left"
@@ -232,7 +278,10 @@
 
             </LinearLayout>
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#D4D4D4"></LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

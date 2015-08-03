@@ -84,6 +84,11 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".NameChangeActivity"
+            android:label="NameChangeActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".OwnerActivity"
             android:label="@string/title_activity_owner"
