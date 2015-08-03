@@ -131,7 +131,8 @@ public class ConfirmActivity extends Activity{
         @Override
         protected void onPostExecute(String result){
             DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
-            manager.insert("insert into RESERV_LIST values (null,'"+dummy_name+"','"+confirm_party.getText().toString()+"')");
+            manager.update("update RESERV_LIST set res_name='" + dummy_name + "'");// (null,'"+dummy_name+"','"+confirm_party.getText().toString()+"')");
+            manager.update("update RESERV_LIST set party='" + confirm_party.getText().toString() + "'");
             Log.e("123","datavalue :"+dummy_name+"  "+manager.returnName());
             Toast.makeText(getApplicationContext(),"Queuing complete!",Toast.LENGTH_SHORT).show();
             finish();
