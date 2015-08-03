@@ -31,6 +31,7 @@ import android.widget.NumberPicker;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -52,13 +53,13 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
 
     FrameLayout frame_back_btn_resinfo;
     FrameLayout real_back;
-    RelativeLayout btn_queue;
     LinearLayout btn_confirm;
     LinearLayout btn_cancel;
     NumberPicker numberPicker;
     Dialog dialog;
     int height_image;
     int width_image;
+    TextView btn_queue;
     TextView name_v;
     TextView loc_v;
     TextView phone_v;
@@ -119,21 +120,38 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         });
         frame_back_btn_resinfo.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event){
-                if(event.getAction()==MotionEvent.ACTION_DOWN){
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     real_back.setBackgroundResource(R.drawable.ic_navigate_before_black_24dp);
                 }
-                if(event.getAction()==MotionEvent.ACTION_UP|| event.getAction()==MotionEvent.ACTION_CANCEL){
+                if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     real_back.setBackgroundResource(R.drawable.ic_navigate_before_white_24dp);
                 }
                 return false;
             }
         });
-        btn_queue = (RelativeLayout)findViewById(R.id.btn_queue);
+
+
+        btn_queue = (TextView)findViewById(R.id.btn_queue);
         btn_queue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                show_dialog();
+                final int marking;
+                DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test.db", null, 1);
+                Log.e("123", ":" + manager.returnData());
+                if(manager.returnData().length()==1){
+                    marking = 0;
+                }else{
+                    marking = 1;
+                }
+                switch (marking){
+                    case 0:
+                        show_dialog();
+                        break;
+                    case 1:
+                        Toast.makeText(getApplicationContext(),"You already have queuing",Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
 
