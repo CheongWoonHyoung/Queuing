@@ -147,7 +147,11 @@ public class OwnerActivity extends Activity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+                dbManagerLogin.update("update IS_LOGIN set is_login ='no' where _id = 1");
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
