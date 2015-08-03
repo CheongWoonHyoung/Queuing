@@ -47,8 +47,8 @@ public class GcmIntentService extends IntentService
         String messageType = gcm.getMessageType(intent);
         String u_name = extras.getString("user_name");
         String num_party = extras.getString("num_party");
-
-        Log.d("NPC","user name is" + extras.get("user_name"));
+        String exp_time = extras.getString("expected_time");
+        Log.d("NPC","user name is " + extras.get("user_name"));
         if (!extras.isEmpty())
         { // has effect of unparcelling Bundle
       /*
@@ -68,11 +68,12 @@ public class GcmIntentService extends IntentService
             }
             else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType))
             {
-                String msg = intent.getStringExtra("msg");
                 // Post notification of received message.
 //             sendNotification("Received: " + extras.toString());
-                updateMyActivity(getApplicationContext(),u_name,num_party);
-                sendNotification("Received: " + msg);
+                updateMyActivity(getApplicationContext(), u_name, num_party);
+
+                if(num_party== null)//Notification for CUSTOMER
+                    sendNotification("You are now 5th / expected time = 25"); //+ exp_time);
                 Log.i("IntentService onHandle", "Received: " + extras.toString());
             }
         }
@@ -102,7 +103,7 @@ public class GcmIntentService extends IntentService
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("GCM Notification").setStyle(
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Queuing Notification").setStyle(
                 new NotificationCompat.BigTextStyle().bigText(msg)).setContentText(msg).setAutoCancel(true).setVibrate(new long[]{0, 500});
 
         mBuilder.setContentIntent(contentIntent);

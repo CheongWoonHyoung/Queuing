@@ -148,33 +148,36 @@ public class LoginActivity extends Activity {
             JSONArray jarray = null;
             JSONObject json_data = null;
 
-            try {
-                jarray = new JSONArray(result);
-                for(int i = 0; i < jarray.length(); i++) {
-                    json_data = jarray.getJSONObject(i);
-                    User_ID = json_data.getString("name");
-                    auth = json_data.getString("auth");
+            if(!result.equals("SignUp Error") && !result.equals("Already Exist")){
+                try {
+                    jarray = new JSONArray(result);
+                    for(int i = 0; i < jarray.length(); i++) {
+                        json_data = jarray.getJSONObject(i);
+                        User_ID = json_data.getString("name");
+                        auth = json_data.getString("auth");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            if(auth.length() == 8 ) {
-                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
-                dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
-                dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
-                dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
-                startActivity(new Intent(mycontext, CustomerActivity.class));
-                finish();
-            }else if(auth.length() == 5 ){
-                final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
-                dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
-                dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
-                dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
-                startActivity(new Intent(mycontext, OwnerActivity.class));
-                finish();
-            }else{
-                Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG);
+                if(auth.length() == 8 ) {
+                    final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+                    dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
+                    dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
+                    dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
+                    startActivity(new Intent(mycontext, CustomerActivity.class));
+                    finish();
+                }else if(auth.length() == 5 ){
+                    final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+                    dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
+                    dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
+                    dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
+                    startActivity(new Intent(mycontext, OwnerActivity.class));
+                    finish();
+                }
+            } else{
+                Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+
             }
         }
     }

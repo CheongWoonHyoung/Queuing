@@ -273,6 +273,7 @@ public class OwnerActivity extends Activity {
         @Override
         protected void onPostExecute(String result){
 
+            Log.d("RESULT_ECHOS", result);
         }
     }
 
