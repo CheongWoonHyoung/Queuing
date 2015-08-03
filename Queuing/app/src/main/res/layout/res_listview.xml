@@ -4,80 +4,69 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:background="@drawable/group_map_search">
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:paddingTop="20dp"
-            android:paddingLeft="30dp">
-            <LinearLayout
-                android:layout_width="62dp"
-                android:layout_height="62dp"
-                android:padding="1dp">
-            <LinearLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp">
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/taylor_round" />
-            </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#D4D4D4">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="1px"
+                    android:paddingRight="1px"
+                    android:background="@drawable/icon_empty_image"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical">
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Taylor`s steak House"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical|bottom"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#212121"/>
-                <TextView
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Taylor`s Steak House"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="15dp"
+                        android:textSize="16dp"
+                        android:textColor="#212121"
+                        android:singleLine="true"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="American dining, old-world vibe"
-                    android:textSize="15dp"
-                    android:gravity="top|left"
-                    android:paddingTop="5dp"
-                    android:paddingLeft="12dp"/>
+                    android:layout_height="40dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:text="American dining, old-world vibe"/>
+                </LinearLayout>
             </LinearLayout>
-
-
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="100m"
+                        android:paddingLeft="10dp"
+                        android:textSize="12dp"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/res_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:id="@+id/res_name"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"/>
-        <TextView
-            android:id="@+id/res_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
-    </RelativeLayout>
 </LinearLayout>

@@ -308,7 +308,9 @@
                     android:layout_height="30dp"
                     android:background="@drawable/ic_keyboard_arrow_down_white_24dp"/>
             </LinearLayout>
+
         </FrameLayout>
+
         <LinearLayout
             android:visibility="gone"
             android:layout_width="match_parent"
@@ -316,10 +318,13 @@
             android:layout_marginBottom="-300dp"
             android:id="@+id/res_list2"
             android:background="#FFFFFF">
+
             <ListView
                 android:id="@+id/res_listview"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="300dp"
+                android:divider="@drawable/divider"
+                android:dividerHeight="1px"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
