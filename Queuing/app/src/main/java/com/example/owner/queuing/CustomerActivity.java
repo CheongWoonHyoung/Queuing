@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -75,7 +77,11 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     FrameLayout  upward_btn2;
     LinearLayout real;
     LinearLayout up;
-    EditText search;
+
+    AutoCompleteTextView search;
+    private ArrayList<String> restaurants;
+    ArrayAdapter<String> search_adapter;
+
     private Animation tran_upward = null;
     private Animation tran_downward = null;
     private HashMap<String, String> markers;
@@ -165,7 +171,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         submenu01 = (LinearLayout) findViewById(R.id.submenu01);
         submenu02 = (LinearLayout) findViewById(R.id.submenu02);
         submenu03 = (LinearLayout) findViewById(R.id.submenu03);
-        search = (EditText) findViewById(R.id.search);
+        search = (AutoCompleteTextView) findViewById(R.id.search);
+        restaurants = new ArrayList<>();
         upward_btn.bringToFront();
 
         menu_btn.setOnClickListener(myOnClick);
@@ -374,7 +381,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 cuisine = json_data.getString("cuisine");
                 remaining_num = json_data.getInt("line_num");
                 BitmapDescriptor bitmapDescriptor;
-
+                restaurants.add(res_name);
                 if(remaining_num >=0 && remaining_num <6){
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
                 }else if(remaining_num >=6 && remaining_num <11){
@@ -386,10 +393,11 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 }
                     marker = mGoogleMap.addMarker(new MarkerOptions()
                         .icon(bitmapDescriptor)
-                            .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " lefts"));
-
-
+                            .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " waiting"));
             }
+
+            search_adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,restaurants);
+            search.setAdapter(search_adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }

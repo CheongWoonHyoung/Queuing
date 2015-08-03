@@ -204,7 +204,6 @@
 
                 </LinearLayout>
 
-
             </FrameLayout>
             <FrameLayout
                 android:layout_width="match_parent"
@@ -213,11 +212,12 @@
                 android:background="@drawable/group_map_search"
                 android:id="@+id/frame"
                 >
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Search"
+                    android:completionThreshold="1"
                     android:textColorHint="#BDBDBD"
                     android:textSize="20dp"
                     android:paddingLeft="10dp"

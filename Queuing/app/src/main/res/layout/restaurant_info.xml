@@ -68,7 +68,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:id="@+id/plz">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -124,11 +124,7 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp">
 
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -164,6 +160,13 @@
                         android:gravity="center_vertical"/>
                 </LinearLayout>
 
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="40dp"
+                android:background="#D4D4D4">
 
             </LinearLayout>
             <LinearLayout
@@ -204,6 +207,13 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="40dp"
+                android:background="#D4D4D4">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal">
@@ -218,7 +228,7 @@
                         android:textColor="#009688"
                         android:textSize="13dp"
                         android:paddingLeft="40dp"
-                        android:text="@string/info_time"
+                        android:text="TIME"
                         android:textStyle="normal"
                         android:gravity="center_vertical"
                         android:layout_marginRight="10dp"/>
@@ -241,15 +251,18 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp">
+                android:layout_height="1px"
+                android:background="#D4D4D4">
 
             </LinearLayout>
+
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="#E0E0E0"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -267,11 +280,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textColor="#009688"
-                            android:textStyle="bold"
-                            android:textSize="60dp"
-                            android:paddingLeft="70dp"
+                            android:textStyle="normal"
+                            android:textSize="14dp"
+                            android:paddingLeft="40dp"
                             android:gravity="center_vertical"
-                            android:text="@string/num"/>
+                            android:text="WAITING"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -283,14 +296,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textColor="#212121"
-                            android:textStyle="bold"
-                            android:textSize="60dp"
+                            android:textStyle="normal"
+                            android:textSize="50dp"
                             android:gravity="center_vertical"
                             android:text="11"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:textStyle="bold"
+                            android:textStyle="normal"
                             android:textSize="20dp"
                             android:textColor="#009688"
                             android:gravity="bottom"
