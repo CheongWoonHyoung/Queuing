@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -179,17 +180,28 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         //about Listview
         ArrayList<ResListItem> items = new ArrayList<ResListItem>();
-        for(int i=0;i<15;i++) {
-            items.add(new ResListItem(null, "taylor's steak house", "1.5miles"));
+
+
+
+        JSONArray jArray = null;
+        String url = "http://52.69.163.43/get_info.php";
+        String jsonString = MakeJson(url);
+        String r_name;
+        String r_cuisine;
+        try {
+            JSONObject json_data = null;
+            jArray = new JSONArray(jsonString);
+            for(int i=0; i<jArray.length(); i++){
+                json_data = jArray.getJSONObject(i);
+                items.add(new ResListItem(null,json_data.getString("name"),json_data.getString("cuisine"),"0.5 miles"));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         ResListAdapter adapter = new ResListAdapter(this,R.layout.res_listview,items);
         ListView res_listview = (ListView) findViewById(R.id.res_listview);
         res_listview.setAdapter(adapter);
-
-        String jsonall = null;
-        JSONArray jArray = null;
-        String cuisine = null;
-
 
 
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

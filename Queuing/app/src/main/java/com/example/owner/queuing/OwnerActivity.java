@@ -48,6 +48,7 @@ public class OwnerActivity extends Activity {
     ExpandAnimation ex_Ani;
     ArrayList<CusListItem> items;
     ListView cus_listview;
+    TextView logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +59,7 @@ public class OwnerActivity extends Activity {
         Log.d("MANAGER","Res name : " + res_name);
         items = new ArrayList<CusListItem>();
         adapter = new CusListAdpater(this,R.layout.cus_listview,items);
-
+        logout = (TextView) findViewById(R.id.logout);
         String jsonall = null;
         String url = "http://52.69.163.43/line_parse.php?name="+res_name;
         try {
@@ -143,6 +144,12 @@ public class OwnerActivity extends Activity {
             }
         });
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     }
 

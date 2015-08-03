@@ -33,13 +33,15 @@ class ResListAdapter extends ArrayAdapter<ResListItem> {
 
         ResListItem res_item = items.get(position);
         Log.e("index", ":" + position);
-        //ImageView res_image = (ImageView) v.findViewById(R.id.res_image);
-        //TextView  res_name  = (TextView) v.findViewById(R.id.res_name);
-        //TextView  res_distance = (TextView) v.findViewById(R.id.res_distance);
+        ImageView res_image = (ImageView) v.findViewById(R.id.r_simage);
+        TextView  res_name  = (TextView) v.findViewById(R.id.r_name);
+        TextView  res_cuisine = (TextView) v.findViewById(R.id.r_cuisine);
+        TextView  res_distance = (TextView) v.findViewById(R.id.r_distance);
 
-        //res_image.setImageBitmap(res_item.res_img);
-        //res_name.setText(res_item.res_name);
-        //res_distance.setText(res_item.res_distance);
+        res_image.setImageBitmap(res_item.res_img);
+        res_name.setText(res_item.res_name);
+        res_cuisine.setText(res_item.res_cuisine);
+        res_distance.setText(res_item.res_distance);
 
         return v;
     }

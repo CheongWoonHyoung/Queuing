@@ -17,6 +17,7 @@
                 android:layout_height="80dp"
                 android:background="#D4D4D4">
                 <ImageView
+                    android:id="@+id/r_simage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="1px"
@@ -32,6 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <TextView
+                        android:id="@+id/r_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Taylor`s Steak House"
@@ -45,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <TextView
+                        android:id="@+id/r_cuisine"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingLeft="10dp"
@@ -60,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp">
                     <TextView
+                        android:id="@+id/r_distance"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="100m"

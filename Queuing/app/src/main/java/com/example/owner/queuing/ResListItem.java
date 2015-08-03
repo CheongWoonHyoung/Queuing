@@ -8,11 +8,13 @@ import android.graphics.Bitmap;
 class ResListItem {
     public Bitmap res_img;
     public String res_name;
+    public String res_cuisine;
     public String res_distance;
 
-    public ResListItem(Bitmap img,String name,String distance){
+    public ResListItem(Bitmap img,String name, String cuisine, String distance){
         this.res_img = img;
         this.res_name = name;
+        this.res_cuisine = cuisine;
         this.res_distance = distance;
     }
 }
