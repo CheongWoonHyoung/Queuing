@@ -73,6 +73,17 @@
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".AccountInfoActivity"
+            android:label="AccountInfoActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:label="ChangePasswordActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".OwnerActivity"
             android:label="@string/title_activity_owner"

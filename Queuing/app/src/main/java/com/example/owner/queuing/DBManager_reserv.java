@@ -45,7 +45,7 @@ public class DBManager_reserv extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String str = "nothing";
 
-        Cursor cursor = db.rawQuery("select _id from RESERV_LIST", null);
+        Cursor cursor = db.rawQuery("select _id from RESERV_LIST where _id=1", null);
         while(cursor.moveToNext()) {
             str = cursor.getString(0);
         }
@@ -57,7 +57,7 @@ public class DBManager_reserv extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String str = "nothing";
 
-        Cursor cursor = db.rawQuery("select party from RESERV_LIST", null);
+        Cursor cursor = db.rawQuery("select party from RESERV_LIST where _id=1", null);
         while(cursor.moveToNext()) {
             str = cursor.getString(0);
         }
@@ -66,9 +66,9 @@ public class DBManager_reserv extends SQLiteOpenHelper {
     }
     public String returnName() {
         SQLiteDatabase db = getReadableDatabase();
-        String str = "n";
+        String str = "nothing";
 
-        Cursor cursor = db.rawQuery("select res_name from RESERV_LIST", null);
+        Cursor cursor = db.rawQuery("select res_name from RESERV_LIST where _id=1", null);
         while(cursor.moveToNext()) {
             str = cursor.getString(0);
         }

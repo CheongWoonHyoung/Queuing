@@ -12,12 +12,11 @@
         android:orientation="horizontal">
         <FrameLayout
             android:layout_width="100dp"
+            android:id="@+id/mypage_back"
             android:layout_height="30dp"
-            android:id="@+id/res_back_btn"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true">
             <FrameLayout
-                android:id="@+id/mypage_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
@@ -46,7 +45,6 @@
 
         </FrameLayout>
         <FrameLayout
-            android:id="@+id/menu_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginRight="5dp"
@@ -112,6 +110,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:id="@+id/go_account_info"
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="100dp"
