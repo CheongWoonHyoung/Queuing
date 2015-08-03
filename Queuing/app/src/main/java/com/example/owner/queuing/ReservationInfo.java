@@ -61,8 +61,8 @@ public class ReservationInfo extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
-        Log.e("123",":"+manager.returnData());
-        if(manager.returnData().equals("nothing")){
+        Log.e("123",":"+manager.returnName());
+        if(manager.returnName().equals("nothing")){
             marking = 0;
         }else{
             marking = 1;
@@ -151,7 +151,11 @@ public class ReservationInfo extends Activity{
 
                     for(int i=0; i<jArray.length(); i++){
                         json_data = jArray.getJSONObject(i);
-                        if(reserv_name.getText().toString().equals(json_data.getString("name"))) reserv_left.setText(String.valueOf(i));
+                        if(reserv_name.getText().toString().equals(json_data.getString("name"))) {
+                            reserv_left.setText(String.valueOf(i));
+                            reserv_waitingtime.setText(String.valueOf((i+1)*5)+"min");
+                            reserv_fee.setText(String.valueOf((i+1)*0.5)+"USD");
+                        }
                     }
                 } catch (Exception e){
                     Log.e("JSON", "Error in JSONPARSER : " + e.toString());
@@ -203,7 +207,8 @@ public class ReservationInfo extends Activity{
         @Override
         protected void onPostExecute(String result){
             final DBManager_reserv dbManagerReserv = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
-            dbManagerReserv.update("delete from RESERV_LIST where res_name='"+dbManagerReserv.returnName()+"'");
+            dbManagerReserv.update("update RESERV_LIST set res_name='" + "nothing" + "'");// (null,'"+dummy_name+"','"+confirm_party.getText().toString()+"')");
+            dbManagerReserv.update("update RESERV_LIST set party='" + "" + "'");
             Toast.makeText(getApplicationContext(),"Queuing Caceled!",Toast.LENGTH_SHORT).show();
             finish();
 
