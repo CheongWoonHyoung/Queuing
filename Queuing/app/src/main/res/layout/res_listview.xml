@@ -21,6 +21,7 @@
                     android:layout_height="match_parent"
                     android:paddingLeft="1px"
                     android:paddingRight="1px"
+                    android:id="@+id/res_img"
                     android:background="@drawable/icon_empty_image"/>
             </LinearLayout>
             <LinearLayout
@@ -35,6 +36,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Taylor`s Steak House"
+                        android:id="@+id/res_name"
                         android:paddingLeft="10dp"
                         android:paddingTop="15dp"
                         android:textSize="16dp"
@@ -62,6 +64,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:id="@+id/res_distance"
                         android:text="100m"
                         android:paddingLeft="10dp"
                         android:textSize="12dp"/>
