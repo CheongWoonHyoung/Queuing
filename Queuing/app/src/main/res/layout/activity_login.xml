@@ -57,7 +57,7 @@
                 android:singleLine="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:textColorHint="#757575"
+                android:textColorHint="#212121"
                 android:elevation="5dp"
 
 
@@ -73,7 +73,7 @@
                 android:singleLine="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:textColorHint="#757575"
+                android:textColorHint="#212121"
                 android:elevation="5dp"
 
                 />
@@ -88,7 +88,7 @@
                 android:singleLine="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:textColorHint="#757575"
+                android:textColorHint="#212121"
                 android:password="true"
                 android:elevation="5dp"/>
 

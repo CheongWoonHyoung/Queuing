@@ -6,20 +6,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by mark_mac on 2015. 7. 24..
  */
 public class MypageActivity extends Activity{
 
-    private Button sign_out;
+    private TextView sign_out;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
-        sign_out = (Button) findViewById(R.id.signout_btn);
+        sign_out = (TextView) findViewById(R.id.signout_btn);
         sign_out.setOnClickListener(myOnClick);
     }
 
