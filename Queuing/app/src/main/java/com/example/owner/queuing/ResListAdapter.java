@@ -33,6 +33,7 @@ class ResListAdapter extends ArrayAdapter<ResListItem> {
 
         ResListItem res_item = items.get(position);
         Log.e("index", ":" + position);
+
         ImageView res_image = (ImageView) v.findViewById(R.id.r_simage);
         TextView  res_name  = (TextView) v.findViewById(R.id.r_name);
         TextView  res_cuisine = (TextView) v.findViewById(R.id.r_cuisine);
