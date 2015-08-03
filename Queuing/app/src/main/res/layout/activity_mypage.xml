@@ -132,10 +132,11 @@
             android:layout_marginRight="50dp"
             >
             <TextView
+                android:id="@+id/account_mail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingRight="10dp"
-                android:text="cheongwh@me.com"
+                android:text="CANNOT GET THE ACCOUNT"
                 android:textColor="#212121"
                 android:textSize="16dp"
                 android:gravity="center_vertical|right"/>
@@ -187,10 +188,11 @@
             android:layout_marginRight="50dp"
             >
             <TextView
+                android:id="@+id/account_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingRight="10dp"
-                android:text="Cheong WoonHyoung"
+                android:text="CANNOT GET THE NAME"
                 android:textColor="#212121"
                 android:textSize="16dp"
                 android:gravity="center_vertical|right"/>

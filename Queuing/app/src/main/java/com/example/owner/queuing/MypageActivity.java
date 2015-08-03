@@ -16,19 +16,31 @@ import android.widget.TextView;
 public class MypageActivity extends Activity{
 
     private TextView sign_out;
+    private TextView account_email;
+    private TextView account_name;
+
     FrameLayout back_btn;
     RelativeLayout go_account_info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
+        final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
 
         sign_out = (TextView) findViewById(R.id.signout_btn);
-        sign_out.setOnClickListener(myOnClick);
         back_btn = (FrameLayout)findViewById(R.id.mypage_back);
-        back_btn.setOnClickListener(back);
         go_account_info = (RelativeLayout)findViewById(R.id.go_account_info);
+        account_email = (TextView) findViewById(R.id.account_mail);
+        account_name = (TextView) findViewById(R.id.account_name);
+
+        account_email.setText(dbManagerLogin.returnEmail());
+        account_name.setText(dbManagerLogin.returnUser());
+
+        sign_out.setOnClickListener(myOnClick);
+        back_btn.setOnClickListener(back);
         go_account_info.setOnClickListener(go_account);
+
+
     }
 
 
@@ -58,8 +70,8 @@ public class MypageActivity extends Activity{
         @Override
         public void onClick(View view) {
             // TODO Auto-generated method stub
-            Intent intent2 = new Intent(MypageActivity.this, AccountInfoActivity.class);
-            startActivity(intent2);
+            Intent intent = new Intent(MypageActivity.this, AccountInfoActivity.class);
+            startActivity(intent);
         }
     };
 

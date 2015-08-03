@@ -52,6 +52,7 @@ public class LoginActivity extends Activity {
     TextView login;
     String isRight;
     String auth;
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,23 +156,26 @@ public class LoginActivity extends Activity {
                         json_data = jarray.getJSONObject(i);
                         User_ID = json_data.getString("name");
                         auth = json_data.getString("auth");
+                        email = json_data.getString("email");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                if(auth.length() == 8 ) {
+                if(auth.length() == 8 ) {//FOR CUSTOMER
                     final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                     dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
+                    dbManagerLogin.update("update IS_LOGIN set _email='" + email + "' where _id =1");
                     startActivity(new Intent(mycontext, CustomerActivity.class));
                     finish();
-                }else if(auth.length() == 5 ){
+                }else if(auth.length() == 5 ){//FOR OWNER
                     final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
                     dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _user='" + User_ID + "' where _id =1");
+                    dbManagerLogin.update("update IS_LOGIN set _email='" + email + "' where _id =1");
                     startActivity(new Intent(mycontext, OwnerActivity.class));
                     finish();
                 }

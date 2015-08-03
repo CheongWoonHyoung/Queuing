@@ -35,6 +35,7 @@ public class LoginLoginActivity extends Activity{
     EditText passwd;
     String id;
     String auth;
+    String u_mail;
     TextView sign_in;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +130,7 @@ public class LoginLoginActivity extends Activity{
                         json_data = jarray.getJSONObject(i);
                         id = json_data.getString("name");
                         auth = json_data.getString("auth");
+                        u_mail = json_data.getString("email");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -139,6 +141,7 @@ public class LoginLoginActivity extends Activity{
                     dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _user='" + id + "' where _id =1");
+                    dbManagerLogin.update("update IS_LOGIN set _email='" + u_mail + "' where _id =1");
                     startActivity(new Intent(getApplicationContext(), CustomerActivity.class));
                     finish();
                 } else if (auth.length() == 5) {
@@ -146,6 +149,7 @@ public class LoginLoginActivity extends Activity{
                     dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _auth='owner' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _user='" + id + "' where _id =1");
+                    dbManagerLogin.update("update IS_LOGIN set _email='" + u_mail + "' where _id =1");
                     startActivity(new Intent(getApplicationContext(), OwnerActivity.class));
                     finish();
                 } else {

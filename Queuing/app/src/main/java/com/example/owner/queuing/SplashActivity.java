@@ -28,7 +28,7 @@ public class SplashActivity extends Activity {
                 isLogin                     = dbManagerLogin.returnData();
                 auth                        = dbManagerLogin.returnAuth();
                 if(isLogin == "first"){
-                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null, null)");
+                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null, null, null)");
                     isLogin = dbManagerLogin.returnData();
                 }
 
