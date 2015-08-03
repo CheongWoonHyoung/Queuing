@@ -60,7 +60,7 @@ public class OwnerActivity extends Activity {
         adapter = new CusListAdpater(this,R.layout.cus_listview,items);
 
         String jsonall = null;
-        String url = "http://52.69.163.43/line_parse.php?name="+"Taylors";
+        String url = "http://52.69.163.43/line_parse.php?name="+res_name;
         try {
             jsonall =new JsonParser_toString().execute(url).get();
             String jsonString = jsonall;
@@ -86,7 +86,7 @@ public class OwnerActivity extends Activity {
         cus_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "OFFLINE", "Taylors");
+                new HttpPostRequest().execute("out", items.get(i).cus_name, items.get(i).cus_number, "OFFLINE", res_name);
                 LinearLayout cus_item = (LinearLayout) view.findViewById(R.id.cus_item);
 
                 ex_Ani = new ExpandAnimation(cus_item, 500);
@@ -123,8 +123,9 @@ public class OwnerActivity extends Activity {
         reservDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                adapter.add(new CusListItem("z", reservDialog._name, "OFFLINE", reservDialog._number));
-                Log.d("NULL","null : " + name + " "  + phone + " " + company);
+                items.add(new CusListItem(String.valueOf(items.get(items.size() - 1).cus_priority + 1), reservDialog._name, "OFFLINE", reservDialog._number));
+                adapter.notifyDataSetChanged();
+                Log.d("NULL", "null : " + name + " " + phone + " " + company);
 
 
                 new HttpPostRequest().execute("in", reservDialog._name, reservDialog._number, "OFFLINE", res_name);
@@ -202,7 +203,8 @@ public class OwnerActivity extends Activity {
             }
             else{
                 Log.d("MSG",num);
-                adapter.add(new CusListItem("z", name,"ADDING BY APP", num));
+                items.add(new CusListItem(String.valueOf(items.get(items.size() - 1).cus_priority + 1), name, "ADDING BY APP", num));
+                adapter.notifyDataSetChanged();
             }
         }
     };
@@ -276,5 +278,7 @@ public class OwnerActivity extends Activity {
             Log.d("RESULT_ECHOS", result);
         }
     }
+
+
 
 }
