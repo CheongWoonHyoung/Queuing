@@ -60,9 +60,9 @@ public class ReservationInfo extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test.db", null, 1);
+        DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
         Log.e("123",":"+manager.returnData());
-        if(manager.returnData().length()==1){
+        if(manager.returnData().equals("nothing")){
             marking = 0;
         }else{
             marking = 1;
@@ -151,7 +151,7 @@ public class ReservationInfo extends Activity{
 
                     for(int i=0; i<jArray.length(); i++){
                         json_data = jArray.getJSONObject(i);
-                        if(reserv_name.equals(json_data.getString("name"))) reserv_left.setText(String.valueOf(i));
+                        if(reserv_name.getText().toString().equals(json_data.getString("name"))) reserv_left.setText(String.valueOf(i));
                     }
                 } catch (Exception e){
                     Log.e("JSON", "Error in JSONPARSER : " + e.toString());

@@ -137,9 +137,9 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
             @Override
             public void onClick(View view) {
                 final int marking;
-                DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test.db", null, 1);
+                DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
                 Log.e("123", ":" + manager.returnData());
-                if(manager.returnData().length()==1){
+                if(manager.returnData().equals("nothing")){
                     marking = 0;
                 }else{
                     marking = 1;
