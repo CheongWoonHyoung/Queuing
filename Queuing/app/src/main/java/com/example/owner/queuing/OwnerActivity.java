@@ -49,11 +49,16 @@ public class OwnerActivity extends Activity {
     ArrayList<CusListItem> items;
     ListView cus_listview;
     TextView logout;
+    private BackPressCloseHandler backPressCloseHandler;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_owner);
+
+        backPressCloseHandler = new BackPressCloseHandler(this);
         final DBManager_login manager = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
         final String res_name = manager.returnUser();
         Log.d("MANAGER","Res name : " + res_name);
@@ -288,6 +293,12 @@ public class OwnerActivity extends Activity {
 
             Log.d("RESULT_ECHOS", result);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 
 
