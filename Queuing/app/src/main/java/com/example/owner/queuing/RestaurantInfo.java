@@ -56,6 +56,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
 
     FrameLayout frame_back_btn_resinfo;
     FrameLayout real_back;
+    FrameLayout add_favorites;
     LinearLayout btn_confirm;
     LinearLayout btn_cancel;
     NumberPicker numberPicker;
@@ -82,7 +83,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     ImageView refresh_btn = null;
     int num_remain = 0;
     DBManager_login dbManagerLogin;
-
+    DBManager_favorites dbManagerFavorites;
     ProgressDialog customProgressDialog;
 
     @Override
@@ -91,7 +92,9 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         setContentView(R.layout.restaurant_info);
 
         Intent intent = getIntent();
+        dbManagerFavorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null,1);
         dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+
         rest_name = intent.getExtras().getString("name");
         img_url = intent.getExtras().getString("img_large");
         location = intent.getExtras().getString("location");
@@ -119,6 +122,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         num_lefts_v.setText(Integer.toString(num_remain));
         frame_back_btn_resinfo = (FrameLayout)findViewById(R.id.res_back_btn);
         real_back = (FrameLayout) findViewById(R.id.real_back);
+        add_favorites = (FrameLayout) findViewById(R.id.add_favorites);
         frame_back_btn_resinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,17 +150,17 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
                 final int marking;
                 DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
                 Log.e("123", ":" + manager.returnName());
-                if(manager.returnName().equals("nothing")){
+                if (manager.returnName().equals("nothing")) {
                     marking = 0;
-                }else{
+                } else {
                     marking = 1;
                 }
-                switch (marking){
+                switch (marking) {
                     case 0:
                         show_dialog();
                         break;
                     case 1:
-                        Toast.makeText(getApplicationContext(),"You already have queuing",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "You already have queuing", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -171,6 +175,13 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
 
                 new req_specific_info().execute(rest_name);
                 ;
+
+            }
+        });
+
+        add_favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });

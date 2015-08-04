@@ -96,7 +96,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private HashMap<String, String> markers;
     private BackPressCloseHandler backPressCloseHandler;
     private LatLng myLocation;
-    ArrayList markerlist;
+    ArrayList<Marker> markerlist;
     Marker marker;
     ArrayList<ResListItem> items;
     private ProgressDialog progressDialog;
@@ -251,7 +251,14 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
                 String[] latlng = result.split("/");
                 LatLng latlng_search = new LatLng(Double.parseDouble(latlng[0]),Double.parseDouble(latlng[1]));
+                for(int i=0; i<markerlist.size(); i++){
+                    if(markerlist.get(i).getTitle().equals(parent.getItemAtPosition(position))){
+                        markerlist.get(i).showInfoWindow();
+                        break;
+                    }
+                }
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng_search,15));
+
             }
         });
 
@@ -457,7 +464,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         double x, y;
         int remaining_num;
         restaurants.clear();
-
+        markerlist.clear();
         try{
             jArray = new JSONArray(jsonString);
             JSONObject json_data = null;
@@ -483,6 +490,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                     marker = mGoogleMap.addMarker(new MarkerOptions()
                         .icon(bitmapDescriptor)
                             .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " waiting"));
+                    markerlist.add(marker);
             }
 
             search_adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,restaurants);
