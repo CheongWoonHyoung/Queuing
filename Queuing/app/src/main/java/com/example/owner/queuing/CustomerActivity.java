@@ -303,7 +303,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
                 }
 
-                marker.setSnippet(cuisine + " / " + line_num + " waiting");
+                marker.setSnippet(cuisine);
                 marker.setIcon(bitmapDescriptor);
                 marker.showInfoWindow();
 

@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
                 <TextView
+                    android:id="@+id/cuisine_window"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="12dp"
@@ -47,9 +48,10 @@
                     android:background="@drawable/icon_person"
                     android:layout_height="20dp" />
                 <TextView
+                    android:id="@+id/number_window"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:text="11"
+                    android:text="-99"
                     android:textSize="18dp"
                     android:gravity="center"/>
             </LinearLayout>
