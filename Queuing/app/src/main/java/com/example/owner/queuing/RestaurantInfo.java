@@ -82,6 +82,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     ImageView refresh_btn = null;
     int num_remain = 0;
 
+    ProgressDialog customProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,26 +161,16 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
             }
         });
 
+        customProgressDialog = new ProgressDialog(RestaurantInfo.this);
+
         refresh_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String line_left =null;
-                String jsonall = null;
-                JSONArray jArray = null;
 
+
+                new req_specific_info().execute(rest_name);
                 ;
-                try {
-                    jsonall = new req_specific_info().execute(rest_name).get();
-                    jArray = new JSONArray(jsonall);
-                    JSONObject json_data = null;
-                    for (int i = 0; i < jArray.length(); i++) {
-                        json_data = jArray.getJSONObject(i);
-                        line_left = json_data.getString("line_num");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                num_lefts_v.setText(line_left);
+
             }
         });
 
@@ -187,6 +178,11 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     }
 
     private class req_specific_info extends AsyncTask<String, Void, String> {
+        @Override
+        protected  void onPreExecute(){
+            customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            customProgressDialog.show();
+        }
 
         @Override
         protected String doInBackground(String... info) {
@@ -214,11 +210,33 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
                     builder.append(str);
                 }
                 sResult = builder.toString();
+                Thread.sleep(1000);
 
             } catch (Exception e) {
                 Log.e("HTTPPOST","Error in Http POST REQUEST : " + e.toString());
             }
             return sResult;
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            String line_left =null;
+            String jsonall = null;
+            JSONArray jArray = null;
+            try {
+                jsonall = result;
+                jArray = new JSONArray(jsonall);
+                JSONObject json_data = null;
+                for (int i = 0; i < jArray.length(); i++) {
+                    json_data = jArray.getJSONObject(i);
+                    line_left = json_data.getString("line_num");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            num_lefts_v.setText(line_left);
+            customProgressDialog.dismiss();
+
         }
     }
 
