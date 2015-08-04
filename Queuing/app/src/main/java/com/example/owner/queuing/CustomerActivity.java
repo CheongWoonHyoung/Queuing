@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -110,7 +111,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         setContentView(R.layout.activity_customer);
 
-
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         progressDialog = new ProgressDialog(CustomerActivity.this);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         clear = (FrameLayout)findViewById(R.id.clear_text);
@@ -242,7 +243,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("SEARCH_RES","RES : " + parent.getItemAtPosition(position));
+                Log.d("SEARCH_RES", "RES : " + parent.getItemAtPosition(position));
                 String result = null;
                 try {
                     result = new search_res().execute(parent.getItemAtPosition(position).toString()).get().toString();
@@ -253,18 +254,52 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 }
 
                 String[] latlng = result.split("/");
-                LatLng latlng_search = new LatLng(Double.parseDouble(latlng[0]),Double.parseDouble(latlng[1]));
-                for(int i=0; i<markerlist.size(); i++){
-                    if(markerlist.get(i).getTitle().equals(parent.getItemAtPosition(position))){
+                LatLng latlng_search = new LatLng(Double.parseDouble(latlng[0]), Double.parseDouble(latlng[1]));
+                for (int i = 0; i < markerlist.size(); i++) {
+                    if (markerlist.get(i).getTitle().equals(parent.getItemAtPosition(position))) {
                         markerlist.get(i).showInfoWindow();
                         break;
                     }
                 }
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng_search,15));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng_search, 15));
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
 
             }
         });
 
+        res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("LIST_RES", "RES : " + items.get(position).res_name);
+                String result = null;
+                try {
+                    result = new search_res().execute(items.get(position).res_name.toString()).get().toString();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                String[] latlng = result.split("/");
+                LatLng latlng_search = new LatLng(Double.parseDouble(latlng[0]), Double.parseDouble(latlng[1]));
+                for (int i = 0; i < markerlist.size(); i++) {
+                    if (markerlist.get(i).getTitle().equals(items.get(position).res_name)) {
+                        markerlist.get(i).showInfoWindow();
+                        break;
+                    }
+                }
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng_search, 15));
+                fake.bringToFront();
+                final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
+                final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,300);
+                ex_Ani.setAnimationListener(ani_listener);
+                res_list2.startAnimation(ex_Ani);
+            }
+        });
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
