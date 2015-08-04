@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -56,6 +58,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
@@ -95,12 +99,18 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     ArrayList markerlist;
     Marker marker;
     ArrayList<ResListItem> items;
+    private ProgressDialog progressDialog;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_customer);
+
+
+        progressDialog = new ProgressDialog(CustomerActivity.this);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         backPressCloseHandler = new BackPressCloseHandler(this);
         mmap = (RelativeLayout) findViewById(R.id.layout_map);
@@ -602,6 +612,13 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private class req_specific_info extends AsyncTask<String, Void, String> {
 
         @Override
+        protected void onPreExecute(){
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+
+        @Override
         protected String doInBackground(String... info) {
             String sResult = null;
 
@@ -633,6 +650,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             }
             return sResult;
         }
+
+
+
     }
 
     double[] myGps;
