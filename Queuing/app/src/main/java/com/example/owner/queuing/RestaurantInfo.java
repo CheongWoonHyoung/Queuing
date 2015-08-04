@@ -35,6 +35,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -76,6 +79,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     String timing = null;
     String kinds = null;
     String dummy_name = null;
+    ImageView refresh_btn = null;
     int num_remain = 0;
 
 
@@ -103,6 +107,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         num_lefts_v = (TextView) findViewById(R.id.num_lefts);
         sample = (RelativeLayout)findViewById(R.id.sample);
         res_image_v = (ImageView) findViewById(R.id.res_image);
+        refresh_btn = (ImageView) findViewById(R.id.refresh_btn);
         //Log.e("pass", dummy_name);
         name_v.setText(rest_name);
         loc_v.setText(location);
@@ -155,7 +160,66 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
             }
         });
 
+        refresh_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String line_left =null;
+                String jsonall = null;
+                JSONArray jArray = null;
 
+                ;
+                try {
+                    jsonall = new req_specific_info().execute(rest_name).get();
+                    jArray = new JSONArray(jsonall);
+                    JSONObject json_data = null;
+                    for (int i = 0; i < jArray.length(); i++) {
+                        json_data = jArray.getJSONObject(i);
+                        line_left = json_data.getString("line_num");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                num_lefts_v.setText(line_left);
+            }
+        });
+
+
+    }
+
+    private class req_specific_info extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... info) {
+            String sResult = null;
+
+            try {
+                Log.d("INFO","rest name is " + info[0]);
+                URL url = new URL("http://52.69.163.43/one_restinfo.php");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("POST");
+                String post_value = "name=" + info[0];
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(post_value);
+                osw.flush();
+
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder builder = new StringBuilder();
+                String str;
+
+                while ((str = reader.readLine()) != null) {
+                    builder.append(str);
+                }
+                sResult = builder.toString();
+
+            } catch (Exception e) {
+                Log.e("HTTPPOST","Error in Http POST REQUEST : " + e.toString());
+            }
+            return sResult;
+        }
     }
 
     @Override
