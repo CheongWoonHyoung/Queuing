@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="190dp"
+            android:orientation="vertical"
+            android:layout_height="100dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/marker_title"
+                    android:layout_height="match_parent"
+                    android:text="Taylor`s Steak House"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="5dp"
+                    android:textColor="#212121"
+                    android:textSize="18dp"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="12dp"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:text="American dining, old-world vibe"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="30dp">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="70dp"
+                    android:background="@drawable/icon_person"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="11"
+                    android:textSize="18dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="100dp">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/icon_arrow_right"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="right" />
+</LinearLayout>
