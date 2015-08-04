@@ -82,15 +82,17 @@
                 android:gravity="center"
                 android:layout_height="match_parent" />
             <EditText
+                android:id="@+id/name_setting"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:hint="Input your name"
-                android:text="Cheong Woon Hyoung"
+                android:text="CANNOT GET THE NAME"
                 android:textSize="18dp"
                 android:background="@null"
                 android:paddingLeft="10dp"
                 android:layout_height="match_parent" />
             <LinearLayout
+                android:id="@+id/clear_name"
                 android:layout_width="50dp"
                 android:layout_height="match_parent">
                 <ImageView
@@ -124,14 +126,14 @@
             android:layout_height="40dp"
             android:elevation="5dp">
             <TextView
-                android:id="@+id/confirm_name"
+                android:id="@+id/save_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:background="@drawable/ic_confirm"
                 android:textColor="#FFFFFF"
                 android:textStyle="normal"
-                android:text="Confirm"
+                android:text="Save"
                 android:textSize="18dp"/>
         </LinearLayout>
     </LinearLayout>

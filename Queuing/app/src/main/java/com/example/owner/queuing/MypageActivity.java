@@ -87,4 +87,10 @@ public class MypageActivity extends Activity{
         }
     };
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+        account_name.setText(dbManagerLogin.returnUser());
+    }
 }
