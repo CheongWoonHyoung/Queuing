@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
     android:drawable="@drawable/icon_progress"
     android:pivotX="50%"
+    android:duration="1000"
+    android:repeatCount = "infinite"
+    android:toDegrees = "1080"
+    android:fromDegrees = "0"
     android:pivotY="50%">
-</animated-rotate>
+</rotate>
