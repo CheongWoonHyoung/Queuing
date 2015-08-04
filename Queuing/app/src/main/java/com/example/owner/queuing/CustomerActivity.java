@@ -338,16 +338,18 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                     break;
                 }
                 case R.id.submenu01: {
+                    Intent intent = new Intent(CustomerActivity.this, FavoriteList.class);
+                    startActivity(intent);
                     break;
                 }
                 case R.id.submenu02: {
-                    Intent intent2 = new Intent(CustomerActivity.this, ReservationInfo.class);
-                    startActivity(intent2);
+                    Intent intent = new Intent(CustomerActivity.this, ReservationInfo.class);
+                    startActivity(intent);
                     break;
                 }
                 case R.id.submenu03: {
-                    Intent intent3 = new Intent(CustomerActivity.this, MypageActivity.class);
-                    startActivity(intent3);
+                    Intent intent = new Intent(CustomerActivity.this, MypageActivity.class);
+                    startActivity(intent);
                     break;
                 }
                 case R.id.upward_btn: {

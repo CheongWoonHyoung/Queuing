@@ -49,6 +49,12 @@
             android:name=".LoginLoginActivity"
             android:label="LoginLoginActivity"
             android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".FavoriteList"
+            android:label="FavoriteList"
+            android:screenOrientation="portrait">
 
         </activity>
         <meta-data

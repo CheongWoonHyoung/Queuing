@@ -11,7 +11,7 @@
         <FrameLayout
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:id="@+id/account_back"
+            android:id="@+id/back_favorites"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true">
             <FrameLayout

@@ -6,6 +6,7 @@ package com.example.owner.queuing;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -53,6 +54,13 @@ public class DBManager_favorites extends SQLiteOpenHelper {
         return str;
     }
 
+    public int getTableSize(){
+        SQLiteDatabase db = getReadableDatabase();
+        String str = "null";
+        int numRows = (int) DatabaseUtils.longForQuery(db, "select count(*) from FAVORITES", null);
+
+        return numRows;
+    }
     public String returnCusine(int index) {
         SQLiteDatabase db = getReadableDatabase();
         String str = "null";

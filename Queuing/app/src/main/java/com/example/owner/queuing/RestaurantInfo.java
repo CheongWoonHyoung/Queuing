@@ -182,7 +182,9 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         add_favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dbManagerFavorites.insert("insert into FAVORITES values (null, '"+ rest_name + "', '" + kinds +"', '" + img_url +"')");
+                Log.d("CLICKED","favorite clicked");
+                Toast.makeText(getApplicationContext(),"added to Favorites",Toast.LENGTH_SHORT);
             }
         });
 
