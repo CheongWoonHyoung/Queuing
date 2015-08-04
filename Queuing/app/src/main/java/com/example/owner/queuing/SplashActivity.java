@@ -34,6 +34,9 @@ public class SplashActivity extends Activity {
                     DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
                     manager.insert("insert into RESERV_LIST values (null,"+"'nothing'"+","+"''"+")");
 
+                    DBManager_favorites favorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null,1);
+                    //favorites.insert("insert into ");
+
                 }
 
                 if(isLogin.length()==2){
