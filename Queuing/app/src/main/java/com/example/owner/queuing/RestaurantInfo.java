@@ -138,8 +138,8 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
             public void onClick(View view) {
                 final int marking;
                 DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
-                Log.e("123", ":" + manager.returnData());
-                if(manager.returnData().equals("nothing")){
+                Log.e("123", ":" + manager.returnName());
+                if(manager.returnName().equals("nothing")){
                     marking = 0;
                 }else{
                     marking = 1;

@@ -28,8 +28,12 @@ public class SplashActivity extends Activity {
                 isLogin                     = dbManagerLogin.returnData();
                 auth                        = dbManagerLogin.returnAuth();
                 if(isLogin == "first"){
-                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null, null)");
+                    dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null, null, null)");
                     isLogin = dbManagerLogin.returnData();
+
+                    DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
+                    manager.insert("insert into RESERV_LIST values (null,"+"'nothing'"+","+"''"+")");
+
                 }
 
                 if(isLogin.length()==2){

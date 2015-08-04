@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -77,7 +78,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     FrameLayout  upward_btn2;
     LinearLayout real;
     LinearLayout up;
-
+    LinearLayout small_imglayout;
+    ImageView small_img;
     AutoCompleteTextView search;
     private ArrayList<String> restaurants;
     ArrayAdapter<String> search_adapter;
@@ -86,8 +88,10 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private Animation tran_downward = null;
     private HashMap<String, String> markers;
     private BackPressCloseHandler backPressCloseHandler;
+    private LatLng myLocation;
     ArrayList markerlist;
     Marker marker;
+    ArrayList<ResListItem> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +175,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         submenu01 = (LinearLayout) findViewById(R.id.submenu01);
         submenu02 = (LinearLayout) findViewById(R.id.submenu02);
         submenu03 = (LinearLayout) findViewById(R.id.submenu03);
+        small_imglayout = (LinearLayout) findViewById(R.id.samll_imglayout);
         search = (AutoCompleteTextView) findViewById(R.id.search);
+        small_img = (ImageView) findViewById(R.id.r_simage);
         restaurants = new ArrayList<>();
         upward_btn.bringToFront();
 
@@ -185,23 +191,34 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         //search.setOnClickListener(searchmap);
 
+
         //about Listview
-        ArrayList<ResListItem> items = new ArrayList<ResListItem>();
-
-
+        items = new ArrayList<ResListItem>();
 
         JSONArray jArray = null;
         String url = "http://52.69.163.43/get_info.php";
         String jsonString = MakeJson(url);
-        String r_name;
-        String r_cuisine;
+        Double x_cordinate;
+        Double y_cordinate;
         try {
             JSONObject json_data = null;
             jArray = new JSONArray(jsonString);
             for(int i=0; i<jArray.length(); i++){
                 json_data = jArray.getJSONObject(i);
-                items.add(new ResListItem(null,json_data.getString("name"),json_data.getString("cuisine"),"0.5 miles"));
-
+                //Picasso.with(getApplicationContext()).load(json_data.getString("img_small")).resize(width_image, height_image).centerCrop().into(small_img);
+                Log.d("LOCATION", "mylocatoin : " + mGoogleMap.getMyLocation());
+                if(myLocation == null) {
+                    items.add(new ResListItem(json_data.getString("img_small"), json_data.getString("name"), json_data.getString("cuisine"), "GPS DISABLED"));
+                }
+                else {
+                    Log.d("LOCATION","x : " + myLocation.latitude + " y : " + myLocation.longitude);
+                    //GET DISTANCE BETWEEN TWO LOCATION USING DISTNACETO OR DISTNACEBETWEEN OR DISTANCEFROM
+                    x_cordinate = json_data.getDouble("x_cordinate");
+                    y_cordinate = json_data.getDouble("y_cordinate");
+                    float[] results = new float[1];
+                    Location.distanceBetween(myLocation.latitude,myLocation.longitude,x_cordinate,y_cordinate,results);
+                    items.add(new ResListItem(json_data.getString("img_small"), json_data.getString("name"), json_data.getString("cuisine"), Float.toString(results[0])));
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -249,7 +266,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
                 }
 
-                marker.setSnippet(cuisine + " / " + line_num + " lefts");
+                marker.setSnippet(cuisine + " / " + line_num + " waiting");
                 marker.setIcon(bitmapDescriptor);
                 marker.showInfoWindow();
 
@@ -299,6 +316,37 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                     break;
                 }
                 case R.id.upward_btn: {
+                    items.clear();
+                    Location my_loc = mGoogleMap.getMyLocation();
+                    Log.d("LOCATION", "mylocatoin : " + my_loc);
+                    JSONArray jArray = null;
+                    String url = "http://52.69.163.43/get_info.php";
+                    String jsonString = MakeJson(url);
+                    Double x_cordinate;
+                    Double y_cordinate;
+                    try {
+                        JSONObject json_data = null;
+                        jArray = new JSONArray(jsonString);
+                        for(int i=0; i<jArray.length(); i++){
+                            json_data = jArray.getJSONObject(i);
+                            //Picasso.with(getApplicationContext()).load(json_data.getString("img_small")).resize(width_image, height_image).centerCrop().into(small_img);
+                            if(my_loc == null) {
+                                items.add(new ResListItem(json_data.getString("img_small"), json_data.getString("name"), json_data.getString("cuisine"), "GPS DISABLED"));
+                            }
+                            else {
+                                Log.d("MY_LOCATION","x : " + my_loc.getLatitude() + " y : " + my_loc.getLongitude());
+                                //GET DISTANCE BETWEEN TWO LOCATION USING DISTNACETO OR DISTNACEBETWEEN OR DISTANCEFROM
+                                x_cordinate = json_data.getDouble("x_cordinate");
+                                y_cordinate = json_data.getDouble("y_cordinate");
+                                float[] results = new float[1];
+                                Location.distanceBetween(my_loc.getLatitude(),my_loc.getLongitude(),x_cordinate,y_cordinate,results);
+                                Log.d("DISTANCE", "DISTANCE : FROM ME TO " + json_data.getString("name") + " : " + results[0] + "meter");
+                                items.add(new ResListItem(json_data.getString("img_small"), json_data.getString("name"), json_data.getString("cuisine"), String.format("%.2f mile",getMiles(results[0]))));
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     fake.bringToFront();
                     upward_btn2.setVisibility(View.VISIBLE);
                     final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
@@ -522,7 +570,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         }
     }
 
-    private LatLng myLocation;
     double[] myGps;
 
     private void setMyLocation(){
@@ -648,6 +695,9 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     boolean locationTag=true;
 
+    private float getMiles(float meter){
+        return (float) (meter*0.000621371192);
+    }
     @Override
     public void onLocationChanged(Location location) {
         if (location == null) return;
