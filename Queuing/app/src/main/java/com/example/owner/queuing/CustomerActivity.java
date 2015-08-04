@@ -91,6 +91,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private ArrayList<String> restaurants;
     ArrayAdapter<String> search_adapter;
 
+
+    private FrameLayout clear;
     private Animation tran_upward = null;
     private Animation tran_downward = null;
     private HashMap<String, String> markers;
@@ -111,7 +113,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         progressDialog = new ProgressDialog(CustomerActivity.this);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
+        clear = (FrameLayout)findViewById(R.id.clear_text);
+        clear.setOnClickListener(clearText);
         backPressCloseHandler = new BackPressCloseHandler(this);
         mmap = (RelativeLayout) findViewById(R.id.layout_map);
         View child = getLayoutInflater().inflate(R.layout.activity_maps, null);
@@ -323,6 +326,15 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         }
    };
 
+    private View.OnClickListener clearText = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            search.setText(null);
+        }
+    };
+
+
+
     private View.OnClickListener myOnClick=new View.OnClickListener(){
         @Override
         public void onClick(View view) {
@@ -491,8 +503,11 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 }
                     marker = mGoogleMap.addMarker(new MarkerOptions()
                         .icon(bitmapDescriptor)
-                            .position(new LatLng(x, y)).title(res_name).snippet(cuisine + " / " + remaining_num + " waiting"));
+
+                            .position(new LatLng(x, y)).title(res_name).snippet(cuisine));
+
                     markerlist.add(marker);
+
             }
 
             search_adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,restaurants);
@@ -621,11 +636,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
     private class req_specific_info extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected void onPreExecute(){
-            progressDialog.show();
-            super.onPreExecute();
-        }
+
 
 
         @Override

@@ -80,7 +80,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     String timing = null;
     String kinds = null;
     String dummy_name = null;
-    ImageView refresh_btn = null;
+    LinearLayout refresh_btn = null;
     int num_remain = 0;
     DBManager_login dbManagerLogin;
     DBManager_favorites dbManagerFavorites;
@@ -112,7 +112,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         num_lefts_v = (TextView) findViewById(R.id.num_lefts);
         sample = (RelativeLayout)findViewById(R.id.sample);
         res_image_v = (ImageView) findViewById(R.id.res_image);
-        refresh_btn = (ImageView) findViewById(R.id.refresh_btn);
+        refresh_btn = (LinearLayout) findViewById(R.id.refresh_btn);
         //Log.e("pass", dummy_name);
         name_v.setText(rest_name);
         loc_v.setText(location);

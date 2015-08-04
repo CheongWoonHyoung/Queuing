@@ -241,16 +241,29 @@
                     android:id="@+id/search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="40dp"
                     android:hint="Search"
                     android:singleLine="true"
+                    android:inputType="textNoSuggestions"
                     android:completionThreshold="1"
                     android:textColorHint="#BDBDBD"
                     android:textSize="20dp"
                     android:paddingLeft="10dp"
                     android:background="@null"
+
                     android:elevation="20dp"
                     />
-
+                <FrameLayout
+                    android:id="@+id/clear_text"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|right"></FrameLayout>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/icon_delete2"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="10dp"/>
             </FrameLayout>
 
             <FrameLayout
