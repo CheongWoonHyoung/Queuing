@@ -77,7 +77,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     String kinds = null;
     String dummy_name = null;
     int num_remain = 0;
-
+    DBManager_login dbManagerLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
         setContentView(R.layout.restaurant_info);
 
         Intent intent = getIntent();
-
+        dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
         rest_name = intent.getExtras().getString("name");
         img_url = intent.getExtras().getString("img_large");
         location = intent.getExtras().getString("location");

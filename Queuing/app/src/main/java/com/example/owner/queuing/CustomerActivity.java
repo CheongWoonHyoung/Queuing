@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -53,6 +55,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 
 public class CustomerActivity extends FragmentActivity implements LocationListener{
@@ -187,11 +190,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         submenu03.setOnClickListener(myOnClick);
         upward_btn.setOnClickListener(myOnClick);
         upward_btn2.setOnClickListener(myOnClick);
-
-
         //search.setOnClickListener(searchmap);
-
-
         //about Listview
         items = new ArrayList<ResListItem>();
 
@@ -227,6 +226,24 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         ListView res_listview = (ListView) findViewById(R.id.res_listview);
         res_listview.setAdapter(adapter);
 
+        search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("SEARCH_RES","RES : " + parent.getItemAtPosition(position));
+                String result = null;
+                try {
+                    result = new search_res().execute(parent.getItemAtPosition(position).toString()).get().toString();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                String[] latlng = result.split("/");
+                LatLng latlng_search = new LatLng(Double.parseDouble(latlng[0]),Double.parseDouble(latlng[1]));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng_search,15));
+            }
+        });
 
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -275,18 +292,19 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         });
     }
 
-   /* private View.OnClickListener searchmap = new View.OnClickListener() {
+   private View.OnClickListener searchmap = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             for(int i=0; i<restaurants.size(); i++){
                 if(search.getText().toString().equals(restaurants.get(i))){
-                    LatLng latlng_search = new LatLng();
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng_search,15));
+                  new search_res().execute(restaurants.get(i));
+                  //  LatLng latlng_search = new LatLng();
+                  //  mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng_search,15));
                 }
             }
 
         }
-    } */
+   };
 
     private View.OnClickListener myOnClick=new View.OnClickListener(){
         @Override
@@ -428,7 +446,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         String cuisine;
         double x, y;
         int remaining_num;
-
+        restaurants.clear();
 
         try{
             jArray = new JSONArray(jsonString);
@@ -532,6 +550,53 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         }
         Log.d("JSON", "whole json result : " + jsonall);
         return jsonall;
+    }
+
+    private class search_res extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... info) {
+            String sResult = null;
+
+            try {
+                Log.d("INFO","rest name is " + info[0]);
+                URL url = new URL("http://52.69.163.43/search_res.php");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("POST");
+                String post_value = "name=" + info[0];
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(post_value);
+                osw.flush();
+
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder builder = new StringBuilder();
+                String str;
+
+                while ((str = reader.readLine()) != null) {
+                    builder.append(str);
+                }
+                sResult = builder.toString();
+
+            } catch (Exception e) {
+                Log.e("HTTPPOST","Error in Http POST REQUEST : " + e.toString());
+            }
+            return sResult;
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            if(result.equals("Does not exist"))
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            else {
+                Log.d("SEARCH",result);
+                //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                //finish();
+            }
+        }
     }
 
     private class req_specific_info extends AsyncTask<String, Void, String> {
