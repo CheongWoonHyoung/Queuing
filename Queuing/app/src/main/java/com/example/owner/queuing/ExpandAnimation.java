@@ -59,7 +59,6 @@ public class ExpandAnimation extends Animation {
         } else if (!mWasEndedAlready) {
             mViewLayoutParams.bottomMargin = mMarginEnd;
             mAnimatedView.requestLayout();
-            Log.e("margin",":"+mViewLayoutParams.bottomMargin);
             if (mIsVisibleAfter) {
                 mAnimatedView.setVisibility(View.GONE);
             }

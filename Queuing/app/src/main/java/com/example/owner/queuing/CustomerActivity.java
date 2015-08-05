@@ -87,6 +87,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     LinearLayout real;
     LinearLayout up;
     LinearLayout small_imglayout;
+    LinearLayout empty;
     ImageView small_img;
     AutoCompleteTextView search;
     private ArrayList<String> restaurants;
@@ -193,6 +194,8 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         submenu02 = (LinearLayout) findViewById(R.id.submenu02);
         submenu03 = (LinearLayout) findViewById(R.id.submenu03);
         small_imglayout = (LinearLayout) findViewById(R.id.samll_imglayout);
+        empty = (LinearLayout) findViewById(R.id.empty);
+        empty.setClickable(false);
         search = (AutoCompleteTextView) findViewById(R.id.search);
         small_img = (ImageView) findViewById(R.id.r_simage);
         restaurants = new ArrayList<>();
@@ -447,6 +450,13 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                     ex_Ani.setAnimationListener(ani_listener);
                     res_list2.startAnimation(ex_Ani);
                 }
+                case R.id.empty:{
+                    fake.bringToFront();
+                    final SlidingAnimationListener2 ani_listener = new SlidingAnimationListener2();
+                    final ExpandAnimation ex_Ani = new ExpandAnimation(res_list2,300);
+                    ex_Ani.setAnimationListener(ani_listener);
+                    res_list2.startAnimation(ex_Ani);
+                }
             }
         }
     };
@@ -484,7 +494,12 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     public class SlidingAnimationListener2 implements Animation.AnimationListener {
         @Override
         public void onAnimationStart(Animation animation) {
-
+            if(isOpen2){
+                real.setClickable(false);
+            }else{
+                empty.setClickable(false);
+                search.setEnabled(false);
+            }
         }
 
         @Override
@@ -492,8 +507,12 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
             if(isOpen2){
                 real.bringToFront();
                 isOpen2 = false;
+                real.setClickable(true);
+                search.setEnabled(true);
+
             }else{
                 isOpen2 = true;
+                empty.setClickable(true);
             }
         }
 

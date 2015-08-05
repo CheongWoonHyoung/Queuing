@@ -6,8 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +41,7 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, final ViewGroup parent){
         View v = convertView;
         FavListHolder holder = null;
         if(v==null){
@@ -56,6 +59,18 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
             holder = (FavListHolder)v.getTag();
         }
 
+
+        View disappear_item =  v.findViewById(R.id.disappear_item);
+        disappear_item.setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) disappear_item.getLayoutParams();
+        lp.bottomMargin = 0;
+        v.requestLayout();
+        if(v.getVisibility()==View.VISIBLE) Log.e("VISIBILITY","TRUE");
+        else Log.e("VISIBILITY","FALSE");
+        Log.e("MARGIN:"," "+items.size());
+
+        RelativeLayout delete_btn = (RelativeLayout) v.findViewById(R.id.delete_favorites);
+
         int width_image = (int) context.getResources().getDimension(R.dimen.small_image_width);
         int height_image = (int) context.getResources().getDimension(R.dimen.small_image_height);
         FavoriteListItem fav_item = items.get(position);
@@ -63,8 +78,7 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
         holder.res_cuisine.setText(fav_item.res_cuisine.toString());
 
         try {
-            holder.res_number_line.setText(
-                    new get_linenum().execute(fav_item.res_name).get());
+            holder.res_number_line.setText(new get_linenum().execute(fav_item.res_name).get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -73,6 +87,40 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
 
         Picasso.with(this.context).load(fav_item.small_imgurl).resize(width_image, height_image).centerCrop().into(holder.res_image);
         Log.e("index", ":" + position);
+
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final LinearLayout disappear_item = (LinearLayout) parent.getChildAt(position).findViewById(R.id.disappear_item);
+                ExpandAnimation ex_Ani = new ExpandAnimation(disappear_item, 500);
+                ex_Ani.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        final DBManager_favorites dbManagerFavorites = new DBManager_favorites(context, "favorites.db", null, 1);
+                        dbManagerFavorites.delete("delete from FAVORITES where res_name='"+items.get(position).res_name+"'");
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        items.remove(position);
+                        notifyDataSetChanged();
+
+                        Log.e("Position:", " " + position);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                disappear_item.startAnimation(ex_Ani);
+
+
+            }
+        });
+
+
+
 
         return v;
     }
