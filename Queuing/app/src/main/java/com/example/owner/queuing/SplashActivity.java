@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends FontActivity {
     public String isLogin = null;
     public Context mycontext = this;
     public String auth = null;

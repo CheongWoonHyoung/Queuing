@@ -39,7 +39,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class OwnerActivity extends Activity {
+public class OwnerActivity extends FontActivity {
     ReservDialog reservDialog;
     EditText name;
     EditText phone;

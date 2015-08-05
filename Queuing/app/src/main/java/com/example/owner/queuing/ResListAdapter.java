@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -22,14 +23,15 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
     private ArrayList<ResListItem> items;
     int layoutResId;
     private Typeface mTypeface;
+    private Typeface mBoldTypeFace;
 
     public ResListAdapter(Context context, int textViewResourceId, ArrayList<ResListItem> items){
         super(context,textViewResourceId,items);
         this.layoutResId = textViewResourceId;
         this.context=context;
         this.items = items;
-        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand_Book.otf");
-
+        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Questrial_Regular.otf");
+        mBoldTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand_Bold.otf");
     }
 
     @Override
@@ -59,9 +61,12 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
         int height_image = (int) context.getResources().getDimension(R.dimen.small_image_height);
         ResListItem res_item = items.get(position);
         holder.res_name.setText(res_item.res_name);
+        holder.res_name.setTypeface(mTypeface);
         holder.res_cuisine.setText(res_item.res_cuisine);
+        holder.res_cuisine.setTypeface(mTypeface);
         holder.res_distance.setText(res_item.res_distance);
-        setGlobalFont(parent);
+        holder.res_distance.setTypeface(mTypeface);
+        //setGlobalFont(parent);
         Picasso.with(this.context).load(res_item.small_imgurl).resize(width_image, height_image).centerCrop().into(holder.res_image);
         Log.e("index", ":" + position);
 

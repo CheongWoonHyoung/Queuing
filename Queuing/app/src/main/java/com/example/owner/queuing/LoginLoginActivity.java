@@ -27,7 +27,7 @@ import java.net.URL;
 /**
  * Created by cheongwh on 2015. 7. 29..
  */
-public class LoginLoginActivity extends Activity{
+public class LoginLoginActivity extends FontActivity{
 
     LinearLayout back_btn;
     LinearLayout realback_signin;

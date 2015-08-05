@@ -114,7 +114,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
 
         setContentView(R.layout.activity_customer);
 
-        mTypeface = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Book.otf");
+        mTypeface = Typeface.createFromAsset(getAssets(), "fonts/Questrial_Regular.otf");
         ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
 
 
@@ -318,7 +318,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 int line_num = 0;
                 try {
                     jsonall = new req_specific_info().execute(marker.getTitle()).get();
-                } catch (Exception e){
+                } catch (Exception e) {
                     Log.e("JSON", "Error in JSONPARSER : " + e.toString());
                 }
                 Log.d("JSON", "whole json result : " + jsonall);
@@ -333,17 +333,17 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                         cuisine = json_data.getString("cuisine");
 
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 BitmapDescriptor bitmapDescriptor;
-                if(line_num >=0 && line_num <6){
+                if (line_num >= 0 && line_num < 6) {
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
-                }else if(line_num >=6 && line_num <11){
+                } else if (line_num >= 6 && line_num < 11) {
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
-                }else if(line_num >= 11 && line_num< 21){
+                } else if (line_num >= 11 && line_num < 21) {
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
-                }else{
+                } else {
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
                 }
 

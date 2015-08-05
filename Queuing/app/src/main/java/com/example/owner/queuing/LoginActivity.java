@@ -32,7 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends FontActivity {
     public Context mycontext    = this;
     public String isConnected   = null;
 

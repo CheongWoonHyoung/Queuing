@@ -1,6 +1,7 @@
 package com.example.owner.queuing;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,11 +19,13 @@ import java.util.ArrayList;
  */
 public class CusListAdpater extends ArrayAdapter<CusListItem> {
     private Context context;
+    private Typeface mTypeface;
     private ArrayList<CusListItem> items;
     public CusListAdpater(Context context, int textViewResourceId, ArrayList<CusListItem> items){
         super(context,textViewResourceId,items);
         this.context=context;
         this.items = items;
+        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Questrial_Regular.otf");
     }
 
     @Override
@@ -53,9 +56,13 @@ public class CusListAdpater extends ArrayAdapter<CusListItem> {
 
         if(cus_item != null){
             holder.cus_priority.setText(cus_item.cus_priority);
+            holder.cus_priority.setTypeface(mTypeface);
             holder.cus_name.setText(cus_item.cus_name);
+            holder.cus_name.setTypeface(mTypeface);
             holder.cus_number.setText(cus_item.cus_number);
+            holder.cus_number.setTypeface(mTypeface);
             holder.cus_method.setText(cus_item.cus_method);
+            holder.cus_method.setTypeface(mTypeface);
             holder.isOpen = cus_item.isOpen;
         }
 

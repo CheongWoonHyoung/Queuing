@@ -15,7 +15,7 @@ public class FontActivity extends Activity {
     public void setContentView(int layoutResID){
         super.setContentView(layoutResID);
         if(FontActivity.mTypeface == null)
-            FontActivity.mTypeface = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Book.otf");
+            FontActivity.mTypeface = Typeface.createFromAsset(getAssets(), "fonts/Questrial_Regular.otf");
 
         ViewGroup root = (ViewGroup)findViewById(android.R.id.content);
         setGlobalFont(root);

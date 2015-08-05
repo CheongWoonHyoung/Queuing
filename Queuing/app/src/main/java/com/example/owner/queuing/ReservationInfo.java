@@ -41,7 +41,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class ReservationInfo extends Activity{
+public class ReservationInfo extends FontActivity{
 
     FrameLayout frame_back_btn_reservationinfo;
     FrameLayout frame_back_btn_reservationinfo_blank;

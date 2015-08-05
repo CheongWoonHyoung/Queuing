@@ -39,7 +39,7 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
         this.layoutResId = textViewResourceId;
         this.context=context;
         this.items = items;
-        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand_Book.otf");
+        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Questrial_Regular.otf");
     }
 
     @Override
@@ -77,7 +77,9 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
         int height_image = (int) context.getResources().getDimension(R.dimen.small_image_height);
         FavoriteListItem fav_item = items.get(position);
         holder.res_name.setText(fav_item.res_name.toString());
+        holder.res_name.setTypeface(mTypeface);
         holder.res_cuisine.setText(fav_item.res_cuisine.toString());
+        holder.res_cuisine.setTypeface(mTypeface);
 
         try {
             holder.res_number_line.setText(new get_linenum().execute(fav_item.res_name).get());
@@ -99,7 +101,7 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
                     @Override
                     public void onAnimationStart(Animation animation) {
                         final DBManager_favorites dbManagerFavorites = new DBManager_favorites(context, "favorites.db", null, 1);
-                        dbManagerFavorites.delete("delete from FAVORITES where res_name='"+items.get(position).res_name+"'");
+                        dbManagerFavorites.delete("delete from FAVORITES where res_name='" + items.get(position).res_name + "'");
                     }
 
                     @Override
