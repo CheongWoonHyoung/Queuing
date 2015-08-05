@@ -37,12 +37,6 @@ public class InfoWindowAdapterMarker implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoWindow(Marker marker) {
-        return null;
-    }
-
-    @Override
-    public View getInfoContents(Marker marker) {
-
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 
         // Getting view from the layout file info_window_layout
@@ -64,6 +58,12 @@ public class InfoWindowAdapterMarker implements GoogleMap.InfoWindowAdapter {
 
         // Returning the view containing InfoWindow contents
         return popUp;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
+
     }
 
     /**

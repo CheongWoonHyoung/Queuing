@@ -85,6 +85,7 @@
                 android:id="@+id/name_setting"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:hint="Input your name"
                 android:text="CANNOT GET THE NAME"
                 android:textSize="18dp"
