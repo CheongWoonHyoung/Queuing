@@ -396,7 +396,6 @@ public class RestaurantInfo extends FontActivity implements NumberPicker.OnValue
                     intent.putExtra("reserve_num",numberPicker.getValue());
                     startActivity(intent);
                     dialog.dismiss();
-                    finish();
                     break;
                 }
                 case R.id.btn_cancel: {

@@ -133,8 +133,11 @@ public class ConfirmActivity extends FontActivity{
             DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
             manager.update("update RESERV_LIST set res_name='" + dummy_name + "'");// (null,'"+dummy_name+"','"+confirm_party.getText().toString()+"')");
             manager.update("update RESERV_LIST set party='" + confirm_party.getText().toString() + "'");
-            Log.e("123","datavalue :"+dummy_name+"  "+manager.returnName());
+            Log.e("123", "datavalue :" + dummy_name + "  " + manager.returnName());
             Toast.makeText(getApplicationContext(),"Queuing complete!",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(),CustomerActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         }
     }

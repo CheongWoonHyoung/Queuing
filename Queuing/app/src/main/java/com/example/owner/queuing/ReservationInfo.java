@@ -136,7 +136,7 @@ public class ReservationInfo extends FontActivity{
                 reserv_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new HttpPostRequest().execute("out",reserv_name.getText().toString(),reserv_party.getText().toString(),"using Queuing",res_name);
+                        new HttpPostRequest().execute("out",reserv_name.getText().toString(),reserv_party.getText().toString(),"Queuing",res_name);
                     }
                 });
 
