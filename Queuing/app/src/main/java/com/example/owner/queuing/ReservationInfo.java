@@ -136,7 +136,7 @@ public class ReservationInfo extends FontActivity{
                 reserv_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new HttpPostRequest().execute("out",reserv_name.getText().toString(),reserv_party.getText().toString(),"using Queuing",res_name);
+                        new HttpPostRequest().execute("out",reserv_name.getText().toString(),reserv_party.getText().toString(),"Queuing",res_name);
                     }
                 });
 
@@ -196,10 +196,8 @@ public class ReservationInfo extends FontActivity{
                 }
                 sResult     = builder.toString();
                 Log.e("pass",sResult);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e){
+                Log.d("CANCEL_RESERV", "REASON : " + e);
             }
             return sResult;
         }
