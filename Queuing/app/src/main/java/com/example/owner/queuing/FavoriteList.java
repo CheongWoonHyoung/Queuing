@@ -32,9 +32,13 @@ public class FavoriteList extends Activity{
         final DBManager_favorites dbManagerFavorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null, 1);
         back_btn = (FrameLayout) findViewById(R.id.back_favorites);
         items = new ArrayList<>();
-        for(int i=1; i<dbManagerFavorites.getTableSize(); i++) { //except first null, start from i=1
-            Log.d("LIST", dbManagerFavorites.returnName(i));
-            items.add(new FavoriteListItem(dbManagerFavorites.returnName(i),dbManagerFavorites.returnImgurl(i),dbManagerFavorites.returnCusine(i),null));
+        Log.d("ISEMPTY","ISEMPTY " + dbManagerFavorites.isEmpty());
+        Log.d("HOWMANY", "HOWMANY " + dbManagerFavorites.getTableSize());
+        if(!dbManagerFavorites.isEmpty()) {
+            for (int i = 1; i <= dbManagerFavorites.getTableSize(); i++) { //except first null, start from i=1
+                Log.d("LIST", dbManagerFavorites.returnName(i) + " " + dbManagerFavorites.returnImgurl(i) + " " + dbManagerFavorites.returnCusine(i));
+                items.add(new FavoriteListItem(dbManagerFavorites.returnName(i), dbManagerFavorites.returnImgurl(i), dbManagerFavorites.returnCusine(i), null));
+            }
         }
         FavoriteListAdapter adapter = new FavoriteListAdapter(this,R.layout.activity_favorites_item,items);
         fav_listview = (ListView) findViewById(R.id.list_favorites);

@@ -28,19 +28,15 @@ public class SplashActivity extends Activity {
                 isLogin                     = dbManagerLogin.returnData();
                 auth                        = dbManagerLogin.returnAuth();
                 if(isLogin == "first"){
+
                     dbManagerLogin.insert("insert into IS_LOGIN values (null, 'no', null, null, null)");
                     isLogin = dbManagerLogin.returnData();
-
                     DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
                     manager.insert("insert into RESERV_LIST values (null,"+"'nothing'"+","+"''"+")");
-
                     DBManager_favorites favorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null,1);
-                    favorites.insert("insert into FAVORITES values (null,null,null,null)");
-
                 }
 
                 if(isLogin.length()==2){
-
                     startActivity(new Intent(mycontext, LoginActivity.class));
                 }
                 else{

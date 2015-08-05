@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBManager_favorites extends SQLiteOpenHelper {
     public DBManager_favorites(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -42,12 +43,13 @@ public class DBManager_favorites extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String returnName(int index) {
+    public String returnName(int cnt) {
         SQLiteDatabase db = getReadableDatabase();
         String str = "null";
 
-        Cursor cursor = db.rawQuery("select res_name from FAVORITES where _id=" + Integer.toString(index), null);
-        while(cursor.moveToNext()) {
+        Cursor cursor = db.rawQuery("select res_name from FAVORITES", null);
+        for(int i=0; i<cnt; i++){
+            cursor.moveToNext();
             str = cursor.getString(0);
         }
 
@@ -61,27 +63,69 @@ public class DBManager_favorites extends SQLiteOpenHelper {
 
         return numRows;
     }
-    public String returnCusine(int index) {
+    public String returnCusine(int cnt) {
         SQLiteDatabase db = getReadableDatabase();
         String str = "null";
 
-        Cursor cursor = db.rawQuery("select cuisine from FAVORITES where _id=" + Integer.toString(index) , null);
-        while(cursor.moveToNext()) {
+        Cursor cursor = db.rawQuery("select cuisine from FAVORITES", null);
+        for(int i=0; i<cnt; i++){
+            cursor.moveToNext();
             str = cursor.getString(0);
         }
 
         return str;
     }
 
-    public String returnImgurl(int index) {
+    public String returnImgurl(int cnt) {
         SQLiteDatabase db = getReadableDatabase();
-        String str = "first";
+        String str = "null";
 
-        Cursor cursor = db.rawQuery("select img_url from FAVORITES where _id=" + Integer.toString(index), null);
-        while(cursor.moveToNext()) {
+        Cursor cursor = db.rawQuery("select img_url from FAVORITES", null);
+        for(int i=0; i<cnt; i++){
+            cursor.moveToNext();
             str = cursor.getString(0);
         }
 
         return str;
+    }
+    public Boolean isInDB_Favorites(String res_name){
+        SQLiteDatabase db = getReadableDatabase();
+        String str = "null";
+        int numRows = (int) DatabaseUtils.longForQuery(db, "select count(*) from FAVORITES where res_name = '" + res_name +"'" , null);
+        if(numRows ==0)
+            return false;
+        else
+            return true;
+    }
+
+    public Boolean isEmpty(){
+        SQLiteDatabase db = getReadableDatabase();
+        String str = "null";
+        int numRows = (int) DatabaseUtils.longForQuery(db, "select count(*) from FAVORITES", null);
+        if(numRows ==0)
+            return true;
+        else
+            return false;
+    }
+
+    public String showdatas(){
+        SQLiteDatabase db = getReadableDatabase();
+        String str = "null";
+
+        Cursor cursor = db.rawQuery("select * from FAVORITES", null);
+        int i=0;
+        while(i<this.getTableSize()) {
+            cursor.moveToNext();
+            for(int j=0; j<4; j++)
+                str += cursor.getString(j);
+            i++;
+        }
+
+        return str;
+    }
+
+    public void deleteAll(){
+        SQLiteDatabase db = getReadableDatabase();
+        db.execSQL("delete from FAVORITES");
     }
 }

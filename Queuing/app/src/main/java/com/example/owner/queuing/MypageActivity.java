@@ -53,6 +53,14 @@ public class MypageActivity extends Activity{
             // TODO Auto-generated method stub
             switch(view.getId()){
                 case R.id.signout_btn: {
+                    final DBManager_favorites dbManagerFavorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null, 1);
+                    String str = "";
+                    for(int i=1; i<=dbManagerFavorites.getTableSize(); i++){
+                        str += dbManagerFavorites.returnName(i) + "/";
+                    }
+                    Log.d("STRING", "String : " + str);
+                    //dbManagerFavorites.deleteAll();
+                    Log.d("DB_SITUATION", dbManagerFavorites.showdatas());
                     Intent intent = new Intent(MypageActivity.this, LoginActivity.class);
                     startActivity(intent);
                     break;
