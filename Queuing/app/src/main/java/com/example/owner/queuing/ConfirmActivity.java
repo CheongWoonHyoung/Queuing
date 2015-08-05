@@ -22,7 +22,7 @@ import java.net.URL;
 /**
  * Created by cheongwh on 2015. 7. 24..
  */
-public class ConfirmActivity extends Activity{
+public class ConfirmActivity extends FontActivity{
 
     private FrameLayout frame_back_btn_confirm;
     private FrameLayout realback_confirm;

@@ -23,7 +23,7 @@ import java.net.URL;
 /**
  * Created by mark_mac on 2015. 7. 24..
  */
-public class ChangePasswordActivity extends Activity{
+public class ChangePasswordActivity extends FontActivity{
     FrameLayout back_btn;
     EditText ex_passwd;
     EditText new_passwd;

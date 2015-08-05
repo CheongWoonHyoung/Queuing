@@ -24,7 +24,7 @@ import java.net.URL;
 /**
  * Created by mark_mac on 2015. 7. 24..
  */
-public class NameChangeActivity extends Activity{
+public class NameChangeActivity extends FontActivity{
     FrameLayout back_btn_name;
     LinearLayout clear_name;
     TextView save_name;

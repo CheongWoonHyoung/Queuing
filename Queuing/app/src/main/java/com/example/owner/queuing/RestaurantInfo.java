@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -52,7 +53,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by owner on 2015-07-12.
  */
-public class RestaurantInfo extends Activity implements NumberPicker.OnValueChangeListener{
+public class RestaurantInfo extends FontActivity implements NumberPicker.OnValueChangeListener{
 
     FrameLayout frame_back_btn_resinfo;
     FrameLayout real_back;
@@ -72,6 +73,10 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     TextView num_lefts_v;
     ImageView res_image_v;
     ImageView add_fav_img;
+    Typeface mTypeface;
+    TextView dialog_info;
+    TextView dialog_confirm;
+    TextView dialog_cancel;
     View test;
     RelativeLayout sample;
     String rest_name = null;
@@ -310,14 +315,31 @@ public class RestaurantInfo extends Activity implements NumberPicker.OnValueChan
     private void show_dialog(){
         try{
 
+
+
             dialog = new Dialog(RestaurantInfo.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
+
             dialog.setContentView(R.layout.activity_pop_up);
+
+            dialog_info = (TextView)dialog.findViewById(R.id.dialog_info);
+            dialog_confirm = (TextView)dialog.findViewById(R.id.dialog_confirm);
+            dialog_cancel = (TextView)dialog.findViewById(R.id.dialog_cancel);
+
+
+
+            mTypeface = Typeface.createFromAsset(getAssets(), "fonts/Questrial_Regular.otf");
+            dialog_info.setTypeface(mTypeface);
+            dialog_confirm.setTypeface(mTypeface);
+            dialog_cancel.setTypeface(mTypeface);
+
+
             btn_cancel = (LinearLayout)dialog.findViewById(R.id.btn_cancel);
             btn_confirm = (LinearLayout)dialog.findViewById(R.id.btn_confirm);
             numberPicker =(NumberPicker) dialog.findViewById(R.id.picker_popup);
+
 
             //btn_cancel.setOnClickListener(myOnClick);
             btn_confirm.setOnClickListener(myOnClick);

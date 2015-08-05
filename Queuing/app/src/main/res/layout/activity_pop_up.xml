@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <TextView
+                    android:id="@+id/dialog_info"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingTop="10dp"
@@ -72,6 +73,7 @@
             android:background="@color/accent_material_light"
             android:id="@+id/btn_confirm">
             <TextView
+                android:id="@+id/dialog_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Confirm"
@@ -88,6 +90,7 @@
             android:background="#B2DFDB"
             android:id="@+id/btn_cancel">
             <TextView
+                android:id="@+id/dialog_cancel"
                 android:layout_width="match_parent"
                 android:textStyle="normal"
                 android:layout_height="match_parent"

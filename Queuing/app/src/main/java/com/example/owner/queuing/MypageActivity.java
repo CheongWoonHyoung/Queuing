@@ -23,7 +23,7 @@ import java.net.URL;
 /**
  * Created by mark_mac on 2015. 7. 24..
  */
-public class MypageActivity extends Activity{
+public class MypageActivity extends FontActivity{
 
     private TextView sign_out;
     private TextView account_email;

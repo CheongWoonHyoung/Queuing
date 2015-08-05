@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -23,10 +25,9 @@ import org.w3c.dom.Text;
 /**
  * Created by mark_mac on 2015. 7. 24..
  */
-public class AccountInfoActivity extends Activity{
+public class AccountInfoActivity extends FontActivity{
     FrameLayout back_btn;
     RelativeLayout change_pw;
-
     TextView email_account;
     Switch switch_notification;
     public static SharedPreferences pref;
@@ -36,14 +37,16 @@ public class AccountInfoActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        email_account = (TextView) findViewById(R.id.mail_accountsetting);
         final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+
 
         pref = getApplicationContext().getSharedPreferences("Notification_ONOFF", MODE_PRIVATE);
         editor = pref.edit();
         pref.getBoolean("Notification", true);
         back_btn = (FrameLayout)findViewById(R.id.account_back);
         change_pw = (RelativeLayout)findViewById(R.id.change_pw);
-        email_account = (TextView) findViewById(R.id.mail_accountsetting);
+
         switch_notification = (Switch) findViewById(R.id.switch_notification);
 
         switch_notification.setChecked(pref.getBoolean("Notification",true));
@@ -90,5 +93,6 @@ public class AccountInfoActivity extends Activity{
         pref = context.getSharedPreferences("Notification_ONOFF", MODE_PRIVATE);
         return pref.getBoolean("Notification", true);
     }
+
 
 }

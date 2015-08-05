@@ -1,6 +1,7 @@
 package com.example.owner.queuing;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,13 +32,14 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
     private Context context;
     private ArrayList<FavoriteListItem> items;
     int layoutResId;
-
+    private Typeface mTypeface;
 
     public FavoriteListAdapter(Context context, int textViewResourceId, ArrayList<FavoriteListItem> items){
         super(context,textViewResourceId,items);
         this.layoutResId = textViewResourceId;
         this.context=context;
         this.items = items;
+        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Questrial_Regular.otf");
     }
 
     @Override
@@ -75,7 +77,9 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
         int height_image = (int) context.getResources().getDimension(R.dimen.small_image_height);
         FavoriteListItem fav_item = items.get(position);
         holder.res_name.setText(fav_item.res_name.toString());
+        holder.res_name.setTypeface(mTypeface);
         holder.res_cuisine.setText(fav_item.res_cuisine.toString());
+        holder.res_cuisine.setTypeface(mTypeface);
 
         try {
             holder.res_number_line.setText(new get_linenum().execute(fav_item.res_name).get());
@@ -97,7 +101,7 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
                     @Override
                     public void onAnimationStart(Animation animation) {
                         final DBManager_favorites dbManagerFavorites = new DBManager_favorites(context, "favorites.db", null, 1);
-                        dbManagerFavorites.delete("delete from FAVORITES where res_name='"+items.get(position).res_name+"'");
+                        dbManagerFavorites.delete("delete from FAVORITES where res_name='" + items.get(position).res_name + "'");
                     }
 
                     @Override
@@ -120,7 +124,7 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
         });
 
 
-
+        setGlobalFont(parent);
 
         return v;
     }
@@ -132,6 +136,18 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
         TextView res_cuisine;
         TextView res_number_line;
     }
+
+    void setGlobalFont(ViewGroup root) {
+        Log.e("CHILD",": "+root.getChildCount());
+        for (int i = 0; i < root.getChildCount(); i++) {
+            View child = root.getChildAt(i);
+            if (child instanceof TextView)
+                ((TextView)child).setTypeface(mTypeface);
+            else if (child instanceof ViewGroup)
+                setGlobalFont((ViewGroup)child);
+        }
+    }
+
     private class get_linenum extends AsyncTask<String, Void, String> {
 
         @Override

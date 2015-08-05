@@ -1,6 +1,7 @@
 package com.example.owner.queuing;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ public class InfoWindowAdapterMarker implements GoogleMap.InfoWindowAdapter {
 
     private Marker markerShowingInfoWindow;
     private Context mContext;
-
+    private Typeface mTypeface;
     public InfoWindowAdapterMarker(Context context) {
         mContext = context;
     }
@@ -41,12 +42,14 @@ public class InfoWindowAdapterMarker implements GoogleMap.InfoWindowAdapter {
 
         // Getting view from the layout file info_window_layout
         View popUp = inflater.inflate(R.layout.activity_marker, null);
-
+        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/Questrial_Regular.otf");
         TextView title = (TextView) popUp.findViewById(R.id.marker_title);
         TextView cuisine = (TextView) popUp.findViewById(R.id.cuisine_window);
         TextView line_num = (TextView) popUp.findViewById(R.id.number_window);
         title.setText(marker.getTitle());
+        title.setTypeface(mTypeface);
         cuisine.setText(marker.getSnippet());
+        cuisine.setTypeface(mTypeface);
         try {
             String linenum = new get_linenum().execute(marker.getTitle()).get();
             line_num.setText(linenum);
