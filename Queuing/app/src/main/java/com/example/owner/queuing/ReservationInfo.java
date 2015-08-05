@@ -196,10 +196,8 @@ public class ReservationInfo extends FontActivity{
                 }
                 sResult     = builder.toString();
                 Log.e("pass",sResult);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e){
+                Log.d("CANCEL_RESERV", "REASON : " + e);
             }
             return sResult;
         }
