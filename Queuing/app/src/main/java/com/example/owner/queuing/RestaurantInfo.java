@@ -71,6 +71,7 @@ public class RestaurantInfo extends FontActivity implements NumberPicker.OnValue
     TextView cuisine_v;
     TextView num_lefts_v;
     ImageView res_image_v;
+    ImageView add_fav_img;
     View test;
     RelativeLayout sample;
     String rest_name = null;
@@ -94,7 +95,6 @@ public class RestaurantInfo extends FontActivity implements NumberPicker.OnValue
         Intent intent = getIntent();
         dbManagerFavorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null,1);
         dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
-
         rest_name = intent.getExtras().getString("name");
         img_url = intent.getExtras().getString("img_large");
         location = intent.getExtras().getString("location");
@@ -112,6 +112,7 @@ public class RestaurantInfo extends FontActivity implements NumberPicker.OnValue
         num_lefts_v = (TextView) findViewById(R.id.num_lefts);
         sample = (RelativeLayout)findViewById(R.id.sample);
         res_image_v = (ImageView) findViewById(R.id.res_image);
+        add_fav_img = (ImageView) findViewById(R.id.add_favorites_img);
         refresh_btn = (LinearLayout) findViewById(R.id.refresh_btn);
         //Log.e("pass", dummy_name);
         name_v.setText(rest_name);
@@ -123,6 +124,7 @@ public class RestaurantInfo extends FontActivity implements NumberPicker.OnValue
         frame_back_btn_resinfo = (FrameLayout)findViewById(R.id.res_back_btn);
         real_back = (FrameLayout) findViewById(R.id.real_back);
         add_favorites = (FrameLayout) findViewById(R.id.add_favorites);
+
         frame_back_btn_resinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,13 +180,44 @@ public class RestaurantInfo extends FontActivity implements NumberPicker.OnValue
 
             }
         });
-
+        if(dbManagerFavorites.isInDB_Favorites(rest_name)){
+            add_fav_img.setBackgroundResource(R.drawable.icon_star_check_white);
+        }
+        else{
+            add_fav_img.setBackgroundResource(R.drawable.icon_star_add_white);
+        }
         add_favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbManagerFavorites.insert("insert into FAVORITES values (null, '"+ rest_name + "', '" + kinds +"', '" + img_url +"')");
-                Log.d("CLICKED","favorite clicked");
-                Toast.makeText(getApplicationContext(),"added to Favorites",Toast.LENGTH_SHORT);
+                if(dbManagerFavorites.isInDB_Favorites(rest_name)){
+                }
+                else{
+                }
+            }
+        });
+        add_favorites.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if(dbManagerFavorites.isInDB_Favorites(rest_name)){
+                        add_fav_img.setBackgroundResource(R.drawable.icon_star_check_black);
+                    }
+                    else{
+                        add_fav_img.setBackgroundResource(R.drawable.icon_star_add_black);
+                    }
+                }
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (dbManagerFavorites.isInDB_Favorites(rest_name)) {
+                        dbManagerFavorites.delete("delete from FAVORITES where res_name='" + rest_name + "'");
+                        Log.d("DB_SITUATION", dbManagerFavorites.showdatas());
+                        add_fav_img.setBackgroundResource(R.drawable.icon_star_add_white);
+                    } else {
+                        dbManagerFavorites.insert("insert into FAVORITES (res_name, cuisine, img_url) values('" + rest_name + "', '" + kinds + "', '" + img_url + "')");
+                        Log.d("DB_SITUATION", dbManagerFavorites.showdatas());
+                        add_fav_img.setBackgroundResource(R.drawable.icon_star_check_white);
+                    }
+                }
+                return false;
             }
         });
 
@@ -356,4 +389,5 @@ public class RestaurantInfo extends FontActivity implements NumberPicker.OnValue
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
         Log.d("NUMBERPICKER","Number Changed from " + oldVal + " to " + newVal);
     }
+
 }
