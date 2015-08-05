@@ -2,6 +2,7 @@ package com.example.owner.queuing;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,15 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by mark_mac on 2015. 7. 24..
@@ -58,6 +68,7 @@ public class MypageActivity extends Activity{
                     for(int i=1; i<=dbManagerFavorites.getTableSize(); i++){
                         str += dbManagerFavorites.returnName(i) + "/";
                     }
+                    str = str.substring(0, str.length()-1);
                     Log.d("STRING", "String : " + str);
                     //dbManagerFavorites.deleteAll();
                     Log.d("DB_SITUATION", dbManagerFavorites.showdatas());
@@ -100,5 +111,54 @@ public class MypageActivity extends Activity{
         super.onResume();
         final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
         account_name.setText(dbManagerLogin.returnUser());
+    }
+    private class HttpPostRequest extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... info) {
+            String sResult = "Error";
+
+            try {
+                URL url = new URL("http://52.69.163.43/line_test.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("POST");
+                String body = "in_out=" + info[0] +"&"
+                        +"name=" + info[1] + "&"
+                        +"number=" + info[2] + "&"
+                        +"method=" + info[3] + "&"
+                        +"resname=" + info[4];
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(body);
+                osw.flush();
+
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder builder = new StringBuilder();
+                String str;
+
+                while ((str = reader.readLine()) != null) {
+                    builder.append(str);
+                }
+                sResult     = builder.toString();
+                Log.e("pass",sResult);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sResult;
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
+            manager.update("update RESERV_LIST set res_name='" + dummy_name + "'");// (null,'"+dummy_name+"','"+confirm_party.getText().toString()+"')");
+            manager.update("update RESERV_LIST set party='" + confirm_party.getText().toString() + "'");
+            Log.e("123","datavalue :"+dummy_name+"  "+manager.returnName());
+            Toast.makeText(getApplicationContext(), "Queuing complete!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }
