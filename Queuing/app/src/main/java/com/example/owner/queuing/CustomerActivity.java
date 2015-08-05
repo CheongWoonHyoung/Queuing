@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -93,7 +95,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     private ArrayList<String> restaurants;
     ArrayAdapter<String> search_adapter;
 
-
+    private static Typeface mTypeface;
     private FrameLayout clear;
     private Animation tran_upward = null;
     private Animation tran_downward = null;
@@ -111,6 +113,10 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_customer);
+
+        mTypeface = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Book.otf");
+        ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
+
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         progressDialog = new ProgressDialog(CustomerActivity.this);
@@ -348,6 +354,7 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 return false;
             }
         });
+        setGlobalFont(root);
     }
 
    private View.OnClickListener searchmap = new View.OnClickListener() {
@@ -872,6 +879,16 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
     public void onProviderDisabled(String provider) {
         // TODO Auto-generated method stub
 
+    }
+
+    void setGlobalFont(ViewGroup root){
+        for(int i=0; i<root.getChildCount(); i++){
+            View child = root.getChildAt(i);
+            if(child instanceof TextView)
+                ((TextView)child).setTypeface(mTypeface);
+            else if(child instanceof ViewGroup)
+                setGlobalFont((ViewGroup)child);
+        }
     }
 
     @Override

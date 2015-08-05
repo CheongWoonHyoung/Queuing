@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by mark_mac on 2015. 8. 3..
  */
-public class FavoriteList extends Activity{
+public class FavoriteList extends FontActivity{
 
     ListView fav_listview;
     FrameLayout back_btn;

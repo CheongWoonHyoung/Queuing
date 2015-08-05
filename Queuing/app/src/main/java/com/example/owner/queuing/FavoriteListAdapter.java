@@ -1,6 +1,7 @@
 package com.example.owner.queuing;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,13 +32,14 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
     private Context context;
     private ArrayList<FavoriteListItem> items;
     int layoutResId;
-
+    private Typeface mTypeface;
 
     public FavoriteListAdapter(Context context, int textViewResourceId, ArrayList<FavoriteListItem> items){
         super(context,textViewResourceId,items);
         this.layoutResId = textViewResourceId;
         this.context=context;
         this.items = items;
+        mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand_Book.otf");
     }
 
     @Override
@@ -120,7 +122,7 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
         });
 
 
-
+        setGlobalFont(parent);
 
         return v;
     }
@@ -132,6 +134,18 @@ public class FavoriteListAdapter extends ArrayAdapter<FavoriteListItem> {
         TextView res_cuisine;
         TextView res_number_line;
     }
+
+    void setGlobalFont(ViewGroup root) {
+        Log.e("CHILD",": "+root.getChildCount());
+        for (int i = 0; i < root.getChildCount(); i++) {
+            View child = root.getChildAt(i);
+            if (child instanceof TextView)
+                ((TextView)child).setTypeface(mTypeface);
+            else if (child instanceof ViewGroup)
+                setGlobalFont((ViewGroup)child);
+        }
+    }
+
     private class get_linenum extends AsyncTask<String, Void, String> {
 
         @Override

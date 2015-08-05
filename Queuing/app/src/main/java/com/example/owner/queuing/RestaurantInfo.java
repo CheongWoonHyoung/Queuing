@@ -52,7 +52,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by owner on 2015-07-12.
  */
-public class RestaurantInfo extends Activity implements NumberPicker.OnValueChangeListener{
+public class RestaurantInfo extends FontActivity implements NumberPicker.OnValueChangeListener{
 
     FrameLayout frame_back_btn_resinfo;
     FrameLayout real_back;
