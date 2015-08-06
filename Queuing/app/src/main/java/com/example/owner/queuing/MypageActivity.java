@@ -152,6 +152,7 @@ public class MypageActivity extends FontActivity{
             return sResult;
         }
 
+
         @Override
         protected void onPostExecute(String result){
             final DBManager_favorites dbManagerFavorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null, 1);

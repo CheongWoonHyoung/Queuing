@@ -129,7 +129,13 @@ public class OwnerActivity extends FontActivity {
         reservDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                items.add(new CusListItem(String.valueOf(items.get(items.size() - 1).cus_priority + 1), reservDialog._name, "OFFLINE", reservDialog._number));
+                if(items.size()==0){
+                    items.add(new CusListItem("1", reservDialog._name, "OFFLINE", reservDialog._number));
+
+                }else{
+                    items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size()-1).cus_priority) + 1), reservDialog._name, "OFFLINE", reservDialog._number));
+
+                }
                 adapter.notifyDataSetChanged();
                 Log.d("NULL", "null : " + name + " " + phone + " " + company);
 
@@ -219,7 +225,7 @@ public class OwnerActivity extends FontActivity {
             }
             else{
                 Log.d("MSG",num);
-                items.add(new CusListItem(String.valueOf(items.get(items.size() - 1).cus_priority + 1), name, "ADDING BY APP", num));
+                items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size()-1).cus_priority) + 1), name, "ADDING BY APP", num));
                 adapter.notifyDataSetChanged();
             }
         }
