@@ -68,11 +68,13 @@ public class MypageActivity extends FontActivity{
                     for(int i=1; i<=dbManagerFavorites.getTableSize(); i++){
                         str += dbManagerFavorites.returnName(i) + "/";
                     }
-                    if(str!="")
-                        str = str.substring(0, str.length()-1);
-                    Log.d("STRING", "String : " + str);
-                    //dbManagerFavorites.deleteAll();
-                    Log.d("DB_SITUATION", dbManagerFavorites.showdatas());
+                    if(str!="") {
+                        str = str.substring(0, str.length() - 1);
+                        Log.d("STRING", "String : " + str);
+                    }
+                    new HttpPostRequest().execute(account_email.getText().toString(), str, "out");
+
+
                     Intent intent = new Intent(MypageActivity.this, LoginActivity.class);
                     startActivity(intent);
                     break;
@@ -120,15 +122,13 @@ public class MypageActivity extends FontActivity{
             String sResult = "Error";
 
             try {
-                URL url = new URL("http://52.69.163.43/line_test.php");
+                URL url = new URL("http://52.69.163.43/favor_user.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestMethod("POST");
-                String body = "in_out=" + info[0] +"&"
-                        +"name=" + info[1] + "&"
-                        +"number=" + info[2] + "&"
-                        +"method=" + info[3] + "&"
-                        +"resname=" + info[4];
+                String body = "mail=" + info[0] +"&"
+                        +"favors=" + info[1] + "&"
+                        +"in_out=" + info[2];
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(body);
@@ -154,6 +154,9 @@ public class MypageActivity extends FontActivity{
 
         @Override
         protected void onPostExecute(String result){
+            final DBManager_favorites dbManagerFavorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null, 1);
+            dbManagerFavorites.deleteAll();
+            Log.d("DB_SITUATION", dbManagerFavorites.showdatas());
             /*DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "list_test2.db", null, 1);
             manager.update("update RESERV_LIST set res_name='" + dummy_name + "'");// (null,'"+dummy_name+"','"+confirm_party.getText().toString()+"')");
             manager.update("update RESERV_LIST set party='" + confirm_party.getText().toString() + "'");

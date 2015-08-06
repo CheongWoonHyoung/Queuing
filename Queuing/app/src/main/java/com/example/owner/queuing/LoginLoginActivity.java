@@ -36,6 +36,7 @@ public class LoginLoginActivity extends FontActivity{
     String id;
     String auth;
     String u_mail;
+    String favor;
     TextView sign_in;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +124,9 @@ public class LoginLoginActivity extends FontActivity{
         protected void onPostExecute(String result){
             JSONArray jarray = null;
             JSONObject json_data = null;
+            String rest_name;
+            String cuisine;
+            String img_url;
             if(!result.equals("Wrong Email or Password") && !result.equals("SignIn Error")) {
                 try {
                     jarray = new JSONArray(result);
@@ -131,6 +135,7 @@ public class LoginLoginActivity extends FontActivity{
                         id = json_data.getString("name");
                         auth = json_data.getString("auth");
                         u_mail = json_data.getString("email");
+                        favor = json_data.getString("favor");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -138,10 +143,24 @@ public class LoginLoginActivity extends FontActivity{
 
                 if (auth.length() == 8) {
                     final DBManager_login dbManagerLogin = new DBManager_login(getApplicationContext(), "test2.db", null, 1);
+                    final DBManager_favorites dbManagerFavorites = new DBManager_favorites(getApplicationContext(), "favorites.db", null, 1);
                     dbManagerLogin.update("update IS_LOGIN set is_login ='yes' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _auth='customer' where _id = 1");
                     dbManagerLogin.update("update IS_LOGIN set _user='" + id + "' where _id =1");
                     dbManagerLogin.update("update IS_LOGIN set _email='" + u_mail + "' where _id =1");
+                    //parsing the favor json;
+                    try {
+                        jarray = new JSONArray(favor);
+                        for(int i=0; i < jarray.length(); i++){
+                            json_data = jarray.getJSONObject(i);
+                            rest_name = json_data.getString("name");
+                            img_url = json_data.getString("img_large");
+                            cuisine = json_data.getString("cuisine");
+                            dbManagerFavorites.insert("insert into FAVORITES (res_name, cuisine, img_url) values('" + rest_name + "', '" + cuisine + "', '" + img_url + "')");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     startActivity(new Intent(getApplicationContext(), CustomerActivity.class));
                     finish();
                 } else if (auth.length() == 5) {

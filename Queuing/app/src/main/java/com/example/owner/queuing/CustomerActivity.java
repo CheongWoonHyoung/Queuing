@@ -346,7 +346,6 @@ public class CustomerActivity extends FragmentActivity implements LocationListen
                 } else {
                     bitmapDescriptor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
                 }
-
                 marker.setSnippet(cuisine);
                 marker.setIcon(bitmapDescriptor);
                 marker.showInfoWindow();
